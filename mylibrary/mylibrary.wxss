@@ -1,0 +1,28 @@
+/* pages/mylibrary/mylibrary.wxss */
+/* pages/mylibrary/mylibrary.wxss */
+.message{
+  width: 100%;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+.pic{
+  height: 400rpx;
+}
+.option{
+  margin-top: 30rpx;
+}
+.option>view{
+  margin-top: 10rpx;
+  display: flex;
+  align-items: center;
+  height: 100rpx;
+  background-color: white;
+}
+
+.option image{
+  width: 40rpx;
+ height: 40rpx;
+ margin-left: 60rpx;
+ margin-right: 30rpx;
+
+}
