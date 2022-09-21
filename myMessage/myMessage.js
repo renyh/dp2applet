@@ -1,4 +1,4 @@
-// pages/mylibrary/mylibrary.ts
+// pages/myMessage/myMessage.js
 Page({
 
   /**
@@ -11,21 +11,10 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad() {
+  onLoad(options) {
+      console.log(options);
+  },
 
-  },
-//   绑定账户
-  jmp(){
-      wx.navigateTo({
-          url:'/pages/account/account'
-      })
-  },
-//   我的信息
- info(){
-     wx.navigateTo({
-       url: '/pages/myMessage/myMessage',
-     })
- },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

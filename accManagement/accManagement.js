@@ -1,38 +1,46 @@
-// pages/mylibrary/mylibrary.ts
+// pages/accManagement/accManagement.js
+import {getunbundle} from "../../utils/delete"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+   list:[],
+   bindUserid:""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad() {
+  onLoad(options) {
+  
+  },
+  unbundle(){
+      this.setData({
+        bindUserid:this.data.list[0].id
+      })
+      var data
+      data={
+        bindUserId:this.data.bindUserid
+      }
+      getunbundle(
+      
+      ).then(res=>{
+        console.log(getunbundle);
+      })
 
   },
-//   绑定账户
-  jmp(){
-      wx.navigateTo({
-          url:'/pages/account/account'
-      })
-  },
-//   我的信息
- info(){
-     wx.navigateTo({
-       url: '/pages/myMessage/myMessage',
-     })
- },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
+    this.setData({
+        list: wx.getStorageSync('list'),
+      })
+     
   },
-
+  
   /**
    * 生命周期函数--监听页面显示
    */

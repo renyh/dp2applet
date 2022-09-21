@@ -18,6 +18,8 @@ Page({
         this.setData({
          arr:res
         })
+        console.log(this.data.arr);
+ 
     })
   },
 
@@ -32,20 +34,21 @@ Page({
 
 //  选择确认图书馆
 ok(e){
+  console.log(e);
     let lib = e.currentTarget.dataset.lib
     this.setData({
         list:e.currentTarget.dataset.lib
     })
-    console.log(this.data.list,123789)
+
     wx.navigateTo({
-      url: `/pages/account/account?libs=${lib}`,
+      url: `/pages/account/account?libs=${lib}&libid=${e.currentTarget.dataset.libid}`,
     })
 },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    console.log(this.data.list,555);
+ 
   },
 
   /**

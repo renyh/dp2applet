@@ -1,10 +1,10 @@
 <!--pages/libclassify/libclassify.wxml-->
 <view class="libs">
-    <nav-top libss="{{libss}}">
+    <nav-top list="{{list}}">
         选择图书馆
     </nav-top>
     <view>
-    {{list}}
+{{list}}
     </view>
     <view class="libarys">
         <radio-group>
@@ -12,7 +12,7 @@
             {{item.name}}-     
             <label>
                 <radio class="radios" color="#007aff" value="{{item.name}}" wx:for="{{item.libs}}" wx:for-item="items" wx:key="indexs" wx:key-index="indexs"
-                bindtap="ok"  data-lib="{{items.name}}"
+                bindtap="ok"  data-lib="{{items.name}}" data-libid="{{items.libId}}"
                 >
                     {{items.name}}
                 </radio>
