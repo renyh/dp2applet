@@ -27,3 +27,10 @@
    top:-90rpx;
 
 }
+.goHome{
+  background-color: #0782d8;
+  width: 90%; 
+  margin: 0 auto;
+  color: white;
+  margin-top: 80rpx;
+}

@@ -32,5 +32,8 @@
            <text>图书馆柜台绑定</text>
          </view>
         </view>
+        <view>
+           {{oppenid}}
+        </view>
     </view>
 </view>

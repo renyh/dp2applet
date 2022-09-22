@@ -1,1 +1,46 @@
 /* pages/myMessage/myMessage.wxss */
+.here{
+  color: #007aff;
+  cursor: pointer;
+}
+.myInfo{
+  width: 100%;
+  height: 100vh;
+  background-color: #efeff4;
+}
+.infoClass>view{
+  display: flex;
+  justify-content: space-between;
+  padding :0 20rpx;
+  align-items: center;
+  margin: 0 auto;
+  height: 80rpx;
+  background-color: white;
+  border-top: 1px dotted #efeff4 ;
+}
+.infoDetail{
+  margin-top: 50rpx;
+  background-color: white;
+}
+.num1 {
+  width: 50%;
+  display: inline-block;
+  border-top: 1px dotted #efeff4;
+  text-indent: 20rpx;
+}
+.num2{
+  width: 50%;
+  display: inline-block;
+  border-top: 1px dotted #efeff4 ;
+}
+.alert{
+  text-align: center;
+  display: block;
+  width: 90%;
+  color: red;
+  margin: 0 auto;
+  font-size: 35rpx;
+}
+.pic{
+  width: 100%;
+}

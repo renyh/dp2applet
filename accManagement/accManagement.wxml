@@ -10,4 +10,8 @@
      <button class="unbundle" bindtap="unbundle">
        解绑
      </button>
+     <button class="goHome">去主页</button>
+</view>
+<view>
+{{oppenid}}
 </view>

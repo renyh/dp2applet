@@ -17,8 +17,9 @@ Page({
         lib: "" || "请选择图书馆",
         username: '',
         password: '',
-        oppenid: wx.getStorageSync('oppenid'),
-        libid: ''
+        oppenid: wx.getStorageSync('oppenid')||"",
+        libid: '',
+      
     },
     selecTap() {
         this.setData({
@@ -53,6 +54,21 @@ Page({
     },
     //  点击绑定按钮
     binding() {
+          // 登录
+    wx.login({
+      success: res => {
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        wx.request({
+          url: `https://demo30.ilovelibrary.cn/i/api2/WxUserApi/GetAppletOpenId?code=${res.code}`,
+          success:function(res){
+            var oppenid = res.data.openid
+            wx.setStorageSync('oppenid', oppenid)
+
+          }
+
+        })
+      }
+    })
         var data
         data = {
             "weixinId": this.data.oppenid,
@@ -63,7 +79,7 @@ Page({
             "password": this.data.password
         }
         bound(data).then(res=>{
-             console.log(bound);
+             console.log(res);
             if(res.errorCode==0){
               console.log(res.users,12366);
               wx.setStorageSync('list', res.users)
@@ -80,7 +96,7 @@ Page({
                 },2000)
             }else{
                 wx.showToast({
-                    title: '密码错误',    
+                    title: res.errorInfo,    
                     icon: 'error',  
                     duration: 2000//持续的时间
                   })
