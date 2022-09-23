@@ -1,0 +1,27 @@
+<!--pages/mylibrary/mylibrary.wxml-->
+<view class="message">
+    <image class="pic" src="/img/lib.jpg"></image>
+    <view class="option">
+        <view class="info"  bindtap="info">
+            <image src="/img/info.png"></image>
+            <text>我的信息</text>
+        </view>
+        <view class="account"   bindtap="jmp">     
+            <image src="/img/account.png"></image>
+            <text>绑定账户</text>
+        </view>
+        <view bindtap="retrieveWord">
+            <image src="/img/word.png"></image>
+            <text>找回密码</text>
+        </view>
+        <view>
+            <image src="/img/code.png"></image>
+            <text>二维码</text>
+        </view>
+        <view class="register">
+            <image src="/img/login.png"></image>
+            <text>读者注册</text>
+        </view>
+    </view>
+
+</view>

@@ -1,0 +1,36 @@
+/* pages/accManagement/accManagement.wxss */
+.card{
+    width: 95%;
+    height: 230rpx;
+    margin: 0 auto;
+    background-color:#dedede;
+    border-radius: 20rpx;
+    overflow: hidden;
+}
+.reader{
+    margin-top: 40rpx;
+    margin-bottom: 20rpx;
+    margin-left: 40rpx;
+}
+.libName{
+    margin-left: 40rpx;
+}
+.unbundle{
+    width: 180rpx;
+    height: 90rpx;
+    background-color: red;
+   font-weight: 700;
+   color: white;
+   line-height: 90rpx;
+   position: relative;
+   right: -100px;
+   top:-90rpx;
+
+}
+.goHome{
+  background-color: #0782d8;
+  width: 90%; 
+  margin: 0 auto;
+  color: white;
+  margin-top: 80rpx;
+}
