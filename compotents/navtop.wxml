@@ -1,0 +1,8 @@
+<!--compotents/navtop.wxml-->
+<view class="title">
+        <text class="public">public</text>
+        <text class="txts">
+             <slot></slot>
+        </text>
+        <text class="lib" bindtap="jmp">{{libName}}</text>
+</view>

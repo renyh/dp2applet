@@ -1,0 +1,54 @@
+{
+  "pages": [
+   
+    "pages/resource/resource",
+    "pages/more/more",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/mylibrary/mylibrary",
+    "pages/account/account",
+    "pages/libclassify/libclassify",
+    "pages/myMessage/myMessage",
+    "pages/accManagement/accManagement",
+    "pages/rePassword/rePassword"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+     {
+         "pagePath": "pages/resource/resource",
+         "text": "资源",
+         "iconPath": "./img/33资源 (1).png",
+         "selectedIconPath": "./img/33资源.png"
+         
+     },
+     {
+          "pagePath": "pages/mylibrary/mylibrary",
+          "text": "我的图书馆",
+          "iconPath":"./img/图书馆 (1).png",
+          "selectedIconPath": "./img/图书馆.png"
+     },
+     {
+         "pagePath": "pages/more/more",
+         "text": "更多",
+         "iconPath": "./img/更多 (4).png",
+         "selectedIconPath": "./img/更多 (5).png"
+     }
+    ]
+  },
+ 
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+      "van-button":"@vant/weapp/button/index",
+      "van-icon":"@vant/weapp/icon/index",
+      "van-field":"@vant/weapp/field/index",
+      "van-cell-group":"@vant/weapp/cell-group/index",
+      "van-radio":"@vant/weapp/radio/index",
+      "van-radiogroup":"@vant/weapp/radio-group/index"
+  }
+}
