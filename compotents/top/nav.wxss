@@ -1,0 +1,21 @@
+/* compotents/top/nav.wxss */
+.title{
+  display: flex;
+  height: 120rpx;
+  align-items: center;
+  background-color: #f7f7f7;
+}
+.public{
+  font-size: 30rpx;
+  color: #cfcfcf;
+  margin-left: 80rpx;
+  margin-right: 140rpx;
+}
+.txt{
+  font-size: 35rpx;
+  margin-right: 140rpx;
+}
+.lib{
+  font-size: 35rpx;
+  color: #cfcfcf;
+}
