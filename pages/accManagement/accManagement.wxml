@@ -1,2 +1,17 @@
 <!--pages/accManagement/accManagement.wxml-->
-<text>pages/accManagement/accManagement.wxml</text>
+<nav>账号管理</nav>
+<view class="card">
+     <view class="reader">
+        <text>读者：</text><text>{{list[0].readerBarcode}}</text>
+     </view>
+     <view class="libName">
+        <text>图书馆：</text><text>{{list[0].libName}}</text>
+     </view>
+     <button class="unbundle" bindtap="unbundle">
+       解绑
+     </button>
+     <button class="goHome">去主页</button>
+</view>
+<view>
+{{oppenid}}
+</view>

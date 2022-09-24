@@ -1,2 +1,84 @@
 <!--pages/myMessage/myMessage.wxml-->
-<text>pages/myMessage/myMessage.wxml</text>
+<topnav>我的信息</topnav>
+<view wx:if="{{arr}}" class="myInfo">
+  <view class="infoClass">
+    <view><text>代交费</text>
+      <van-icon name="arrow" />
+    </view>
+    <view><text>在借</text>
+      <van-icon name="arrow" />
+    </view>
+    <view><text>预约</text>
+      <van-icon name="arrow" />
+    </view>
+    <view><text>修改密码</text>
+      <van-icon name="arrow" />
+    </view>
+  </view>
+  <view class="infoDetail">
+    <view>
+      <text class="num1">证件码号</text><text class="num2">{{list.barcode}}</text>
+    </view>
+    <view>
+      <text class="num1">姓名</text><text class="num2">{{list.name}}</text>
+    </view>
+    <view>
+      <text class="num1">性别</text><text class="num2">{{list.gender}}</text>
+    </view>
+    <view>
+      <text class="num1">证状态</text><text class="num2">{{liat.state}}</text>
+    </view>
+    <view>
+      <text class="num1">电话</text><text class="num2">{{list.phone}}</text>
+    </view>
+    <view>
+      <text class="num1">单位</text><text class="num2">{{}}</text>
+    </view>
+    <view>
+      <text class="num1">读者类型</text><text class="num2">{{list.fullReaderType}}</text>
+    </view>
+    <view>
+      <text class="num1">出生日期</text><text class="num2">{{}}</text>
+    </view>
+    <view>
+      <text class="num1">证号</text><text class="num2">{{}}</text>
+    </view>
+    <view>
+      <text class="num1">身份证号</text><text class="num2">{{}}</text>
+    </view>
+    <view>
+      <text class="num1">职务</text><text class="num2">{{}}</text>
+    </view>
+    <view>
+      <text class="num1">地址</text><text class="num2">{{}}</text>
+    </view>
+    <view>
+      <text class="num1">Email</text><text class="num2">{{}}</text>
+    </view>
+    <view>
+      <text class="num1">发证日期</text><text class="num2">{{}}</text>
+    </view>
+    <view>
+      <text class="num1">证失效期</text><text class="num2">{{}}</text>
+    </view>
+    <view>
+      <text class="num1">租金</text><text class="num2">{{list.hire}}</text>
+    </view>
+    <view>
+      <text class="num1">头像</text><text class="num2">{{}}</text>
+    </view>
+    <view>
+      <text class="num1">备注</text><text class="num2">{{}}</text>
+    </view>
+  </view>
+  <view>
+    <image class="pic" src="https://demo30.ilovelibrary.cn/i/patron/getphoto?libId=62e727148d3a75c921671bde&type=pqri&barcode=P001"></image>
+    <text class="alert">不想把二维码展示和提供给无关人员，以免账号被窃</text>
+  </view>
+</view>
+
+
+
+<view wx:else="">
+  <view>你当前账户不是读者账户，不能查看我的信息，请先点击<text class="here" bindtap="here">这里</text>进行绑定</view>
+</view>
