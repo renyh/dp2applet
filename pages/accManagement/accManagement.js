@@ -17,6 +17,12 @@ Page({
   onLoad(options) {
   
   },
+  // 去主页
+  goHome(){
+    wx.switchTab({
+      url: '/pages/resource/resource',
+    })
+  },
   unbundle(){
       this.setData({
         bindUserid:this.data.list[0].id

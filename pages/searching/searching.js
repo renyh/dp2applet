@@ -1,24 +1,23 @@
-// pages/resource/resource.js
+// pages/searching/searching.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+
   },
-  // 跳转检索页
-  search(){
-    wx.navigateTo({
-      url: '/pages/searching/searching',
-    })
-  },
+ 
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
 
   },
+ action(){
+   console.log(123);
+ },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

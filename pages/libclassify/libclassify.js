@@ -7,7 +7,7 @@ Page({
    */
   data: {
     arr:[],
-    list:""
+    libName:""
   },
 
   /**
@@ -18,8 +18,7 @@ Page({
         this.setData({
          arr:res
         })
-        console.log(this.data.arr);
- 
+        console.log(this.data.arr,123);
     })
   },
 
@@ -34,14 +33,15 @@ Page({
 
 //  选择确认图书馆
 ok(e){
-  console.log(e);
+  console.log(e,77);
     let lib = e.currentTarget.dataset.lib
     this.setData({
-        list:e.currentTarget.dataset.lib
+        list:e.currentTarget.dataset.lib,
+        libName:lib
     })
-
+    console.log(this.data.libName,123);
     wx.navigateTo({
-      url: `/pages/account/account?libs=${lib}&libid=${e.currentTarget.dataset.libid}`,
+      url: `/pages/account/account?libs=${lib}&libid=${e.currentTarget.dataset.libid}&libname`,
     })
 },
   /**

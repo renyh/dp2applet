@@ -1,18 +1,90 @@
 // pages/rePassword/rePassword.js
-Page({
+import {getInfo} from "../../utils/axios"
 
+Page({ 
   /**
    * 页面的初始数据
    */
   data: {
-
+    flag:false,
+    libId:'',  //图书馆Id
+    libName:"", // 图书馆名字
+    oppenid: wx.getStorageSync('oppenid'), //唯一Id
+    userName:'' , // 姓名
+    ipone:'' ,//手机号
+    oldCode:"", //临时密码
+    newCode:"", //新密码
+    CardId:"" //读者证条号码
   },
+      // 获取临时密码
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    // 获取图书馆信息
+    getInfo({weixinId:this.data.oppenid}).then(res=>{
+      console.log(res);
+      // 获取当前图书馆名字及id
+      this.setData({
+        libName:res.users[0].libName,
+        libId:res.users[0].libId
+      })
+    })
+   
+  },
 
+
+  
+
+  // 获取读者证条号码
+  getCardId(e){
+    this.setData({
+      CardId:e.detail
+    })
+  },
+  // 获取临时密码
+  getoldCode(e){
+    this.setData({
+      oldCode:e.detail
+    })
+  },
+  // 获取新密码
+  getNewCode(e){
+    this.setData({
+      newCode:e.detail
+    })
+  },
+  // 修改密码
+  amendCode(){
+    wx.request({
+      url:  `https://demo30.ilovelibrary.cn/i/api2/wxuserApi/ChangePassword?&libId=${this.data.libId}&patron=${this.data.CardId}&oldPassword=${this.data.oldCode}&newPassword=${this.data.newCode}`,
+      header:{
+        "Content-Type":"application/x-www-form-urlencoded"
+      },
+      method:"POST",
+      success(res){
+        console.log(res.data);
+        if(res.data.errorCode==1){
+          wx.showToast({
+            title: '修改成功',
+          })
+          setTimeout(()=>{
+            wx.navigateTo({
+              url: '/pages/account/account',
+            })
+            },2000)
+        }else{
+          wx.showModal({
+            title:"提示",
+            content: res.data.errorInfo,
+          })
+        }
+      }
+    })
+
+    
+    
   },
 
   /**

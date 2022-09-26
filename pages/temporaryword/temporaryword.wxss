@@ -1,0 +1,33 @@
+/* pages/temporaryword/temporaryword.wxss */
+.temporaryCode{
+  width: 90%;
+  margin: 50rpx auto;
+  background-color: rgb(95, 95, 219);
+  color: white;
+}
+.text{
+  font-size: 25rpx;
+  color: red;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+.login{
+  display: flex;
+  align-items: center;
+  width: 90%;
+  margin: 40rpx auto;
+}
+.ipts{
+  border: 1px solid rgb(201, 194, 194);
+  border-radius: 10rpx;
+  height: 80rpx;
+  text-indent: 20rpx;
+  width: 500rpx;
+}
+.enter{
+  height: 80rpx;
+  background-color: rgb(95, 95, 219);
+  color: white;
+  line-height: 80rpx;
+}

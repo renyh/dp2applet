@@ -23,8 +23,14 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+  changecode(){
+    wx.navigateTo({
+      url: '/pages/rePassword/rePassword',
+    })
+  },
   onLoad(options) {
- 
+//  修改密码
+
 //  获取个人用户信息
   this.setData({
     id:wx.getStorageSync('oppenid'),
@@ -45,7 +51,7 @@ Page({
         patronBarcode:this.data.patronBarcode,
         username:this.data.username
       }).then(res=>{
-       console.log(res.obj);
+       console.log(res.obj,123);
        this.setData({
          list:res.obj
        })

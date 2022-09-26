@@ -1,0 +1,8 @@
+<!--compotents/navs/navs.wxml-->
+<view class="navs">
+        <text class="public">public</text>
+        <text class="text">
+             <slot></slot>
+        </text>
+        <text class="lib" bindtap="jmp">{{list}}//</text>
+</view>

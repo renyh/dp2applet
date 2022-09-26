@@ -1,7 +1,7 @@
 // pages/account/account.ts
 import {
     bound
-} from "../../utils/ajax"
+} from "../../utils/axios"
 Page({
 
     /**
@@ -17,7 +17,7 @@ Page({
         lib: "" || "请选择图书馆",
         username: '',
         password: '',
-        oppenid: wx.getStorageSync('oppenid')||"",
+        opid: wx.getStorageSync('opid'),
         libid: '',
       
     },
@@ -38,7 +38,12 @@ Page({
             url: '/pages/libclassify/libclassify',
         })
     },
-
+    // 找回密码
+    findCode(){
+      wx.navigateTo({
+        url: '/pages/rePassword/rePassword',
+      })
+    },
 
     //  用户名
     myName(e) {
@@ -54,24 +59,11 @@ Page({
     },
     //  点击绑定按钮
     binding() {
+     
           // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        wx.request({
-          url: `https://demo30.ilovelibrary.cn/i/api2/WxUserApi/GetAppletOpenId?code=${res.code}`,
-          success:function(res){
-            var oppenid = res.data.openid
-            wx.setStorageSync('oppenid', oppenid)
-
-          }
-
-        })
-      }
-    })
         var data
         data = {
-            "weixinId": this.data.oppenid,
+            "weixinId": this.data.opid,
             "libId": this.data.libid,
             "bindLibraryCode": '',
             "prefix": this.data.prefix[this.data.x],
@@ -95,13 +87,11 @@ Page({
                   })
                 },2000)
             }else{
-                wx.showToast({
-                    title: res.errorInfo,    
-                    icon: 'error',  
-                    duration: 2000//持续的时间
-                  })
-            }
-            
+              wx.showModal({
+                title: '提示',
+                content: res.errorInfo,
+              })         
+            } 
         })
     },
     /**
@@ -112,6 +102,18 @@ Page({
         this.setData({
             lib: options.libs,
             libid: options.libid
+        })
+        wx.login({
+          success: res => {
+            // 发送 res.code 到后台换取 openId, sessionKey, unionId
+            wx.request({
+              url: `https://demo30.ilovelibrary.cn/i/api2/WxUserApi/GetAppletOpenId?code=${res.code}`,
+              success:function(res){
+                var oppenid = res.data.openid
+                wx.setStorageSync('opid', oppenid)
+              }
+            })
+          }
         })
 
     },

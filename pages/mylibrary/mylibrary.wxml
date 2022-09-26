@@ -10,8 +10,9 @@
             <image src="/img/account.png"></image>
             <text>绑定账户</text>
         </view>
-        <view bindtap="retrieveWord">
-            <image src="/img/word.png"></image>
+
+        <view bindtap="temporaryord">
+            <image src="/img/linshimima.png"></image>
             <text>找回密码</text>
         </view>
         <view>

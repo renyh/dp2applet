@@ -1,0 +1,19 @@
+/* compotents/navs/navs.wxss */
+.navs{
+  height: 120rpx;
+  background-color: #dedede;
+}
+.navs>text{
+  display: inline-block;
+}
+.public{
+  margin-left:80rpx;
+  line-height: 120rpx;
+  margin-right: 100rpx;
+
+}
+.text{
+  margin-right: 150rpx;
+
+}
+

@@ -1,1 +1,19 @@
 /* pages/resource/resource.wxss */
+.resource{
+  width: 100%;
+  height: 100vh;
+  background-color: aliceblue;
+}
+.resource>view{
+  height: 100rpx;
+  line-height: 100rpx;
+  margin-top: 10rpx;
+  background-color: white;
+  display: flex;
+  align-items: center;
+}
+view>image{
+  width: 50rpx;
+  height: 50rpx;
+  margin: 0 15rpx;
+}

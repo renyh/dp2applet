@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-   "topnav":"/compotents/navtop"
+   "topnav":"/compotents/navs/navs"
   }
 }

@@ -1,2 +1,19 @@
 <!--pages/resource/resource.wxml-->
-<text>pages/resource/resource.wxml</text>
+<view class="resource">
+  <view bindtap="search">
+    <image src="../../img/icon_website_huabanfuben.png"></image>
+    <text>书目查询</text>
+  </view>
+  <view>
+  <image src="../../img/tuijianfantuijian.png"></image>
+     <text>好书推荐</text>
+  </view>
+  <view>
+  <image src="../../img/gonggao.png"></image>
+    <text>公告</text>
+  </view>
+  <view>
+  <image src="../../img/jieshao.png"></image>
+    <text>数目推荐</text>
+  </view>
+</view>

@@ -11,7 +11,7 @@
     <view><text>预约</text>
       <van-icon name="arrow" />
     </view>
-    <view><text>修改密码</text>
+    <view bindtap="changecode"><text>修改密码</text>
       <van-icon name="arrow" />
     </view>
   </view>
@@ -72,7 +72,7 @@
     </view>
   </view>
   <view>
-    <image class="pic" src="https://demo30.ilovelibrary.cn/i/patron/getphoto?libId=62e727148d3a75c921671bde&type=pqri&barcode=P001"></image>
+    
     <text class="alert">不想把二维码展示和提供给无关人员，以免账号被窃</text>
   </view>
 </view>

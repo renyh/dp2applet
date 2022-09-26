@@ -1,0 +1,9 @@
+<!--pages/searching/searching.wxml-->
+<view>
+  <input type="text" class="ipt" placeholder="请输入检索词" />
+  <image class="searpic" bindtap="action" src="../../img/sousuo (3).png"></image>
+  <view class="text">
+    <text>(简单检索默认与“前方一致”匹配)</text>
+    <text class="tall">高级检索</text>
+  </view>
+</view>

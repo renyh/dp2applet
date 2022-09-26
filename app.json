@@ -10,7 +10,10 @@
     "pages/libclassify/libclassify",
     "pages/myMessage/myMessage",
     "pages/accManagement/accManagement",
-    "pages/rePassword/rePassword"
+    "pages/rePassword/rePassword",
+    "pages/searching/searching",
+    "pages/temporaryword/temporaryword"
+
   ],
   "window": {
     "backgroundTextStyle": "light",

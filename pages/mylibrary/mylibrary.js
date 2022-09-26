@@ -39,6 +39,12 @@ Page({
      url: '/pages/rePassword/rePassword',
    })
  },
+//  获取临时密码
+temporaryord(){
+  wx.navigateTo({
+    url: '/pages/temporaryword/temporaryword',
+  })
+},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

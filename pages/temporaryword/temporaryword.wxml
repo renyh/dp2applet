@@ -1,0 +1,15 @@
+<!--pages/temporaryword/temporaryword.wxml-->
+<nav>获取临时密码</nav>
+<view>
+  <van-cell-group inset>
+    <van-field v-model="value" label="图书馆" placeholder="{{libName}}" placeholder-style="color:#000" readonly />
+    <van-field v-model="value1" bindchange="getName" label="姓名" placeholder="请输入姓名" />
+    <van-field v-model="value2" bindchange="getIphone" label="手机号" placeholder="请输入手机号" />
+  </van-cell-group>
+  <button class="temporaryCode" bindtap="getPoCode">获取临时密码</button>
+  <text class="text">（临时密码有效时间为1小时，请尽快通过临时密码修改密码）</text>
+</view>
+<view class="login" wx:if="{{flag}}">
+    <input class="ipts" bindchange="getchange" placeholder="请输入临时密码" type="text" />
+    <button class="enter" bindtap="enter">登录</button>
+</view>
