@@ -8,7 +8,7 @@ Page({
   data: {
    list:[],
    bindUserid:"",
-   oppenid: wx.getStorageSync('oppenid')||"",
+   oppenid: wx.getStorageSync('oppenid'),
   },
 
   /**
@@ -35,15 +35,19 @@ Page({
      success(res){
          console.log(res.data);
          if(res.data.errorCode==0){
-            wx.clearStorage("list") 
-            wx.clearStorageSync("oppenid")
+          wx.removeStorage({
+            key: 'list',
+            success (res) {
+              console.log(res)
+            }
+          })
             wx.showToast({
                 title: '解绑成功',    
                 icon: 'success',  
                 duration: 2000//持续的时间
               })
               setTimeout(()=>{
-                  wx.navigateTo({
+                  wx.redirectTo({
                     url: '/pages/account/account',
                   })
               },2000)

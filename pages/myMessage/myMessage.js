@@ -40,7 +40,7 @@ Page({
     weixinId:this.data.id
   }
     getInfo(data).then(res=>{
-    console.log(res.users[0].libId);
+    console.log(res.users);
       this.setData({
         libid:res.users[0].libId,
         patronBarcode:res.users[0].displayReaderBarcode,

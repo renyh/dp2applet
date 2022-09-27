@@ -30,6 +30,12 @@ const bound  = data=>requeat(POST,baseUrl+'/i/api2/WxUserApi/bind',data)
 const getTemporaryCode = data=>requeat(POST,baseUrl+'/i/api2/wxuserApi/ResetPassword',data)
 // 修改密码
 const  changeWord =data=>requeat(POST,baseUrl+'/i/api2/wxuserApi/ChangePassword',data)
+// 检索书目
+const Searchbook = data => requeat(GET,baseUrl+'/i/api2/BiblioApi/SearchBiblio',data)
+// 获取书目详情
+const bookDetail = data => requeat(GET,baseUrl+'/i/api2/BiblioApi/GetBiblioDetail',data)
+// 获取二维码
+const getQRcode = data => requeat(GET,baseUrl+'/i/api2/WxUserApi/GetPatronQRcode',data)
 // 导出请求
 export{
     libclassify,
@@ -37,5 +43,8 @@ export{
     getInfos,
     bound ,
     getTemporaryCode,
-    changeWord
+    changeWord,
+    Searchbook,
+    bookDetail,
+    getQRcode
 }

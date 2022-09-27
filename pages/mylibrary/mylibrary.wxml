@@ -15,7 +15,7 @@
             <image src="/img/linshimima.png"></image>
             <text>找回密码</text>
         </view>
-        <view>
+        <view bindtap="getQcode">
             <image src="/img/code.png"></image>
             <text>二维码</text>
         </view>

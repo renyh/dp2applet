@@ -4,9 +4,9 @@
   margin: 0 auto;
   border: 1px solid rgb(214, 209, 209);
   height: 80rpx;
-  border-radius: 50rpx;
-  text-indent: 50rpx;
-  margin-top: 30rpx;
+  border-radius: 10rpx;
+  text-indent: 30rpx;
+  margin-top: 60rpx;
 }
 .text{
   width: 90%;
@@ -23,5 +23,33 @@
   height: 60rpx;
   position: absolute;
   right: 60rpx;
-  top: 43rpx;
+  top: 73rpx;
+  z-index: 10;
+}
+.books{
+  margin-top: 40rpx;
+  background-color: white;
+}
+.searching{
+  width: 100%;
+  background-color:#efeff4 ;
+  overflow: hidden;
+}
+.bookItem{
+  padding-left: 25srpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1px solid rgb(199, 197, 197);
+}
+.text1{
+  margin-right: 30rpx;
+}
+.text2{
+  margin-left: 45rpx;
+  color: #ccc;
+  margin-top: 5rpx;
+  font-size: 35rpx;
+}
+.text{
+  font-size: 35rpx;
 }

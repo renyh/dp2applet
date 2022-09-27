@@ -1,0 +1,16 @@
+/* pages/QRcode/QRcode.wxss */
+canvas {
+  width: 200px;
+  height: 200px;
+  margin: 30rpx auto;
+}
+.code{
+  width: 100%;
+  text-align: center;
+}
+.txt{
+  font-size: 25rpx;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}

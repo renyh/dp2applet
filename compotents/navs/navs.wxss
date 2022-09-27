@@ -1,9 +1,9 @@
-/* compotents/navs/navs.wxss */
+
 .navs{
   height: 120rpx;
   background-color: #dedede;
 }
-.navs>text{
+.text{
   display: inline-block;
 }
 .public{

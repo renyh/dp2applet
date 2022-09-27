@@ -1,0 +1,8 @@
+<!--pages/QRcode/QRcode.wxml-->
+<navs>二维码</navs>
+<canvas canvas-id="myCanvas" bindlongpress="saveCode"></canvas>
+<view class="code">
+  <text>{{readerName}}</text>
+ <text>（{{patronBarcode}}）</text>
+</view>
+<text class="txt">（不要把二维码展示和提供给无关人员，以免账号被窃。）</text>

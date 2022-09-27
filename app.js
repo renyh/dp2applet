@@ -12,10 +12,9 @@ App({
         wx.request({
           url: `https://demo30.ilovelibrary.cn/i/api2/WxUserApi/GetAppletOpenId?code=${res.code}`,
           success:function(res){
-            var oppenid = res.data.openid
             wx.setStorage({
               key:"oppenid",
-              data:oppenid
+              data: res.data.openid
           })
           }
         })

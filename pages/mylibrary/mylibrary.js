@@ -12,9 +12,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad() {
-
+  
   },
-//   绑定账户s
+//   绑定账户
   jmp(){
       if(this.data.list){
         wx.navigateTo({
@@ -45,20 +45,27 @@ temporaryord(){
     url: '/pages/temporaryword/temporaryword',
   })
 },
+// 二维码
+getQcode(){
+  wx.navigateTo({
+    url: '/pages/QRcode/QRcode',
+  })
+},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-    this.setData({
-      list: wx.getStorageSync('list'),
-    })
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.setData({
+      list: wx.getStorageSync('list'),
+    })
+    console.log(this.data.list,123333);
   },
 
   /**

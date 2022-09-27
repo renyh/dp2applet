@@ -1,0 +1,15 @@
+<!--pages/detail/dtail.wxml-->
+<rich-text nodes="{{content}}"></rich-text>
+<view>
+   <view>
+     <view>
+       <text class="text1">册条码</text><text class="text2">B002</text>
+     </view>
+   </view>
+   <view>
+     <view>
+       <text class="text1">馆藏地</text><text class="text2">B002</text>
+     </view>
+   </view>
+
+</view>

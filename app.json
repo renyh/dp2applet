@@ -12,7 +12,9 @@
     "pages/accManagement/accManagement",
     "pages/rePassword/rePassword",
     "pages/searching/searching",
-    "pages/temporaryword/temporaryword"
+    "pages/temporaryword/temporaryword",
+    "pages/detail/dtail",
+    "pages/QRcode/QRcode"
 
   ],
   "window": {

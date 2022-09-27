@@ -1,9 +1,15 @@
 <!--pages/searching/searching.wxml-->
-<view>
-  <input type="text" class="ipt" placeholder="请输入检索词" />
-  <image class="searpic" bindtap="action" src="../../img/sousuo (3).png"></image>
+<view class="searching">
+  <input type="text" bindchange="getword" class="ipt" placeholder="请输入检索词" />
+  <image class="searpic" bindtap="geticon" src="../../img/sousuo (3).png"></image>
   <view class="text">
     <text>(简单检索默认与“前方一致”匹配)</text>
     <text class="tall">高级检索</text>
+  </view>
+  <view class="books">
+    <view class="bookItem" wx:for="{{books}}" wx:key="index" data-recPach="{{item.recPath}}" bindtap="getDetail">
+      <view class="text"><text class="text1">{{index+1}}</text>{{item.name}}</view>
+      <view class="text2">{{item.recPath}}</view>
+    </view>
   </view>
 </view>

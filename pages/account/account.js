@@ -17,7 +17,7 @@ Page({
         lib: "" || "请选择图书馆",
         username: '',
         password: '',
-        opid: wx.getStorageSync('opid'),
+        opid: "",
         libid: '',
       
     },
@@ -73,7 +73,6 @@ Page({
         bound(data).then(res=>{
              console.log(res);
             if(res.errorCode==0){
-              console.log(res.users,12366);
               wx.setStorageSync('list', res.users)
                 wx.showToast({
                     title: '登录成功',    
@@ -98,24 +97,10 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-        console.log(options);
         this.setData({
             lib: options.libs,
             libid: options.libid
         })
-        wx.login({
-          success: res => {
-            // 发送 res.code 到后台换取 openId, sessionKey, unionId
-            wx.request({
-              url: `https://demo30.ilovelibrary.cn/i/api2/WxUserApi/GetAppletOpenId?code=${res.code}`,
-              success:function(res){
-                var oppenid = res.data.openid
-                wx.setStorageSync('opid', oppenid)
-              }
-            })
-          }
-        })
-
     },
     //  下拉框
 
@@ -123,14 +108,22 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady() {
-
+      var that = this
+      wx.getStorage({
+        key: 'oppenid',
+        success (res) {
+          that.setData({
+            opid:res.data
+          })
+        }
+      })
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow() {
-
+    
     },
 
     /**
