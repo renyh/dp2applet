@@ -11,14 +11,22 @@ Page({
     libId:"",         //图书馆id,
     patronBarcode:"", //读者证条码号
     info:'',  //二维码信息
-    readerName:""  //读者姓名
+    readerName:"",  //读者姓名
+    arr:[]   //判断页面
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    getInfo({weixinId:this.data.oppenid}).then(res=>{
+    // 获取本地存储信息
+    this.setData({
+        arr:wx.getStorageSync('list')
+    })
+    // 获取用户信息
+    getInfo({weixinId:this.data.oppenid,
+      containPublic:"false"
+    }).then(res=>{
         console.log(res);
       this.setData({
         libId:res.users[0].libId,
@@ -26,6 +34,7 @@ Page({
         readerName:res.users[0].readerName,
         weixinId:res.users[0].weixinId
       })
+      // 获取二维码信息
       getQRcode({
         weixinId:this.data.weixinId,
         libId:this.data.libId,
@@ -35,6 +44,7 @@ Page({
         this.setData({
           info:res.info
         })
+        // 生成二维码
         new qrCode("myCanvas",{
           text:this.data.info,
           width:200,
@@ -50,7 +60,12 @@ Page({
       })
     })
   },
-
+// 跳转到登录页面
+goLogin(){
+  wx.navigateTo({
+    url: '/pages/account/account',
+  })
+},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

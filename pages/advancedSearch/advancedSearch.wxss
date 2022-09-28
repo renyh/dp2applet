@@ -1,0 +1,87 @@
+/* pages/advancedSearch/advancedSearch.wxss */
+.opptions{
+  position: absolute;
+  z-index: 99;
+  right: 0rpx;
+  top: 230rpx;
+  width: 470rpx;
+  background-color: white;
+  padding: 20rpx;
+  border-radius: 10rpx;
+}
+.adsearch{
+  width: 100%;
+  height: 100vh;
+  background-color: #efeff4;
+}
+.ipt{
+  width: 100%;
+}
+.iptOne{
+  display: flex;
+  height: 80rpx;
+
+}
+.text{
+  margin-left: 70rpx;
+  margin-top: 40rpx;
+  margin-right: 30rpx;
+}
+.inputOne{
+  background-color: white;
+  height: 80rpx;
+  margin-top: 28rpx;
+  width: 480rpx;
+  border: 1px solid rgb(78, 75, 75);
+  text-indent: 30rpx;
+}
+.active{
+  background-color: #767676;
+}
+.iptTwo{
+  display: flex;
+  margin-top: 40rpx;
+}
+.inputTwo{
+  background-color: white;
+  height: 80rpx;
+  margin-top: 28rpx;
+  width: 480rpx;
+  border: 1px solid rgb(78, 75, 75);
+  text-indent: 30rpx;
+  margin-left: 35rpx;
+}
+.iptThree{
+  display: flex;
+}
+.inputThree{
+  background-color: white;
+  height: 80rpx;
+  margin-top: 28rpx;
+  width: 480rpx;
+  border: 1px solid rgb(78, 75, 75);
+  text-indent: 30rpx;
+}
+.list{
+  position: absolute;
+  z-index: 10;
+  right: 0rpx;
+  top: 460rpx;
+  width: 470rpx;
+  background-color: white;
+  padding: 20rpx;
+  border-radius: 10rpx;
+}
+.retrieval{
+  background-color: rgb(24, 24, 224);
+  color: white;
+  width: 90%;
+  margin: 40rpx auto;
+}
+.text{
+  font-size: 32rpx;
+}
+.tall{
+  margin-left: 30rpx;
+  color: blue;
+}

@@ -15,6 +15,8 @@ Page({
     match:"",//简单检索传left
     resultSet:"",  //前端指定的一个结果集名称，用于分批获取。
     books:[],
+    wxid:"",
+    book:[],
     flag:true,
     flag1:false
   },
@@ -34,23 +36,19 @@ Page({
 geticon(){
   Searchbook({
     "loginUserName":this.data.loginUserName,
-    "loginUserType":"patron",
-    "weixinId":this.data.oppenid,
+    "loginUserType":this.data.loginUserType,
+    "weixinId":this.data.wxid,
     "libId":this.data.libId,
     "from":"title,ISBN,contributor,subject,clc,_class,publishtime,publisher",
     "word":this.data.word,
     "match":"left",
-    "resultSet":""
+    "resultSet":"applet"
   }).then(res=>{
     console.log(res);
-    if(res.records==[]){
-      this.setData({
-        flag1:true,
-        flag:false
-      })
-    }
+   
     this.setData({
-      books:res.records
+      books:res.records,
+      book:res
     })
     
   })
@@ -66,29 +64,30 @@ getword(e){
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-   getInfo({weixinId:this.data.oppenid}).then(res=>{
+   getInfo({weixinId:this.data.oppenid,containPublic:"false"}).then(res=>{
      console.log(res.users,123213);
      if(res.users[0].type==0){
        this.setData({
         loginUserType:"patron",
         loginUserName:res.users[0].displayReaderName
-
        })
      }else if(res.users[0].type==1){
       this.setData({
         loginUserType:"",
         loginUserName:res.users[0].userName
-
        })
      }
      this.setData({
-      loginUserName:res.users[0].displayReaderName,
-      weixinId:res.users[0].weixinId,
       libId:res.users[0].libId,
+      wxid:res.users[0].weixinId
      })
    })
   },
-
+  advancedSearch(){
+    wx.navigateTo({
+      url: '/pages/advancedSearch/advancedSearch',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -123,18 +122,38 @@ getword(e){
   onPullDownRefresh() {
 
   },
+  // 进入高级检索页面
+
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-
+    Searchbook({
+      "loginUserName":this.data.loginUserName,
+      "loginUserType":this.data.loginUserType,
+      "weixinId":this.data.oppenid,
+      "libId":this.data.libId,
+      "from":"_N",
+      "word":15,
+      "match":"left",
+      "resultSet":"applet"
+    }).then(res=>{
+      this.data.books.push(...res.records)
+      this.setData({
+        books:this.data.books
+      })
+      console.log(this.data.books.length);
+      if(this.data.books.length==45){
+        wx.stopPullDownRefresh()
+      }
+    })
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage() {
-
+  
   }
 })

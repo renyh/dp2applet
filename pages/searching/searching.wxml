@@ -4,7 +4,7 @@
   <image class="searpic" bindtap="geticon" src="../../img/sousuo (3).png"></image>
   <view class="text">
     <text>(简单检索默认与“前方一致”匹配)</text>
-    <text class="tall">高级检索</text>
+    <text class="tall" bindtap="advancedSearch">高级检索</text>
   </view>
   <view class="books">
     <view class="bookItem" wx:for="{{books}}" wx:key="index" data-recPach="{{item.recPath}}" bindtap="getDetail">

@@ -1,7 +1,8 @@
 // pages/detail/dtail.js
 import {
   getInfo,
-  bookDetail
+  bookDetail,
+  getItems
 } from "../../utils/axios"
 Page({
 
@@ -16,7 +17,9 @@ Page({
     libId: "",
     format: "table",
     list:[],
-    content:""
+    jsonItem:[], //转化
+    images:[],
+    books:[] //册信息
   },
 
   /**
@@ -29,7 +32,8 @@ Page({
     })
     console.log(this.data.recpach,2222);
     getInfo({
-      weixinId: this.data.oppenid
+      weixinId: this.data.oppenid,
+      containPublic:"false"
     }).then(res => {
       if (res.users[0].type == 0) {
         this.setData({
@@ -52,15 +56,30 @@ Page({
         weixinId: this.data.oppenid,
         libId: this.data.libId,
         biblioPath: this.data.recpach,
-        format: this.data.format,
-        from:""
       }).then(res => {
-        console.log(res);
+        res.info=res.info.replace(/@/g,'')
+
+        var list1 = JSON.parse(res.info)
+        var list2 = list1.root.line
         this.setData({
-          list:res,
-          content:res.info.replace(/img/g, "image")
+          images:list2[0],
+          jsonItem:list2.slice(1)
         })
-        console.log(this.data.content);
+
+      })
+      // 获取册信息
+      getItems({
+        loginUserName: this.data.loginUserName,
+        loginUserType: this.data.loginUserType,
+        weixinId: this.data.oppenid,
+        libId: this.data.libId,
+        biblioPath: this.data.recpach,
+      }).then(res=>{
+        console.log(res,12323);
+        this.setData({
+          books:res.itemList
+        })
+        console.log(this.data.books);
       })
     })
    

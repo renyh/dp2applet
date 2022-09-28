@@ -1,1 +1,38 @@
 /* pages/detail/dtail.wxss */
+.detials{
+  display: flex;
+}
+.detail1{
+  width: 200rpx;
+  height: 100rpx;
+  text-align: right;
+  color: #bbbbbb;
+  margin-right: 30rpx;
+  
+}
+.book1{
+  width: 200rpx;
+  text-align: right;
+  color: #bbbbbb;
+  margin-right: 30rpx;
+}
+.detail2{
+  width: 400rpx;
+}
+.pic{
+  width: 400rpx;
+  margin-left: 150rpx;
+}
+.book{
+  display: flex;
+}
+.book2{
+  width: 400rpx;
+}
+.books{
+  border: 1px solid rgb(214, 211, 211);
+  border-radius: 10rpx;
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 40rpx;
+}

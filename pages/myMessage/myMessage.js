@@ -1,6 +1,8 @@
 // pages/myMessage/myMessage.js
 
 import {getInfo,getInfos} from "../../utils/axios"
+// 引入生成二维码的文件
+const qrCode =  require("../../utils/weapp-qrcode.js")
 Page({
 
   /**
@@ -11,8 +13,9 @@ Page({
     list:[],
     libid:"",//图书馆id
     patronBarcode:"",//读者整条号码
-    username:"",//官员账户名
-    arr:""
+    username:"",//馆员账户名
+    arr:"",
+    qrcodeUrl:"" // 二维码信息
   },
 
   here(){
@@ -37,7 +40,8 @@ Page({
     arr:wx.getStorageSync('list')
   })
   var data = {
-    weixinId:this.data.id
+    weixinId:this.data.id,
+    containPublic:"false"
   }
     getInfo(data).then(res=>{
     console.log(res.users);
@@ -53,8 +57,21 @@ Page({
       }).then(res=>{
        console.log(res.obj,123);
        this.setData({
-         list:res.obj
+         list:res.obj,
+         qrcodeUrl:res.obj.qrcodeUrl
        })
+      //  生成二维码
+      new qrCode("myCanvas",{
+        text:this.data.qrcodeUrl,
+        width:150,
+        height:150,
+        callback:res=>{
+            console.log(res.path,44444);
+            this.setData({
+                codePath:res.path
+            })
+        }
+    })
       })
     })
   },

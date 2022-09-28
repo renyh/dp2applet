@@ -1,15 +1,40 @@
 <!--pages/detail/dtail.wxml-->
-<rich-text nodes="{{content}}"></rich-text>
-<view>
-   <view>
-     <view>
-       <text class="text1">册条码</text><text class="text2">B002</text>
-     </view>
-   </view>
-   <view>
-     <view>
-       <text class="text1">馆藏地</text><text class="text2">B002</text>
-     </view>
-   </view>
-
+<image class="pic" src="{{images.value}}"></image>
+<view wx:for="{{jsonItem}}" wx:key="index" class="detials">
+  <view class="detail1">{{item.name}}</view>
+  <view class="detail2">{{item.value}}</view>
+</view>
+<view class="books" wx:for="{{books}}" wx:key="index">
+  <view class="book">
+    <view class="book1">册条码</view>
+    <view class="book2">{{item.barcode}}</view>
+  </view>
+  <view class="book">
+    <view class="book1">馆藏地</view>
+    <view class="book2">{{item.location}}</view>
+  </view>
+  <view class="book">
+    <view class="book1">当前位置</view>
+    <view class="book2"></view>
+  </view>
+  <view class="book">
+    <view class="book1">索引号</view>
+    <view class="book2">{{item.accessNo}}</view>
+  </view>
+  <view class="book">
+    <view class="book1">价格</view>
+    <view class="book2">{{item.price}}</view>
+  </view>
+  <view class="book">
+    <view class="book1">再借情况</view>
+    <view class="book2">{{item.borrowInfo}}</view>
+  </view>
+  <view class="book">
+    <view class="book1">预约信息</view>
+    <rich-text class="book2" nodes="{{item.reservationInfo}}"></rich-text>
+  </view>
+  <view class="book">
+    <view class="book1">参考ID</view>
+    <view class="book2">{{item.refID}}</view>
+  </view>
 </view>

@@ -14,7 +14,8 @@
     "pages/searching/searching",
     "pages/temporaryword/temporaryword",
     "pages/detail/dtail",
-    "pages/QRcode/QRcode"
+    "pages/QRcode/QRcode",
+    "pages/advancedSearch/advancedSearch"
 
   ],
   "window": {

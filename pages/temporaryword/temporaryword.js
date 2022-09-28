@@ -24,6 +24,7 @@ Page({
   onLoad(options) {
     // 获取图书馆信息
     getInfo({
+      containPublic:"false",
       weixinId: this.data.oppenid
     }).then(res => {
       console.log(res.users);
@@ -36,7 +37,6 @@ Page({
   },
   // 获取输入框名字
   getName(e) {
-
     this.setData({
       userName: e.detail
     })

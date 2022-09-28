@@ -33,7 +33,9 @@ const  changeWord =data=>requeat(POST,baseUrl+'/i/api2/wxuserApi/ChangePassword'
 // 检索书目
 const Searchbook = data => requeat(GET,baseUrl+'/i/api2/BiblioApi/SearchBiblio',data)
 // 获取书目详情
-const bookDetail = data => requeat(GET,baseUrl+'/i/api2/BiblioApi/GetBiblioDetail',data)
+const bookDetail = data => requeat(GET,baseUrl+'/i/api2/BiblioApi/GetBiblio',data)
+// 获取册详情
+const getItems = data=>requeat(GET,baseUrl+'/i/api2/BiblioApi/GetItems',data)
 // 获取二维码
 const getQRcode = data => requeat(GET,baseUrl+'/i/api2/WxUserApi/GetPatronQRcode',data)
 // 导出请求
@@ -46,5 +48,6 @@ export{
     changeWord,
     Searchbook,
     bookDetail,
-    getQRcode
+    getQRcode,
+    getItems
 }
