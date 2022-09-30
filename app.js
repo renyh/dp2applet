@@ -1,4 +1,5 @@
 // app.js
+
 App({
   onLaunch() {
     // 展示本地存储能力
@@ -21,8 +22,13 @@ App({
       }
     })
 
+    // 进页面发请求拿到相应的参数集和
+  
+  
+
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    libs:[]
   }
 })

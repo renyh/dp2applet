@@ -1,17 +1,18 @@
 <!--pages/advancedSearch/advancedSearch.wxml-->
 <view class="adsearch">
-  <navs>书目查询</navs>
+  <navs list="{{libName}}">书目查询</navs>
 <view class="opptions" wx:if="{{onShow}}">
     <view wx:for="{{hiddens}}" wx:key="index" bindtap="opption" data-index="{{index}}" data-item="{{item}}" class="{{x==index?'active':''}}">{{item}}</view>
 </view>
+<view class="iptTwo">
+     <text class="text">检索词</text>
+     <input class="inputTwo" bindchange="searchChange"  type="text" placeholder="请输入检索词"/>
+  </view>
   <view class="iptOne">
      <text class="text">检索途径</text>
      <input disabled="true" bindtap="inputOne" class="inputOne" type="text" placeholder="{{hiddens[x]}}" placeholder-style="color:#000"/>
   </view>
-  <view class="iptTwo">
-     <text class="text">检索词</text>
-     <input class="inputTwo" bindchange="searchChange"  type="text" placeholder="请输入检索词"/>
-  </view>
+  
   <view class="iptThree">
      <text class="text">匹配方式</text>
      <input disabled="true" class="inputThree" bindtap="inputTwo"  type="text" placeholder="{{list[y]}}" placeholder-style="color:#000"/>
@@ -24,4 +25,5 @@
     <text>(简单检索默认与“前方一致”匹配)</text>
     <text class="tall" bindtap="simpleSearch">简单检索</text>
   </view>
+  <books books="{{books}}"></books>
 </view>

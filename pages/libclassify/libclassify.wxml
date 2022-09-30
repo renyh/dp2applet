@@ -1,8 +1,6 @@
 <!--pages/libclassify/libclassify.wxml-->
 <view class="libs">
-  <nav-top list="{{libName}}">
-    选择图书馆
-  </nav-top>
+  <navtop list="{{libName}}">选择图书馆</navtop>
   <view>
     {{list}}
   </view>

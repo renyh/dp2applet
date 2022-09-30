@@ -1,13 +1,17 @@
 // pages/libclassify/libclassify.js
-import {libclassify} from "../../utils/axios"
+import {libclassify,getPublic} from "../../utils/axios"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    arr:[],
-    libName:""
+    oppenid: wx.getStorageSync('oppenid'),
+    libName:"",
+    libIb:"",
+    libs:wx.getStorageSync('libs') || [],
+    
+    
   },
 
   /**
@@ -18,7 +22,6 @@ Page({
         this.setData({
          arr:res
         })
-        console.log(this.data.arr,123);
     })
   },
 
@@ -33,15 +36,31 @@ Page({
 
 //  选择确认图书馆
 ok(e){
-  console.log(e,77);
-    let lib = e.currentTarget.dataset.lib
-    this.setData({
-        list:e.currentTarget.dataset.lib,
-        libName:lib
+    this.setData({    
+        libIb:e.currentTarget.dataset.libid,  
     })
-    console.log(this.data.libName,123);
-    wx.navigateTo({
-      url: `/pages/account/account?libs=${lib}&libid=${e.currentTarget.dataset.libid}&libname`,
+    var that = this
+    wx.request({
+        url: `https://demo30.ilovelibrary.cn/i/api2/wxuserApi/SetCurrentLib?&libId=${this.data.libIb}&weixinId=${this.data.oppenid}`,
+        header: {
+            "Content-Type":"application/x-www-form-urlencoded"
+        },
+        method: "POST",
+        success(res){
+            if(res.data.errorCode==0){
+              getPublic({weixinId:that.data.oppenid}).then(res=>{
+                console.log(res);
+                that.setData({
+                  libName:res.users[0].libName,
+                })
+                console.log(that.data.libName);
+            })   
+            
+                wx.navigateBack({
+                  delta: 0,
+                })
+            }
+        }
     })
 },
   /**

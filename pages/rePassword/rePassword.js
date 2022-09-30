@@ -1,5 +1,5 @@
 // pages/rePassword/rePassword.js
-import {getInfo} from "../../utils/axios"
+import {getPublic} from "../../utils/axios"
 
 Page({ 
   /**
@@ -23,8 +23,8 @@ Page({
    */
   onLoad(options) {
     // 获取图书馆信息
-    getInfo({weixinId:this.data.oppenid}).then(res=>{
-      console.log(res);
+    getPublic({weixinId:this.data.oppenid}).then(res=>{
+      console.log(res,123333);
       // 获取当前图书馆名字及id
       this.setData({
         libName:res.users[0].libName,
@@ -33,9 +33,6 @@ Page({
     })
    
   },
-
-
-  
 
   // 获取读者证条号码
   getCardId(e){
@@ -51,6 +48,7 @@ Page({
   },
   // 获取新密码
   getNewCode(e){
+    console.log(e.detail);
     this.setData({
       newCode:e.detail
     })
@@ -68,6 +66,12 @@ Page({
         if(res.data.errorCode==1){
           wx.showToast({
             title: '修改成功',
+          })
+          wx.removeStorage({
+            key: 'list',
+            success (res) {
+              console.log(res)
+            }
           })
           setTimeout(()=>{
             wx.navigateTo({

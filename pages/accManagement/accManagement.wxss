@@ -2,7 +2,7 @@
 .card{
     width: 95%;
     height: 230rpx;
-    margin: 0 auto;
+    margin: 60rpx auto;
     background-color:#dedede;
     border-radius: 20rpx;
     overflow: hidden;

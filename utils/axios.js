@@ -38,6 +38,10 @@ const bookDetail = data => requeat(GET,baseUrl+'/i/api2/BiblioApi/GetBiblio',dat
 const getItems = data=>requeat(GET,baseUrl+'/i/api2/BiblioApi/GetItems',data)
 // 获取二维码
 const getQRcode = data => requeat(GET,baseUrl+'/i/api2/WxUserApi/GetPatronQRcode',data)
+// 用户验证public
+const getPublic = data=> requeat(GET,baseUrl+'/i/api2/wxuserApi/GetActiveUser',data)
+// 获取用户信息
+const getUserInfo = data => requeat(POST,baseUrl+'/i/api2/wxuserApi/SetCurrentLib',data)
 // 导出请求
 export{
     libclassify,
@@ -49,5 +53,7 @@ export{
     Searchbook,
     bookDetail,
     getQRcode,
-    getItems
+    getItems,
+    getPublic,
+    getUserInfo
 }

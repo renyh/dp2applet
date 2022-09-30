@@ -1,5 +1,5 @@
 // pages/accManagement/accManagement.js
-
+import {getInfo} from "../../utils/axios"
 Page({
 
   /**
@@ -7,15 +7,28 @@ Page({
    */
   data: {
    list:[],
-   bindUserid:"",
+   bindUserid:"",  //解绑id
    oppenid: wx.getStorageSync('oppenid'),
+   libName:"",   //图书馆名字
+   displayReaderName:"" , //证条号码
+  
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-  
+    getInfo({weixinId:this.data.oppenid,
+      containPublic:true
+    }).then(res=>{
+      console.log(res);
+      this.setData({
+        displayReaderName:res.users[0].displayReaderName,
+        libName:res.users[0].libName,
+        bindUserid:res.users[0].id
+      })
+      wx.setStorageSync("ReaderName", this.data.displayReaderName)
+    })
   },
   // 去主页
   goHome(){
@@ -24,9 +37,7 @@ Page({
     })
   },
   unbundle(){
-      this.setData({
-        bindUserid:this.data.list[0].id
-      })
+      
 // 发请求解绑
     console.log(this.data.bindUserid,12);
    wx.request({
@@ -35,16 +46,16 @@ Page({
      success(res){
          console.log(res.data);
          if(res.data.errorCode==0){
-          wx.removeStorage({
-            key: 'list',
-            success (res) {
-              console.log(res)
-            }
-          })
             wx.showToast({
                 title: '解绑成功',    
                 icon: 'success',  
                 duration: 2000//持续的时间
+              })
+              wx.removeStorage({
+                key: 'list',
+                success (res) {
+                  console.log(res)
+                }
               })
               setTimeout(()=>{
                   wx.redirectTo({

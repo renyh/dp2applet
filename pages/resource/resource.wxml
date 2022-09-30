@@ -1,19 +1,28 @@
 <!--pages/resource/resource.wxml-->
 <view class="resource">
-  <view bindtap="search">
-    <image src="../../img/icon_website_huabanfuben.png"></image>
-    <text>书目查询</text>
+  <view wx:if="{{x}}">
+    <view>
+      <view class="topNav">图书馆介绍</view>
+      <view class="textLib">你尚未选择图书馆,<text class="txt" bindtap="slectLibary">请先选择图书馆。</text></view>
+    </view>
   </view>
-  <view>
-  <image src="../../img/tuijianfantuijian.png"></image>
-     <text>好书推荐</text>
+  <view wx:else="" class="items">
+    <view bindtap="search" >
+      <image src="../../img/icon_website_huabanfuben.png"></image>
+      <text>书目查询</text>
+    </view>
+    <view>
+      <image src="../../img/tuijianfantuijian.png"></image>
+      <text>好书推荐</text>
+    </view>
+    <view>
+      <image src="../../img/gonggao.png"></image>
+      <text>公告</text>
+    </view>
+    <view>
+      <image src="../../img/jieshao.png"></image>
+      <text>图书馆介绍</text>
+    </view>
   </view>
-  <view>
-  <image src="../../img/gonggao.png"></image>
-    <text>公告</text>
-  </view>
-  <view>
-  <image src="../../img/jieshao.png"></image>
-    <text>数目推荐</text>
-  </view>
+
 </view>

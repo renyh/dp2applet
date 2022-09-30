@@ -1,8 +1,0 @@
-<!--compotents/top/nav.wxml-->
-<view class="title">
-        <text class="public">{{arr[0].displayReaderName}}</text>
-        <text class="txt">
-             <slot></slot>
-        </text>
-        <text class="lib" bindtap="jmp">{{arr[0].libName}}</text>
-</view>

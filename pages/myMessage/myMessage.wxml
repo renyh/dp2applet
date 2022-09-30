@@ -1,6 +1,6 @@
 <!--pages/myMessage/myMessage.wxml-->
-<topnav>我的信息</topnav>
-<view wx:if="{{arr}}" class="myInfo">
+<topnav list="{{libName}}">我的信息</topnav>
+<view wx:if="{{arr.length}}" class="myInfo">
   <view class="infoClass">
     <view><text>代交费</text>
       <van-icon name="arrow" />

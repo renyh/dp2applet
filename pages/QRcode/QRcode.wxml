@@ -1,6 +1,6 @@
 <!--pages/QRcode/QRcode.wxml-->
-<navs>二维码</navs>
-<view wx:if="{{arr}}">
+<navs list="{{libName}}">二维码</navs>
+<view wx:if="{{arr.length}}">
   <canvas canvas-id="myCanvas" bindlongpress="saveCode"></canvas>
   <view class="code">
     <text>{{readerName}}</text>

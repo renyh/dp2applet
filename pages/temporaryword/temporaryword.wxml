@@ -1,5 +1,5 @@
 <!--pages/temporaryword/temporaryword.wxml-->
-<nav>获取临时密码</nav>
+<nav list="{{libName}}">找回密码</nav>
 <view>
   <van-cell-group inset>
     <van-field v-model="value" label="图书馆" placeholder="{{libName}}" placeholder-style="color:#000" readonly />
@@ -11,5 +11,5 @@
 </view>
 <view class="login" wx:if="{{flag}}">
     <input class="ipts" bindchange="getchange" placeholder="请输入临时密码" type="text" />
-    <button class="enter" bindtap="enter">登录</button>
+    <button class="enter" bindtap="enter">绑定</button>
 </view>

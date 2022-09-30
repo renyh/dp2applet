@@ -1,6 +1,6 @@
 // pages/account/account.ts
 import {
-    bound
+    bound,getPublic
 } from "../../utils/axios"
 Page({
 
@@ -8,17 +8,20 @@ Page({
      * 页面的初始数据
      */
     data: {
-        value1: "",
-        user: "111",
+        value1: "", 
         onShow: false,
         x: 0,
         hiddens: ["姓名（不是账户名）", "证条号码", "电话号码", "工作人员账户"],
         prefix: ["NB", "", "TP", "UN"],
-        lib: "" || "请选择图书馆",
         username: '',
         password: '',
         opid: "",
         libid: '',
+        oppenid: wx.getStorageSync('oppenid'),
+        libName:"" || "请选择图书馆",
+        libs:wx.getStorageInfoSync("libs"),
+        id:""//解绑时用的id
+
       
     },
     selecTap() {
@@ -41,7 +44,7 @@ Page({
     // 找回密码
     findCode(){
       wx.navigateTo({
-        url: '/pages/rePassword/rePassword',
+        url: '/pages/temporaryword/temporaryword',
       })
     },
 
@@ -71,15 +74,14 @@ Page({
             "password": this.data.password
         }
         bound(data).then(res=>{
-             console.log(res);
+          console.log(res);
             if(res.errorCode==0){
-              wx.setStorageSync('list', res.users)
                 wx.showToast({
                     title: '登录成功',    
                     icon: 'success',  
                     duration: 2000//持续的时间
                   })
-                 
+                  wx.setStorageSync('list', res.users)
                 setTimeout(()=>{
                  wx.navigateTo({
                     url: `../accManagement/accManagement`,
@@ -97,10 +99,8 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-        this.setData({
-            lib: options.libs,
-            libid: options.libid
-        })
+        // 获取对应参数集合
+       
     },
     //  下拉框
 
@@ -118,11 +118,18 @@ Page({
         }
       })
     },
-
     /**
      * 生命周期函数--监听页面显示
      */
     onShow() {
+      getPublic({weixinId:this.data.oppenid}).then(res=>{
+        this.setData({
+            weixinId:res.users[0].weixinId,
+            libid: res.users[0].libId,
+            libName:res.users[0].libName
+        })
+    })
+   
     
     },
 

@@ -1,11 +1,12 @@
 // pages/resource/resource.js
+import {getPublic } from "../../utils/axios"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    oppenid: wx.getStorageSync('oppenid'),
   },
   // 跳转检索页
   search(){
@@ -31,8 +32,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    getPublic({weixinId:this.data.oppenid}).then(res=>{
+     if(res.users==null){
+        this.setData({
+            x:1
+        })
+     }else{
+      this.setData({
+          x:0
+      })
+     }
+    })
   },
+  slectLibary(){
+    wx.navigateTo({
+      url: '/pages/libclassify/libclassify',
+    })
+},
 
   /**
    * 生命周期函数--监听页面隐藏

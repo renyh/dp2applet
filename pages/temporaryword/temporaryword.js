@@ -1,6 +1,6 @@
 // pages/temporaryword/temporaryword.js
 import {
-  getInfo,
+  getPublic,
   bound
 } from "../../utils/axios"
 Page({
@@ -23,11 +23,9 @@ Page({
    */
   onLoad(options) {
     // 获取图书馆信息
-    getInfo({
-      containPublic:"false",
+    getPublic({
       weixinId: this.data.oppenid
     }).then(res => {
-      console.log(res.users);
       // 获取当前图书馆名字及id
       this.setData({
         libName: res.users[0].libName,
@@ -58,6 +56,7 @@ Page({
       },
       method: "POST",
       success(res) {
+        console.log(res);
         if (res.data.errorCode == 1) {
           that.setData({
             flag: true

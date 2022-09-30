@@ -1,6 +1,6 @@
 // pages/detail/dtail.js
 import {
-  getInfo,
+  getPublic,
   bookDetail,
   getItems
 } from "../../utils/axios"
@@ -31,9 +31,8 @@ Page({
       recpach:options.recpach
     })
     console.log(this.data.recpach,2222);
-    getInfo({
+    getPublic({
       weixinId: this.data.oppenid,
-      containPublic:"false"
     }).then(res => {
       if (res.users[0].type == 0) {
         this.setData({

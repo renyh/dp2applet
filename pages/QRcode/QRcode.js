@@ -1,4 +1,4 @@
-  import {getInfo,getQRcode} from "../../utils/axios"
+  import {getPublic,getQRcode} from "../../utils/axios"
   const qrCode =  require("../../utils/weapp-qrcode.js")
 Page({
 
@@ -12,7 +12,9 @@ Page({
     patronBarcode:"", //读者证条码号
     info:'',  //二维码信息
     readerName:"",  //读者姓名
-    arr:[]   //判断页面
+    arr:[]  , //判断页面
+    libName:""
+
   },
 
   /**
@@ -24,15 +26,16 @@ Page({
         arr:wx.getStorageSync('list')
     })
     // 获取用户信息
-    getInfo({weixinId:this.data.oppenid,
-      containPublic:"false"
+    getPublic({weixinId:this.data.oppenid,
+      
     }).then(res=>{
         console.log(res);
       this.setData({
         libId:res.users[0].libId,
         patronBarcode:res.users[0].displayReaderBarcode,
         readerName:res.users[0].readerName,
-        weixinId:res.users[0].weixinId
+        weixinId:res.users[0].weixinId,
+        libName:res.users[0].libName
       })
       // 获取二维码信息
       getQRcode({

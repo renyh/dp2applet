@@ -23,10 +23,10 @@
   height: 60rpx;
   position: absolute;
   right: 60rpx;
-  top: 73rpx;
+  top: 190rpx;
   z-index: 10;
 }
-.books{
+/* .books{
   margin-top: 40rpx;
   background-color: white;
 }
@@ -52,4 +52,4 @@
 }
 .text{
   font-size: 35rpx;
-}
+} */

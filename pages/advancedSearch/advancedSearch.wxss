@@ -2,8 +2,8 @@
 .opptions{
   position: absolute;
   z-index: 99;
-  right: 0rpx;
-  top: 230rpx;
+  right: 30rpx;
+  top: 380rpx;
   width: 470rpx;
   background-color: white;
   padding: 20rpx;
@@ -20,6 +20,7 @@
 .iptOne{
   display: flex;
   height: 80rpx;
+  margin-bottom: 30rpx;
 
 }
 .text{

@@ -1,1 +1,14 @@
 /* pages/more/more.wxss */
+.topNav{
+    height: 100rpx;
+    line-height: 100rpx;
+    background-color: #f7f7f7;
+    text-align: center;
+    box-shadow: 5rpx 5rpx 5rpx 5rpx rgb(238, 229, 229);
+}
+.textLib{
+    margin-top: 40rpx;
+}
+.txt{
+    color: #007afd;
+}

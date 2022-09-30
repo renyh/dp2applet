@@ -1,13 +1,21 @@
 // pages/mylibrary/mylibrary.ts
+import {getPublic } from "../../utils/axios"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-     list:[]
+     list:[],
+     arr:[],
+     x:"",
+     oppenid: wx.getStorageSync('oppenid'),
   },
-
+  slectLibary(){
+    wx.navigateTo({
+      url: '/pages/libclassify/libclassify',
+    })
+},
   /**
    * 生命周期函数--监听页面加载
    */
@@ -16,7 +24,8 @@ Page({
   },
 //   绑定账户
   jmp(){
-      if(this.data.list){
+    console.log(this.data.list.length);
+      if(this.data.list.length){
         wx.navigateTo({
           url: '/pages/accManagement/accManagement',
         })
@@ -62,10 +71,22 @@ getQcode(){
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    getPublic({weixinId:this.data.oppenid}).then(res=>{
+      console.log(res,111);
+     if(res.users==null){
+        this.setData({
+            x:1
+        })
+     }else{
+      this.setData({
+          x:0
+      })
+     }
+    }),
     this.setData({
       list: wx.getStorageSync('list'),
     })
-    console.log(this.data.list,123333);
+
   },
 
   /**

@@ -1,11 +1,11 @@
 <!--pages/accManagement/accManagement.wxml-->
-<nav>账号管理</nav>
+<nav list="{{libName}}">账号管理</nav>
 <view class="card">
      <view class="reader">
-        <text>读者：</text><text>{{list[0].readerBarcode}}</text>
+        <text>读者：</text><text>{{displayReaderName}}</text>
      </view>
      <view class="libName">
-        <text>图书馆：</text><text>{{list[0].libName}}</text>
+        <text>图书馆：</text><text>{{libName}}</text>
      </view>
      <button class="unbundle" bindtap="unbundle">
        解绑

@@ -1,5 +1,5 @@
 // pages/searching/searching.js
-import {getInfo,Searchbook} from "../../utils/axios"
+import {getPublic,Searchbook} from "../../utils/axios"
 Page({
 
   /**
@@ -14,11 +14,11 @@ Page({
     word:"",//检索词
     match:"",//简单检索传left
     resultSet:"",  //前端指定的一个结果集名称，用于分批获取。
+    libName:"",  //图书馆名字
     books:[],
     wxid:"",
     book:[],
-    flag:true,
-    flag1:false
+    words:15
   },
 
   // 点击跳转到详情
@@ -44,8 +44,6 @@ geticon(){
     "match":"left",
     "resultSet":"applet"
   }).then(res=>{
-    console.log(res);
-   
     this.setData({
       books:res.records,
       book:res
@@ -64,12 +62,14 @@ getword(e){
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-   getInfo({weixinId:this.data.oppenid,containPublic:"false"}).then(res=>{
-     console.log(res.users,123213);
+    getPublic({weixinId:this.data.oppenid}).then(res=>{
+     this.setData({
+       libName:res.users[0].libName
+     })
      if(res.users[0].type==0){
        this.setData({
         loginUserType:"patron",
-        loginUserName:res.users[0].displayReaderName
+        loginUserName:res.users[0].displayReaderName,
        })
      }else if(res.users[0].type==1){
       this.setData({
@@ -129,24 +129,24 @@ getword(e){
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
+    this.setData({
+      words:this.data.words+10
+    })
     Searchbook({
       "loginUserName":this.data.loginUserName,
       "loginUserType":this.data.loginUserType,
       "weixinId":this.data.oppenid,
       "libId":this.data.libId,
       "from":"_N",
-      "word":15,
+      "word":this.data.words,
       "match":"left",
       "resultSet":"applet"
     }).then(res=>{
+      console.log(res);
       this.data.books.push(...res.records)
       this.setData({
         books:this.data.books
       })
-      console.log(this.data.books.length);
-      if(this.data.books.length==45){
-        wx.stopPullDownRefresh()
-      }
     })
   },
 

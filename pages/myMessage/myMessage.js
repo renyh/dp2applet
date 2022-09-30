@@ -1,6 +1,6 @@
 // pages/myMessage/myMessage.js
 
-import {getInfo,getInfos} from "../../utils/axios"
+import {getPublic,getInfos} from "../../utils/axios"
 // 引入生成二维码的文件
 const qrCode =  require("../../utils/weapp-qrcode.js")
 Page({
@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    libName:"",
     id:"",
     list:[],
     libid:"",//图书馆id
@@ -41,14 +42,14 @@ Page({
   })
   var data = {
     weixinId:this.data.id,
-    containPublic:"false"
   }
-    getInfo(data).then(res=>{
+  getPublic(data).then(res=>{
     console.log(res.users);
       this.setData({
         libid:res.users[0].libId,
         patronBarcode:res.users[0].displayReaderBarcode,
-        username:res.users[0].userName
+        username:res.users[0].userName,
+        libName:res.users[0].libName
       })
       getInfos({
         libid:this.data.libid,

@@ -2,18 +2,9 @@
 .navs{
   height: 120rpx;
   background-color: #dedede;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
-.text{
-  display: inline-block;
-}
-.public{
-  margin-left:80rpx;
-  line-height: 120rpx;
-  margin-right: 100rpx;
 
-}
-.text{
-  margin-right: 150rpx;
-
-}
 

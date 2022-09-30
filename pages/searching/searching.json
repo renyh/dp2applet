@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "books":"/compotents/books/books",
+    "navs":"/compotents/navs/navs"
+  }
 }

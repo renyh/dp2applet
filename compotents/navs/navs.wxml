@@ -1,8 +1,11 @@
 <!--compotents/navs/navs.wxml-->
 <view class="navs">
-        <text class="public">public</text>
+        <text class="public">{{readerName}}</text>
         <text class="text">
              <slot></slot>
         </text>
-        <text class="lib" bindtap="jmp">{{list}}//</text>
+        <text class="lib" bindtap="jmp">{{list}}</text>
+</view>
+<view>
+{{libs}}
 </view>

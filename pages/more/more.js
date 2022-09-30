@@ -1,18 +1,20 @@
 // pages/more/more.js
+import {getPublic } from "../../utils/axios"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    oppenid: wx.getStorageSync('oppenid'),
+    x:""
   },
   
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    
   },
 
   /**
@@ -21,12 +23,27 @@ Page({
   onReady() {
 
   },
+  slectLibary(){
+      wx.navigateTo({
+        url: '/pages/libclassify/libclassify',
+      })
+  },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    getPublic({weixinId:this.data.oppenid}).then(res=>{
+       if(res.users==null){
+          this.setData({
+              x:1
+          })
+       }else{
+        this.setData({
+            x:0
+        })
+       }
+      })
   },
 
   /**

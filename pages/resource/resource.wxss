@@ -1,10 +1,9 @@
 /* pages/resource/resource.wxss */
 .resource{
-  width: 100%;
-  height: 100vh;
+
   background-color: aliceblue;
 }
-.resource>view{
+.items>view{
   height: 100rpx;
   line-height: 100rpx;
   margin-top: 10rpx;
@@ -16,4 +15,18 @@ view>image{
   width: 50rpx;
   height: 50rpx;
   margin: 0 15rpx;
+}
+.topNav{
+  width: 750rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  background-color: #f7f7f7;
+  text-align: center;
+  box-shadow: 5rpx 5rpx 5rpx 5rpx rgb(238, 229, 229);
+}
+.textLib{
+  margin-top: 40rpx;
+}
+.txt{
+  color: #007afd;
 }

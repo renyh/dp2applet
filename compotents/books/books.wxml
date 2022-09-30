@@ -1,0 +1,7 @@
+<!--compotents/books/books.wxml-->
+<view class="books">
+    <view class="bookItem" wx:for="{{books}}" wx:key="index" data-recPach="{{item.recPath}}" bindtap="getDetail">
+      <view class="text"><text class="text1">{{index+1}}</text>{{item.name}}</view>
+      <view class="text2">{{item.recPath}}</view>
+    </view>
+</view>
