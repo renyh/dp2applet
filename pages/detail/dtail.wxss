@@ -25,6 +25,7 @@
 }
 .book{
   display: flex;
+  align-items: center;
 }
 .book2{
   width: 400rpx;
@@ -35,4 +36,17 @@
   width: 90%;
   margin: 0 auto;
   margin-bottom: 40rpx;
+  
+}
+.book3{
+  font-size: 55rpx;
+}
+
+.book5{
+  color: #cccccc;
+  font-size: 30rpx;
+}
+.subscribe{
+  width: 180rpx;
+  height: 100rpx;
 }

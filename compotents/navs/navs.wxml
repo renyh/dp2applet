@@ -6,6 +6,3 @@
         </text>
         <text class="lib" bindtap="jmp">{{list}}</text>
 </view>
-<view>
-{{libs}}
-</view>

@@ -22,21 +22,25 @@
   margin-top: 50rpx;
   background-color: white;
 }
+.infoDetail>view{
+  height: 80rpx;
+  line-height: 80rpx;
+  border-top: 1px dotted #ddd;
+}
 .num1 {
-  width: 50%;
+  width: 40%;
   display: inline-block;
-  border-top: 1px dotted #efeff4;
+
   text-indent: 20rpx;
 }
 .num2{
-  width: 50%;
+  width: 60%;
   display: inline-block;
-  border-top: 1px dotted #efeff4 ;
+
 }
 .alert{
   display: block;
   width: 90%;
-  color: red;
   font-size: 27rpx;
   margin-left: 60rpx;
   margin-top: 20rpx;
@@ -49,4 +53,18 @@ canvas {
   height: 150px;
   margin-left: 200rpx;
   margin-top: 30rpx;
+
+}
+.num3{
+  font-weight: 900;
+}
+.amend{
+  position: absolute;
+  width: 150rpx;
+  height: 75rpx;
+  line-height: 80rpx;
+  right: 10rpx;
+  top: 830rpx;
+  background-color:#add8e6 ;
+  font-size: 35rpx;
 }

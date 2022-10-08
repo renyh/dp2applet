@@ -1,5 +1,4 @@
 // compotents/navtop.js
-import {getPublic} from "../../utils/axios"
 
 Component({
   /**
@@ -19,7 +18,7 @@ Component({
     oppenid: wx.getStorageSync('oppenid'),
     libName:"" ,//图书馆名字
     arr: [],
-    readerName:""
+    readerName:""  //证条者号
   },
 
   /**
@@ -33,12 +32,13 @@ Component({
      }
   },
   lifetimes:{
+    // 判断左上角显示public或读者姓名
       attached(){ 
         this.setData({
           arr:wx.getStorageSync('list')
          })
          console.log(this.data.list.length);
-        if(this.data.list.length){
+        if(!this.data.arr.length){
         this.setData({
           readerName:"public"
         })
@@ -48,10 +48,6 @@ Component({
           })
         }
       },
-      created(){
-      
-       
-      }
   }
   
 })

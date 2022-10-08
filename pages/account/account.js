@@ -24,6 +24,7 @@ Page({
 
       
     },
+    // 下拉框展示
     selecTap() {
         this.setData({
             onShow: !this.data.onShow

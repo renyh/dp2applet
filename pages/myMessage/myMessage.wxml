@@ -17,19 +17,20 @@
   </view>
   <view class="infoDetail">
     <view>
-      <text class="num1">证件码号</text><text class="num2">{{list.barcode}}</text>
+      <text class="num1 num3">证件码号</text><text class="num2 num3">{{list.barcode}}</text>
     </view>
     <view>
-      <text class="num1">姓名</text><text class="num2">{{list.name}}</text>
+      <text class="num1 num3">姓名</text><text class="num2 num3">{{list.name}}</text>
     </view>
     <view>
       <text class="num1">性别</text><text class="num2">{{list.gender}}</text>
     </view>
     <view>
-      <text class="num1">证状态</text><text class="num2">{{liat.state}}</text>
+      <text class="num1 num3">证状态</text><text class="num2">{{liat.state}}</text>
     </view>
     <view>
-      <text class="num1">电话</text><text class="num2">{{list.phone}}</text>
+      <text class="num1">电话</text><text class="num2">{{list.phone}} </text><button class="amend">修改</button>
+     
     </view>
     <view>
       <text class="num1">单位</text><text class="num2">{{}}</text>

@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    recpach: "",
+    recpach: "",  //接受跳转过来的书目路径
     oppenid: wx.getStorageSync('oppenid'),
     loginUserName: "",
     loginUserType: "",
@@ -18,19 +18,26 @@ Page({
     format: "table",
     list:[],
     jsonItem:[], //转化
-    images:[],
-    books:[] //册信息
+    images:[],  //图片管理
+    books:[],//册信息
+    arr:[]  //判断预约的按钮的显示与隐藏
   },
-
+  // 跳转到绑定账户界面
+  goBound(){
+    wx.navigateTo({
+      url: '/pages/account/account',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
     this.setData({
-      recpach:options.recpach
+      recpach:options.recpach,
+      arr:wx.getStorageSync('list')
     })
-    console.log(this.data.recpach,2222);
+
+    // 获取详情
     getPublic({
       weixinId: this.data.oppenid,
     }).then(res => {
@@ -56,14 +63,28 @@ Page({
         libId: this.data.libId,
         biblioPath: this.data.recpach,
       }).then(res => {
+     
         res.info=res.info.replace(/@/g,'')
-
         var list1 = JSON.parse(res.info)
         var list2 = list1.root.line
-        this.setData({
-          images:list2[0],
-          jsonItem:list2.slice(1)
-        })
+        console.log(list1,9999);
+        if(list2[0].name!="_coverImage"){
+          list2.unshift({
+            value:""
+          })
+          this.setData({
+            images:list2[0],
+            jsonItem:list2.slice(1)
+          })
+          console.log(this.data.images,11111111);
+        }else{
+          this.setData({
+            images:list2[0],
+            jsonItem:list2.slice(1)
+          })
+          console.log(this.data.images,22222222);
+        }
+        console.log(list2,1234);
 
       })
       // 获取册信息
@@ -74,11 +95,9 @@ Page({
         libId: this.data.libId,
         biblioPath: this.data.recpach,
       }).then(res=>{
-        console.log(res,12323);
         this.setData({
           books:res.itemList
         })
-        console.log(this.data.books);
       })
     })
    

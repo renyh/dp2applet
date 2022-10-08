@@ -1,5 +1,5 @@
 <!--pages/detail/dtail.wxml-->
-<image class="pic" src="{{images.value}}"></image>
+<image wx:if="{{images.value}}" class="pic" src="{{images.value}}" ></image>
 <view wx:for="{{jsonItem}}" wx:key="index" class="detials">
   <view class="detail1">{{item.name}}</view>
   <view class="detail2">{{item.value}}</view>
@@ -11,15 +11,15 @@
   </view>
   <view class="book">
     <view class="book1">馆藏地</view>
-    <view class="book2">{{item.location}}</view>
+    <view class="book2 book3">{{item.location}}</view>
   </view>
   <view class="book">
     <view class="book1">当前位置</view>
     <view class="book2"></view>
   </view>
   <view class="book">
-    <view class="book1">索引号</view>
-    <view class="book2">{{item.accessNo}}</view>
+    <view class="book1">索取号</view>
+    <view class="book2 book3">{{item.accessNo}}</view>
   </view>
   <view class="book">
     <view class="book1">价格</view>
@@ -31,10 +31,11 @@
   </view>
   <view class="book">
     <view class="book1">预约信息</view>
-    <rich-text class="book2" nodes="{{item.reservationInfo}}"></rich-text>
+    <!-- <rich-text class="book2 book4" nodes="{{item.reservationInfo}}"></rich-text>
+    <button class="subscribe" wx:if="{{arr.length}}">预约</button> -->
   </view>
   <view class="book">
     <view class="book1">参考ID</view>
-    <view class="book2">{{item.refID}}</view>
+    <view class="book2 book5">{{item.refID}}</view>
   </view>
 </view>

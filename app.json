@@ -20,30 +20,34 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
+    
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
+    "navigationBarTitleText": "我爱图书馆",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
+    
+      "selectedColor":"#d81e06",
+    
     "list": [
      {
          "pagePath": "pages/resource/resource",
          "text": "资源",
          "iconPath": "./img/33资源 (1).png",
-         "selectedIconPath": "./img/33资源.png"
+         "selectedIconPath": "./img/ziyuan.png"
          
      },
      {
           "pagePath": "pages/mylibrary/mylibrary",
           "text": "我的图书馆",
           "iconPath":"./img/图书馆 (1).png",
-          "selectedIconPath": "./img/图书馆.png"
+          "selectedIconPath": "./img/tushuguan.png"
      },
      {
          "pagePath": "pages/more/more",
          "text": "更多",
          "iconPath": "./img/更多 (4).png",
-         "selectedIconPath": "./img/更多 (5).png"
+         "selectedIconPath": "./img/gengduo.png"
      }
     ]
   },

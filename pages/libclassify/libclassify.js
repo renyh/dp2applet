@@ -6,17 +6,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    oppenid: wx.getStorageSync('oppenid'),
-    libName:"",
-    libIb:"",
+    oppenid: wx.getStorageSync('oppenid'),   //本地oppenid
+    libName:"",     //图书馆名字
+    libIb:"",       //图书馆id
     libs:wx.getStorageSync('libs') || [],
-    
-    
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
+  // 请求图书馆名字
   onLoad(options) {
     libclassify().then(res=>{
         this.setData({
@@ -55,7 +54,6 @@ ok(e){
                 })
                 console.log(that.data.libName);
             })   
-            
                 wx.navigateBack({
                   delta: 0,
                 })
