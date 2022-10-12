@@ -31,8 +31,7 @@
   </view>
   <view class="book">
     <view class="book1">预约信息</view>
-    <!-- <rich-text class="book2 book4" nodes="{{item.reservationInfo}}"></rich-text>
-    <button class="subscribe" wx:if="{{arr.length}}">预约</button> -->
+    <button class="subscribe" bindtap="getSubscribe" wx:if="{{loginUserType}}">预约</button>
   </view>
   <view class="book">
     <view class="book1">参考ID</view>

@@ -1,11 +1,20 @@
 <!--pages/searching/searching.wxml-->
 <navs list="{{libName}}">书目查询</navs>
 <view class="searching">
-  <input type="text" bindchange="getword" class="ipt" placeholder="请输入检索词" />
-  <image class="searpic" bindtap="geticon" src="../../img/search.png"></image>
+  <view class="searchs">
+    <image class="libPic" bindtap="scanCodeEvent" src="https://demo30.ilovelibrary.cn/i/img/barcode.png"></image>
+    <input type="text" bindchange="getword" class="ipt" placeholder="{{placeholder}}" />
+    <image class="searpic" bindtap="geticon" src="../../img/search.png"></image>
+  </view>
   <view class="text">
-    <text>(简单检索默认与“前方一致”匹配)</text>
+    <text>(简单检索默认以"前方一致"匹配)</text>
     <text class="tall" bindtap="advancedSearch">高级检索</text>
   </view>
+  <view wx:if="{{!books.length}}" class="errorInfo">
+  {{errorInfo}}
+  </view>
+ <view>
+  <text wx:if="{{flag}}" class="miss">未命中</text>
   <books books="{{books}}"></books>
+ </view>
 </view>

@@ -1,5 +1,5 @@
 // pages/resource/resource.js
-import {getPublic } from "../../utils/axios"
+import {GetActiveUser } from "../../utils/axios"
 Page({
 
   /**
@@ -32,7 +32,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    getPublic({weixinId:this.data.oppenid}).then(res=>{
+    GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
      if(res.users==null){
         this.setData({
             x:1

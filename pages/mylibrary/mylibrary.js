@@ -1,5 +1,5 @@
 // pages/mylibrary/mylibrary.ts
-import {getPublic } from "../../utils/axios"
+import { GetActiveUser } from "../../utils/axios"
 Page({
 
   /**
@@ -7,7 +7,7 @@ Page({
    */
   data: {
      list:[],
-     arr:[],
+     binduser:[],
      x:"",
      oppenid: wx.getStorageSync('oppenid'),
   },
@@ -24,8 +24,7 @@ Page({
   },
 //   绑定账户
   jmp(){
-    console.log(this.data.list.length);
-      if(this.data.list.length){
+      if(this.data.binduser.length){
         wx.navigateTo({
           url: '/pages/accManagement/accManagement',
         })
@@ -71,8 +70,8 @@ getQcode(){
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    getPublic({weixinId:this.data.oppenid}).then(res=>{
-      console.log(res,111);
+    GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
+
      if(res.users==null){
         this.setData({
             x:1
@@ -82,9 +81,15 @@ getQcode(){
           x:0
       })
      }
-    }),
-    this.setData({
-      list: wx.getStorageSync('list'),
+    })
+    var that = this
+    wx.getStorage({
+      key: 'binduser',
+      success (res) {
+        that.setData({
+            binduser:res.data
+        })
+      }
     })
 
   },

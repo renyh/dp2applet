@@ -1,5 +1,5 @@
 // pages/accManagement/accManagement.js
-import {getInfo} from "../../utils/axios"
+import {GetActiveUser} from "../../utils/axios"
 Page({
 
   /**
@@ -18,17 +18,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    getInfo({weixinId:this.data.oppenid,
-      containPublic:true
-    }).then(res=>{
-      console.log(res);
-      this.setData({
-        displayReaderName:res.users[0].displayReaderName,
-        libName:res.users[0].libName,
-        bindUserid:res.users[0].id
-      })
-      wx.setStorageSync("ReaderName", this.data.displayReaderName)
-    })
+   
   },
   // 去主页
   goHome(){
@@ -52,7 +42,7 @@ Page({
                 duration: 2000//持续的时间
               })
               wx.removeStorage({
-                key: 'list',
+                key: 'binduser',   
                 success (res) {
                   console.log(res)
                 }
@@ -88,7 +78,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    GetActiveUser({weixinId:this.data.oppenid,
+    }).then(res=>{
+      console.log(res,11111);
+      this.setData({
+        displayReaderName:res.users[0].displayReaderName||res.users[0].userName,
+        libName:res.users[0].libName,
+        bindUserid:res.users[0].id
+      })
+    })
   },
 
   /**

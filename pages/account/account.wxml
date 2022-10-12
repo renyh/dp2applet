@@ -27,7 +27,7 @@
     <view class="word">
       <view class="words">
         <text bindtap="findCode">找回密码</text>
-        <text>图书馆柜台绑定</text>
+        <text bindtap="counterBound">图书馆柜台绑定</text>
       </view>
     </view>
     <view>

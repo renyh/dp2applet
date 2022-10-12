@@ -13,19 +13,23 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    list:[],   //判断下方显示内容
+    flag:""
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
+    // 携带书目路径跳转到详情页
     getDetail(e){
-      console.log(e.currentTarget.dataset.recpach);
       var recpach = e.currentTarget.dataset.recpach
       wx.navigateTo({
         url: `/pages/detail/dtail?recpach=${recpach}`,
       })
     },
+  },
+  lifetimes:{
+ 
   }
 })

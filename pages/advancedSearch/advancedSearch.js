@@ -1,5 +1,5 @@
 // pages/advancedSearch/advancedSearch.js
-import {getPublic,Searchbook} from "../../utils/axios"
+import {GetActiveUser,Searchbook} from "../../utils/axios"
 Page({
 
   /**
@@ -85,7 +85,21 @@ search(){
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    getPublic({weixinId:this.data.oppenid}).then(res=>{
+   
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow() {
+    GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
       this.setData({
         libName:res.users[0].libName
       })
@@ -105,20 +119,6 @@ search(){
         libId:res.users[0].libId
       })
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
   },
 
   /**

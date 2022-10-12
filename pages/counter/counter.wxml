@@ -1,0 +1,15 @@
+<!--pages/counter/counter.wxml-->
+<navs list="{{libName}}">图书馆柜台绑定</navs>
+<view class="num">
+      <van-cell-group inset>
+        <van-field v-model="value1" label="图书馆" placeholder="{{libName}}" placeholder-style="color:#000" class="ipt" />
+      </van-cell-group>
+      <van-button icon="weapp-nav.path" bindtap="skip"></van-button>
+</view>
+<view class="text">
+  <text class="libText">
+  （请先选择图书馆，然后点击扫码并绑定按钮，系统将打开扫描二维码界面，请对准图书馆系统显示的读者二维码，扫面成功后自动绑定读者账号。）
+  </text>
+</view>
+<button class="codeBind" bindtap="getCode">扫码并绑定</button>
+<view>{{oppenid}}</view>

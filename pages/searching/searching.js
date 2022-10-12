@@ -1,5 +1,5 @@
 // pages/searching/searching.js
-import {getPublic,Searchbook} from "../../utils/axios"
+import {GetActiveUser,SearchBiblio} from "../../utils/axios"
 Page({
 
   /**
@@ -18,42 +18,64 @@ Page({
     books:[],
     wxid:"",
     book:[],
-    words:15
+    words:15,
+    placeholder:"请输入检索词"||"",
+    errorInfo:"", //提示信息
+    flag:""
+
   },
 
   // 点击跳转到详情
   getDetail(e){
-    console.log(e.currentTarget.dataset.recpach);
     var recpach = e.currentTarget.dataset.recpach
     wx.navigateTo({
       url: `/pages/detail/dtail?recpach=${recpach}`,
     })
-
-
   },
- 
+  getSearchBiblio(){
+    SearchBiblio({
+      "loginUserName":this.data.loginUserName,
+      "loginUserType":this.data.loginUserType,
+      "weixinId":this.data.wxid,
+      "libId":this.data.libId,
+      "from":"title,ISBN,contributor,subject,clc,_class,publishtime,publisher",
+      "word":this.data.word,
+      "match":"left",
+      "resultSet":"applet"
+    }).then(res=>{
+      console.log(res);
+      if(res.apiResult.errorCode==-1){
+        wx.showModal({
+          title: '提示',
+          content:res.apiResult.errorInfo,
+        })
+        this.setData({
+          errorInfo:res.apiResult.errorInfo
+        })
+      }else{
+        // 判断图书命中方式
+        if(res.records.length){
+          this.setData({
+            books:res.records,
+            book:res,
+            flag:false
+          })
+        }else{
+          this.setData({
+            flag:true,
+            books:[]
+          })
+        }
+       
+      }
+    })
+  },
 // 检索下方信息
 geticon(){
-  Searchbook({
-    "loginUserName":this.data.loginUserName,
-    "loginUserType":this.data.loginUserType,
-    "weixinId":this.data.wxid,
-    "libId":this.data.libId,
-    "from":"title,ISBN,contributor,subject,clc,_class,publishtime,publisher",
-    "word":this.data.word,
-    "match":"left",
-    "resultSet":"applet"
-  }).then(res=>{
-    this.setData({
-      books:res.records,
-      book:res
-    })
-    
-  })
+  this.getSearchBiblio()
 },
 // 获取输入框信息
 getword(e){
-  console.log(e.detail.value);
     this.setData({
       word:e.detail.value
     })
@@ -61,27 +83,24 @@ getword(e){
   /**
    * 生命周期函数--监听页面加载
    */
+//   点击扫描二维码
+scanCodeEvent(){
+    var that = this;
+    wx.scanCode({
+      onlyFromCamera: true,// 只允许从相机扫码
+      success(res){
+        // 扫码成功后  在此处理接下来的逻辑
+        that.setData({
+            word : res.result,
+            placeholder:res.result
+        })
+        console.log(11233);
+       that.getSearchBiblio()
+      }
+    })
+},
   onLoad(options) {
-    getPublic({weixinId:this.data.oppenid}).then(res=>{
-     this.setData({
-       libName:res.users[0].libName
-     })
-     if(res.users[0].type==0){
-       this.setData({
-        loginUserType:"patron",
-        loginUserName:res.users[0].displayReaderName,
-       })
-     }else if(res.users[0].type==1){
-      this.setData({
-        loginUserType:"",
-        loginUserName:res.users[0].userName
-       })
-     }
-     this.setData({
-      libId:res.users[0].libId,
-      wxid:res.users[0].weixinId
-     })
-   })
+ 
   },
   advancedSearch(){
     wx.navigateTo({
@@ -99,7 +118,26 @@ getword(e){
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
+      this.setData({
+        libName:res.users[0].libName
+      })
+      if(res.users[0].type==0){
+        this.setData({
+         loginUserType:"patron",
+         loginUserName:res.users[0].displayReaderName,
+        })
+      }else if(res.users[0].type==1){
+       this.setData({
+         loginUserType:"",
+         loginUserName:res.users[0].userName
+        })
+      }
+      this.setData({
+       libId:res.users[0].libId,
+       wxid:res.users[0].weixinId
+      })
+    })
   },
 
   /**
@@ -132,7 +170,7 @@ getword(e){
     this.setData({
       words:this.data.words+10
     })
-    Searchbook({
+    SearchBiblio({
       "loginUserName":this.data.loginUserName,
       "loginUserType":this.data.loginUserType,
       "weixinId":this.data.oppenid,

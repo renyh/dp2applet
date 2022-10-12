@@ -1,5 +1,5 @@
 // pages/libclassify/libclassify.js
-import {libclassify,getPublic} from "../../utils/axios"
+import {GetAreaLib,GetActiveUser} from "../../utils/axios"
 Page({
 
   /**
@@ -10,6 +10,7 @@ Page({
     libName:"",     //图书馆名字
     libIb:"",       //图书馆id
     libs:wx.getStorageSync('libs') || [],
+    flag:"",
   },
 
   /**
@@ -17,14 +18,12 @@ Page({
    */
   // 请求图书馆名字
   onLoad(options) {
-    libclassify().then(res=>{
+    GetAreaLib().then(res=>{
         this.setData({
          arr:res
         })
     })
   },
-
-
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -36,7 +35,7 @@ Page({
 //  选择确认图书馆
 ok(e){
     this.setData({    
-        libIb:e.currentTarget.dataset.libid,  
+        libIb:e.currentTarget.dataset.libid, 
     })
     var that = this
     wx.request({
@@ -47,12 +46,10 @@ ok(e){
         method: "POST",
         success(res){
             if(res.data.errorCode==0){
-              getPublic({weixinId:that.data.oppenid}).then(res=>{
-                console.log(res);
+              GetActiveUser({weixinId:that.data.oppenid}).then(res=>{
                 that.setData({
                   libName:res.users[0].libName,
                 })
-                console.log(that.data.libName);
             })   
                 wx.navigateBack({
                   delta: 0,

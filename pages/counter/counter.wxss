@@ -1,0 +1,19 @@
+/* pages/counter/counter.wxss */
+.num{
+  display: flex;
+}
+.text{
+  font-size: 25rpx;
+  margin: 0 auto;
+  border: 3px dotted #cccc00;
+}
+.libText{
+  display: block;
+  padding:  0 20rpx 10rpx 10rpx; 
+}
+.codeBind{
+  margin-top: 20rpx;
+  width: 95%;
+  background-color: #007aff;
+  color: white;
+}

@@ -19,41 +19,35 @@ function requeat(method,url, data={}){
 }
   
 // 图书馆分类
-const libclassify = data=>requeat(GET,baseUrl+'/i/api2/LibrarySettingApi/GetAreaLib',data)
+const GetAreaLib = data=>requeat(GET,baseUrl+'/i/api2/LibrarySettingApi/GetAreaLib',data)
 //  获取前端用户绑定的图书馆帐号
-const getInfo = data =>requeat(GET,baseUrl+'/i/api2//WxUserApi/GetBindUsers',data)
+const GetBindUsers = data =>requeat(GET,baseUrl+'/i/api2//WxUserApi/GetBindUsers',data)
 // 获取读者信息
-const getInfos = data =>requeat(GET,baseUrl+'/i/api2/PatronApi/GetPatron',data)
+const GetPatron = data =>requeat(GET,baseUrl+'/i/api2/PatronApi/GetPatron',data)
 // 实现绑定
-const bound  = data=>requeat(POST,baseUrl+'/i/api2/WxUserApi/bind',data)
-// 获取临时密码
-const getTemporaryCode = data=>requeat(POST,baseUrl+'/i/api2/wxuserApi/ResetPassword',data)
-// 修改密码
-const  changeWord =data=>requeat(POST,baseUrl+'/i/api2/wxuserApi/ChangePassword',data)
+const bind  = data=>requeat(POST,baseUrl+'/i/api2/WxUserApi/bind',data)
 // 检索书目
-const Searchbook = data => requeat(GET,baseUrl+'/i/api2/BiblioApi/SearchBiblio',data)
+const SearchBiblio = data => requeat(GET,baseUrl+'/i/api2/BiblioApi/SearchBiblio',data)
 // 获取书目详情
-const bookDetail = data => requeat(GET,baseUrl+'/i/api2/BiblioApi/GetBiblio',data)
+const GetBiblio = data => requeat(GET,baseUrl+'/i/api2/BiblioApi/GetBiblio',data)
 // 获取册详情
 const getItems = data=>requeat(GET,baseUrl+'/i/api2/BiblioApi/GetItems',data)
 // 获取二维码
-const getQRcode = data => requeat(GET,baseUrl+'/i/api2/WxUserApi/GetPatronQRcode',data)
-// 用户验证public
-const getPublic = data=> requeat(GET,baseUrl+'/i/api2/wxuserApi/GetActiveUser',data)
-// 获取用户信息
-const getUserInfo = data => requeat(POST,baseUrl+'/i/api2/wxuserApi/SetCurrentLib',data)
+const GetPatronQRcode = data => requeat(GET,baseUrl+'/i/api2/WxUserApi/GetPatronQRcode',data)
+// 用户信息
+const GetActiveUser = data=> requeat(GET,baseUrl+'/i/api2/wxuserApi/GetActiveUser',data)
+// 预约图书
+const  Reserveh = data=>requeat(POST,baseUrl+'/i/api2/CirculationApi/Reserve',data)
 // 导出请求
 export{
-    libclassify,
-    getInfo,
-    getInfos,
-    bound ,
-    getTemporaryCode,
-    changeWord,
-    Searchbook,
-    bookDetail,
-    getQRcode,
+    GetAreaLib,
+    GetBindUsers,
+    GetPatron,
+    bind,
+    SearchBiblio,
+    GetBiblio,
+    GetPatronQRcode,
     getItems,
-    getPublic,
-    getUserInfo
+    GetActiveUser,
+    Reserveh
 }

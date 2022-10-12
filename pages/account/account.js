@@ -1,6 +1,7 @@
 // pages/account/account.ts
 import {
-    bound,getPublic
+    bind,
+    GetActiveUser
 } from "../../utils/axios"
 Page({
 
@@ -8,7 +9,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        value1: "", 
+        value1: "",
         onShow: false,
         x: 0,
         hiddens: ["姓名（不是账户名）", "证条号码", "电话号码", "工作人员账户"],
@@ -18,11 +19,11 @@ Page({
         opid: "",
         libid: '',
         oppenid: wx.getStorageSync('oppenid'),
-        libName:"" || "请选择图书馆",
-        libs:wx.getStorageInfoSync("libs"),
-        id:""//解绑时用的id
+        libName: "" || "请选择图书馆",
+        libs: wx.getStorageInfoSync("libs"),
+        id: "" //解绑时用的id
 
-      
+
     },
     // 下拉框展示
     selecTap() {
@@ -43,10 +44,17 @@ Page({
         })
     },
     // 找回密码
-    findCode(){
-      wx.navigateTo({
-        url: '/pages/temporaryword/temporaryword',
-      })
+    findCode() {
+        wx.navigateTo({
+            url: '/pages/temporaryword/temporaryword',
+        })
+    },
+    // 柜台绑定
+    counterBound() {
+        wx.navigateTo({
+            url: '/pages/counter/counter',
+        })
+
     },
 
     //  用户名
@@ -63,37 +71,39 @@ Page({
     },
     //  点击绑定按钮
     binding() {
-     
-          // 登录
+        // 登录
         var data
         data = {
             "weixinId": this.data.opid,
             "libId": this.data.libid,
-            "bindLibraryCode": '',
+            "bindLibraryCode": '',   //todo
             "prefix": this.data.prefix[this.data.x],
             "word": this.data.username,
             "password": this.data.password
         }
-        bound(data).then(res=>{
-          console.log(res);
-            if(res.errorCode==0){
+        bind(data).then(res => {
+            console.log(res);
+            if (res.errorCode == 0) {
                 wx.showToast({
-                    title: '登录成功',    
-                    icon: 'success',  
-                    duration: 2000//持续的时间
-                  })
-                  wx.setStorageSync('list', res.users)
-                setTimeout(()=>{
-                 wx.navigateTo({
-                    url: `../accManagement/accManagement`,
-                  })
-                },2000)
-            }else{
-              wx.showModal({
-                title: '提示',
-                content: res.errorInfo,
-              })         
-            } 
+                    title: '绑定成功',
+                    icon: 'success',
+                    duration: 2000 //持续的时间
+                })
+                wx.setStorage({
+                    key: "binduser",
+                    data: res.users
+                }) //todo  binduser
+                setTimeout(() => {
+                    wx.navigateTo({
+                        url: `../accManagement/accManagement`,
+                    })
+                }, 2000)
+            } else {
+                wx.showModal({
+                    title: '提示',
+                    content: res.errorInfo,
+                })
+            }
         })
     },
     /**
@@ -101,7 +111,7 @@ Page({
      */
     onLoad(options) {
         // 获取对应参数集合
-       
+
     },
     //  下拉框
 
@@ -109,29 +119,31 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady() {
-      var that = this
-      wx.getStorage({
-        key: 'oppenid',
-        success (res) {
-          that.setData({
-            opid:res.data
-          })
-        }
-      })
+        var that = this
+        wx.getStorage({
+            key: 'oppenid',
+            success(res) {
+                that.setData({
+                    opid: res.data
+                })
+            }
+        })
     },
     /**
      * 生命周期函数--监听页面显示
      */
     onShow() {
-      getPublic({weixinId:this.data.oppenid}).then(res=>{
-        this.setData({
-            weixinId:res.users[0].weixinId,
-            libid: res.users[0].libId,
-            libName:res.users[0].libName
+        GetActiveUser({
+            weixinId: this.data.oppenid
+        }).then(res => {
+            this.setData({
+                weixinId: res.users[0].weixinId,
+                libid: res.users[0].libId,
+                libName: res.users[0].libName
+            })
         })
-    })
-   
-    
+
+
     },
 
     /**

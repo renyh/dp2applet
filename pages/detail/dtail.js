@@ -1,8 +1,9 @@
 // pages/detail/dtail.js
 import {
-  getPublic,
-  bookDetail,
-  getItems
+  GetActiveUser,
+  GetBiblio,
+  getItems,
+  Reserveh
 } from "../../utils/axios"
 Page({
 
@@ -15,12 +16,14 @@ Page({
     loginUserName: "",
     loginUserType: "",
     libId: "",
+    displayReaderBarcode:"",  //读者证条码号
+    itemBarcodes:"",   //册条码号
     format: "table",
-    list:[],
+    binduser:[],
     jsonItem:[], //转化
     images:[],  //图片管理
     books:[],//册信息
-    arr:[]  //判断预约的按钮的显示与隐藏
+    userName:"" //判断是否为读者
   },
   // 跳转到绑定账户界面
   goBound(){
@@ -34,73 +37,25 @@ Page({
   onLoad(options) {
     this.setData({
       recpach:options.recpach,
-      arr:wx.getStorageSync('list')
+      binduser:wx.getStorageSync('binduser')
     })
 
-    // 获取详情
-    getPublic({
-      weixinId: this.data.oppenid,
-    }).then(res => {
-      if (res.users[0].type == 0) {
-        this.setData({
-          loginUserType:"patron",
-          loginUserName: res.users[0].displayReaderName
 
-        })
-      } else if (res.users[0].type == 1) {
-        this.setData({
-          loginUserType: "",
-          loginUserName: res.users[0].userName
-        })
-      }
-      this.setData({
-        libId: res.users[0].libId
-      })
-      bookDetail({
-        loginUserName: this.data.loginUserName,
-        loginUserType: this.data.loginUserType,
-        weixinId: this.data.oppenid,
-        libId: this.data.libId,
-        biblioPath: this.data.recpach,
-      }).then(res => {
-     
-        res.info=res.info.replace(/@/g,'')
-        var list1 = JSON.parse(res.info)
-        var list2 = list1.root.line
-        console.log(list1,9999);
-        if(list2[0].name!="_coverImage"){
-          list2.unshift({
-            value:""
-          })
-          this.setData({
-            images:list2[0],
-            jsonItem:list2.slice(1)
-          })
-          console.log(this.data.images,11111111);
-        }else{
-          this.setData({
-            images:list2[0],
-            jsonItem:list2.slice(1)
-          })
-          console.log(this.data.images,22222222);
-        }
-        console.log(list2,1234);
-
-      })
-      // 获取册信息
-      getItems({
-        loginUserName: this.data.loginUserName,
-        loginUserType: this.data.loginUserType,
-        weixinId: this.data.oppenid,
-        libId: this.data.libId,
-        biblioPath: this.data.recpach,
-      }).then(res=>{
-        this.setData({
-          books:res.itemList
-        })
-      })
-    })
    
+  },
+  //点击进行图书预约
+  getSubscribe(){
+    wx.request({
+      url: `http://demo30.ilovelibrary.cn/i/api2/CirculationApi/Reserve?weixinId=${this.data.oppenid}&libId=${this.data.libId}&patronBarcode=${this.data.displayReaderBarcode}&itemBarcodes=${this.data.itemBarcodes}&style=new`,
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      method: "POST",
+      success(res){
+        console.log(res);
+      }
+    })
+    
   },
 
   /**
@@ -114,7 +69,69 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    // 获取详情
+    GetActiveUser({
+      weixinId: this.data.oppenid,
+    }).then(res => {
+      console.log(res,666666);
+      if (res.users[0].type == 0) {
+        this.setData({
+          loginUserType:"patron",
+          loginUserName: res.users[0].displayReaderName,
+          displayReaderBarcode:res.users[0].displayReaderBarcode
+        })
+      } else if (res.users[0].type == 1) {
+        this.setData({
+          loginUserType: "",
+          loginUserName: res.users[0].userName
+        })
+      }
+      this.setData({
+        libId: res.users[0].libId
+      })
+      GetBiblio({
+        loginUserName: this.data.loginUserName,
+        loginUserType: this.data.loginUserType,
+        weixinId: this.data.oppenid,
+        libId: this.data.libId,
+        biblioPath: this.data.recpach,
+      }).then(res => {
+        console.log(res,1111);
+        res.info=res.info.replace(/@/g,'')
+        var info1 = JSON.parse(res.info)
+        console.log(info1);
+        var info2 = info1.root.line
+        if(info2[0].name!="_coverImage"){
+          info2.unshift({
+            value:""
+          })
+          this.setData({
+            images:info2[0],
+            jsonItem:info2.slice(1)
+          })
+        }else{
+          this.setData({
+            images:info2[0],
+            jsonItem:info2.slice(1)
+          })
+        }
 
+      })
+      // 获取册信息
+      getItems({
+        loginUserName: this.data.loginUserName,
+        loginUserType: this.data.loginUserType,
+        weixinId: this.data.oppenid,
+        libId: this.data.libId,
+        biblioPath: this.data.recpach,
+      }).then(res=>{
+        console.log(res,995);
+        this.setData({
+          books:res.itemList,
+          itemBarcodes:res.itemList[0].barcode
+        })
+      })
+    })
   },
 
   /**

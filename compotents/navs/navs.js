@@ -1,5 +1,5 @@
 // compotents/navtop.js
-
+import {GetActiveUser} from  "../../utils/axios"
 Component({
   /**
    * 组件的属性列表
@@ -16,7 +16,7 @@ Component({
    */
   data: {
     oppenid: wx.getStorageSync('oppenid'),
-    libName:"" ,//图书馆名字
+    libName:"",//图书馆名字
     arr: [],
     readerName:""  //证条者号
   },
@@ -34,20 +34,21 @@ Component({
   lifetimes:{
     // 判断左上角显示public或读者姓名
       attached(){ 
-        this.setData({
-          arr:wx.getStorageSync('list')
-         })
-         console.log(this.data.list.length);
-        if(!this.data.arr.length){
-        this.setData({
-          readerName:"public"
+        GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
+          
+          if(res.users[0].userName){
+            this.setData({
+              readerName:res.users[0].userName,
+              
+            })
+          }else{
+            this.setData({
+              readerName:res.users[0].displayReaderName,
+            })
+          }
         })
-        }else{
-          this.setData({
-            readerName:wx.getStorageSync("ReaderName")
-          })
-        }
       },
+      
   }
   
 })

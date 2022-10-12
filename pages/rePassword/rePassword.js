@@ -1,5 +1,5 @@
 // pages/rePassword/rePassword.js
-import {getPublic} from "../../utils/axios"
+import {GetActiveUser} from "../../utils/axios"
 
 Page({ 
   /**
@@ -22,15 +22,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    // 获取图书馆信息
-    getPublic({weixinId:this.data.oppenid}).then(res=>{
-      console.log(res,123333);
-      // 获取当前图书馆名字及id
-      this.setData({
-        libName:res.users[0].libName,
-        libId:res.users[0].libId
-      })
-    })
+   
    
   },
 
@@ -102,7 +94,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+ // 获取图书馆信息
+ GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
+  console.log(res,123333);
+  // 获取当前图书馆名字及id
+  this.setData({
+    libName:res.users[0].libName,
+    libId:res.users[0].libId
+  })
+})
   },
 
   /**

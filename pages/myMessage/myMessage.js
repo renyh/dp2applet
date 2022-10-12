@@ -1,6 +1,6 @@
 // pages/myMessage/myMessage.js
 
-import {getPublic,getInfos} from "../../utils/axios"
+import {GetActiveUser,GetPatron} from "../../utils/axios"
 // 引入生成二维码的文件
 const qrCode =  require("../../utils/weapp-qrcode.js")
 Page({
@@ -15,10 +15,15 @@ Page({
     libid:"",//图书馆id
     patronBarcode:"",//读者整条号码
     username:"",//馆员账户名
-    arr:"",
+    binduser:"",
     qrcodeUrl:"" // 二维码信息
   },
-
+// 去待交费界面
+  goPay(){
+      wx.navigateTo({
+        url: '/pages/Pay/Pay',
+      })
+  },
   here(){
    wx.navigateTo({
      url: '/pages/account/account',
@@ -38,43 +43,20 @@ Page({
 //  获取个人用户信息
   this.setData({
     id:wx.getStorageSync('oppenid'),
-    arr:wx.getStorageSync('list')
+   
+   
   })
-  var data = {
-    weixinId:this.data.id,
-  }
-  getPublic(data).then(res=>{
-    console.log(res.users);
-      this.setData({
-        libid:res.users[0].libId,
-        patronBarcode:res.users[0].displayReaderBarcode,
-        username:res.users[0].userName,
-        libName:res.users[0].libName
+  var that = this
+  wx.getStorage({
+    key: 'binduser',
+    success (res) {
+      that.setData({
+          binduser:res.data
       })
-      getInfos({
-        libid:this.data.libid,
-        patronBarcode:this.data.patronBarcode,
-        username:this.data.username
-      }).then(res=>{
-       console.log(res.obj,123);
-       this.setData({
-         list:res.obj,
-         qrcodeUrl:res.obj.qrcodeUrl
-       })
-      //  生成二维码
-      new qrCode("myCanvas",{
-        text:this.data.qrcodeUrl,
-        width:150,
-        height:150,
-        callback:res=>{
-            console.log(res.path,44444);
-            this.setData({
-                codePath:res.path
-            })
-        }
-    })
-      })
-    })
+    }
+  })
+
+
   },
  
 
@@ -89,7 +71,40 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    var data = {
+      weixinId:this.data.id,
+    }
+    GetActiveUser(data).then(res=>{
+      console.log(res.users);
+        this.setData({
+          libid:res.users[0].libId,
+          patronBarcode:res.users[0].displayReaderBarcode,
+          username:res.users[0].userName,
+          libName:res.users[0].libName
+        })
+        GetPatron({
+          libid:this.data.libid,
+          patronBarcode:this.data.patronBarcode,
+          username:this.data.username
+        }).then(res=>{
+         console.log(res.obj,123);
+         this.setData({
+           list:res.obj,
+           qrcodeUrl:res.obj.qrcodeUrl
+         })
+        //  生成二维码
+        new qrCode("myCanvas",{
+          text:this.data.qrcodeUrl,
+          width:150,
+          height:150,
+          callback:res=>{
+              this.setData({
+                  codePath:res.path
+              })
+          }
+      })
+        })
+      })
   },
 
   /**

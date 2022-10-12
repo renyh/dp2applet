@@ -1,4 +1,4 @@
-  import {getPublic,getQRcode} from "../../utils/axios"
+  import {GetActiveUser,GetPatronQRcode} from "../../utils/axios"
   const qrCode =  require("../../utils/weapp-qrcode.js")
 Page({
 
@@ -25,43 +25,7 @@ Page({
     this.setData({
         arr:wx.getStorageSync('list')
     })
-    // 获取用户信息
-    getPublic({weixinId:this.data.oppenid,
-      
-    }).then(res=>{
-        console.log(res);
-      this.setData({
-        libId:res.users[0].libId,
-        patronBarcode:res.users[0].displayReaderBarcode,
-        readerName:res.users[0].readerName,
-        weixinId:res.users[0].weixinId,
-        libName:res.users[0].libName
-      })
-      // 获取二维码信息
-      getQRcode({
-        weixinId:this.data.weixinId,
-        libId:this.data.libId,
-        patronBarcode:this.data.patronBarcode
-      }).then(res=>{
-        console.log(res,12333);
-        this.setData({
-          info:res.info
-        })
-        // 生成二维码
-        new qrCode("myCanvas",{
-          text:this.data.info,
-          width:200,
-          height:200,
-          padding:12,
-          callback:res=>{
-              console.log(res.path,44444);
-              this.setData({
-                  codePath:res.path
-              })
-          }
-      })
-      })
-    })
+   
   },
 // 跳转到登录页面
 goLogin(){
@@ -80,7 +44,43 @@ goLogin(){
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+ // 获取用户信息
+ GetActiveUser({weixinId:this.data.oppenid,
+      
+ }).then(res=>{
+     console.log(res);
+   this.setData({
+     libId:res.users[0].libId,
+     patronBarcode:res.users[0].displayReaderBarcode,
+     readerName:res.users[0].readerName,
+     weixinId:res.users[0].weixinId,
+     libName:res.users[0].libName
+   })
+   // 获取二维码信息
+   GetPatronQRcode({
+     weixinId:this.data.weixinId,
+     libId:this.data.libId,
+     patronBarcode:this.data.patronBarcode
+   }).then(res=>{
+     console.log(res,12333);
+     this.setData({
+       info:res.info
+     })
+     // 生成二维码
+     new qrCode("myCanvas",{
+       text:this.data.info,
+       width:200,
+       height:200,
+       padding:12,
+       callback:res=>{
+           console.log(res.path,44444);
+           this.setData({
+               codePath:res.path
+           })
+       }
+   })
+   })
+ })
   },
 
   /**

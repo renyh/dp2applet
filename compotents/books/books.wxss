@@ -12,7 +12,7 @@
   padding-left: 25srpx;
   padding-top: 20rpx;
   padding-bottom: 20rpx;
-  border-bottom: 1px solid rgb(199, 197, 197);
+  /* border-bottom: 1px solid rgb(199, 197, 197); */
 }
 .text1{
   margin-right: 30rpx;
@@ -26,4 +26,20 @@
 .text{
   font-size: 35rpx;
   margin-left: 40rpx;
+}
+.empty{
+  margin-left: 40rpx;
+  margin-top: 30rpx;
+  font-size: 35rpx;
+}
+.numbers{
+  margin-left: 50rpx;
+  font-size: 35rpx;
+  color: #006400;
+}
+.miss{
+  margin-left: 40rpx;
+  margin-top: 30rpx;
+  color: red;
+  font-size: 35rpx;
 }

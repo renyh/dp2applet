@@ -26,30 +26,18 @@
   top: 190rpx;
   z-index: 10;
 }
-/* .books{
-  margin-top: 40rpx;
-  background-color: white;
+.libPic{
+ width:50rpx;
+ height: 50rpx;
+ margin-top: 60rpx;
 }
-.searching{
-  width: 100%;
-  background-color:#efeff4 ;
-  overflow: hidden;
+.searchs{
+  display: flex;
+  align-items: center;
 }
-.bookItem{
-  padding-left: 25srpx;
-  padding-top: 20rpx;
-  padding-bottom: 20rpx;
-  border-bottom: 1px solid rgb(199, 197, 197);
+.errorInfo{
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  color: red;
 }
-.text1{
-  margin-right: 30rpx;
-}
-.text2{
-  margin-left: 45rpx;
-  color: #ccc;
-  margin-top: 5rpx;
-  font-size: 35rpx;
-}
-.text{
-  font-size: 35rpx;
-} */

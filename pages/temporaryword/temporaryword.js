@@ -1,6 +1,6 @@
 // pages/temporaryword/temporaryword.js
 import {
-  getPublic,
+  GetActiveUser,
   bound
 } from "../../utils/axios"
 Page({
@@ -15,23 +15,14 @@ Page({
     userName: "",
     ipone: "",
     temcode: "",
-    flag:false
+    flag: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    // 获取图书馆信息
-    getPublic({
-      weixinId: this.data.oppenid
-    }).then(res => {
-      // 获取当前图书馆名字及id
-      this.setData({
-        libName: res.users[0].libName,
-        libId: res.users[0].libId
-      })
-    })
+
   },
   // 获取输入框名字
   getName(e) {
@@ -79,9 +70,9 @@ Page({
   },
   // 输入临时码
   getchange(e) {
-    console.log(e.detail.value,123);
+    console.log(e.detail.value, 123);
     this.setData({
-      temcode:e.detail.value
+      temcode: e.detail.value
     })
   },
   enter() {
@@ -93,26 +84,26 @@ Page({
       "word": this.data.userName,
       "password": this.data.temcode
     }).then(res => {
-      console.log(res,123333);
-      if(res.errorCode==0){
-        console.log(res.users,12366);
+      console.log(res, 123333);
+      if (res.errorCode == 0) {
+        console.log(res.users, 12366);
         wx.setStorageSync('list', res.users)
-          wx.showToast({
-              title: '登录成功',    
-              icon: 'success',  
-              duration: 2000//持续的时间
-            })
-          setTimeout(()=>{
-           wx.navigateTo({
-              url: `../myMessage/myMessage`,
-            })
-          },2000)
-      }else{
+        wx.showToast({
+          title: '登录成功',
+          icon: 'success',
+          duration: 2000 //持续的时间
+        })
+        setTimeout(() => {
+          wx.navigateTo({
+            url: `../myMessage/myMessage`,
+          })
+        }, 2000)
+      } else {
         wx.showModal({
           title: '提示',
           content: res.errorInfo,
-        })         
-      } 
+        })
+      }
     })
   },
   /**
@@ -126,7 +117,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    // 获取图书馆信息
+    GetActiveUser({
+      weixinId: this.data.oppenid
+    }).then(res => {
+      // 获取当前图书馆名字及id
+      this.setData({
+        libName: res.users[0].libName,
+        libId: res.users[0].libId
+      })
+    })
   },
 
   /**
