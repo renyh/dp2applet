@@ -1,0 +1,42 @@
+/* pages/Appointment/Appointment.wxss */
+.bookList{
+  margin: 30rpx auto;
+  padding: 20rpx;
+  border-radius: 15rpx;
+}
+.bookList>view{
+  display: flex;
+}
+.bookList1{
+  width: 35%;
+  text-align: right;
+border: 1rpx solid #ddd;
+padding: 20rpx;
+background-color: #eee;
+color: #999;
+
+}
+.bookList2{
+ width: 60%;
+border: 1rpx solid #ddd;
+padding: 20rpx;
+}
+.no{
+  width: 240rpx;
+  height: 100rpx;
+  position: relative;
+  left: -70rpx;
+}
+.text1{
+  color: #007aff;
+}
+.text2{
+  font-weight: 800;
+}
+.merge{
+  background-color:#007aff ;
+  color: white;
+  width: 90%;
+  border: none;
+  font-size: 33rpx;
+}

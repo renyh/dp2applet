@@ -38,6 +38,7 @@ const GetPatronQRcode = data => requeat(GET,baseUrl+'/i/api2/WxUserApi/GetPatron
 const GetActiveUser = data=> requeat(GET,baseUrl+'/i/api2/wxuserApi/GetActiveUser',data)
 // 预约图书
 const  Reserveh = data=>requeat(POST,baseUrl+'/i/api2/CirculationApi/Reserve',data)
+
 // 导出请求
 export{
     GetAreaLib,
@@ -49,5 +50,6 @@ export{
     GetPatronQRcode,
     getItems,
     GetActiveUser,
-    Reserveh
+    Reserveh,
+   
 }

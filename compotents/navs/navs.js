@@ -8,6 +8,10 @@ Component({
   list:{
       type:String,
       value:[]
+    },
+    readerName:{
+      type:String,
+      value:[]
     }
   },
    
@@ -18,7 +22,6 @@ Component({
     oppenid: wx.getStorageSync('oppenid'),
     libName:"",//图书馆名字
     arr: [],
-    readerName:""  //证条者号
   },
 
   /**
@@ -32,22 +35,7 @@ Component({
      }
   },
   lifetimes:{
-    // 判断左上角显示public或读者姓名
-      attached(){ 
-        GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
-          
-          if(res.users[0].userName){
-            this.setData({
-              readerName:res.users[0].userName,
-              
-            })
-          }else{
-            this.setData({
-              readerName:res.users[0].displayReaderName,
-            })
-          }
-        })
-      },
+  
       
   }
   

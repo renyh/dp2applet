@@ -21,7 +21,8 @@ Page({
         oppenid: wx.getStorageSync('oppenid'),
         libName: "" || "请选择图书馆",
         libs: wx.getStorageInfoSync("libs"),
-        id: "" //解绑时用的id
+        id: "" ,//解绑时用的id
+        readerName:""
 
 
     },
@@ -82,7 +83,10 @@ Page({
             "password": this.data.password
         }
         bind(data).then(res => {
-            console.log(res);
+            console.log(res,123);
+            this.setData({
+              id:res.users[0].id
+            })
             if (res.errorCode == 0) {
                 wx.showToast({
                     title: '绑定成功',
@@ -95,7 +99,7 @@ Page({
                 }) //todo  binduser
                 setTimeout(() => {
                     wx.navigateTo({
-                        url: `../accManagement/accManagement`,
+                        url: `../../pages/accManagement/accManagement?id=${this.data.id}`,
                     })
                 }, 2000)
             } else {
@@ -141,6 +145,15 @@ Page({
                 libid: res.users[0].libId,
                 libName: res.users[0].libName
             })
+            if(res.users[0].userName){
+              this.setData({
+                readerName:res.users[0].userName,   
+              })
+            }else{
+              this.setData({
+                readerName:res.users[0].displayReaderName,
+              })
+            }
         })
 
 

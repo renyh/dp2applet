@@ -14,7 +14,8 @@ Page({
     ipone:'' ,//手机号
     oldCode:"", //临时密码
     newCode:"", //新密码
-    CardId:"" //读者证条号码
+    CardId:"", //读者证条号码
+    readerName:""
   },
       // 获取临时密码
 
@@ -102,6 +103,15 @@ Page({
     libName:res.users[0].libName,
     libId:res.users[0].libId
   })
+  if(res.users[0].userName){
+    this.setData({
+      readerName:res.users[0].userName,   
+    })
+  }else{
+    this.setData({
+      readerName:res.users[0].displayReaderName,
+    })
+  }
 })
   },
 

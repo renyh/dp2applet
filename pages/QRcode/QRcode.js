@@ -12,8 +12,12 @@ Page({
     patronBarcode:"", //读者证条码号
     info:'',  //二维码信息
     readerName:"",  //读者姓名
-    arr:[]  , //判断页面
-    libName:""
+    binduser:[]  , //判断页面
+    libName:"",
+    userName: "", //判断显示界面
+    type:"", //个人类型
+    x:"",
+    readerName:""//左上角显示
 
   },
 
@@ -23,7 +27,7 @@ Page({
   onLoad(options) {
     // 获取本地存储信息
     this.setData({
-        arr:wx.getStorageSync('list')
+        binduser:wx.getStorageSync('binduser')
     })
    
   },
@@ -54,8 +58,29 @@ goLogin(){
      patronBarcode:res.users[0].displayReaderBarcode,
      readerName:res.users[0].readerName,
      weixinId:res.users[0].weixinId,
-     libName:res.users[0].libName
+     libName:res.users[0].libName,
+     userName: res.users[0].userName,
+     type: res.users[0].type
    })
+   if (!this.data.userName&&this.data.binduser.length&&this.data.type=="0") {
+    this.setData({
+      x: 0
+    })
+  } else { //说明为public，未绑定读者账号
+    this.setData({
+      x: 1
+    })
+  } 
+  console.log(this.data.x);
+  if(res.users[0].userName){
+    this.setData({
+      readerName:res.users[0].userName,   
+    })
+  }else{
+    this.setData({
+      readerName:res.users[0].displayReaderName,
+    })
+  }
    // 获取二维码信息
    GetPatronQRcode({
      weixinId:this.data.weixinId,

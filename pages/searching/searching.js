@@ -21,7 +21,8 @@ Page({
     words:15,
     placeholder:"请输入检索词"||"",
     errorInfo:"", //提示信息
-    flag:""
+    flag:"",
+    readerName:""
 
   },
 
@@ -119,6 +120,15 @@ scanCodeEvent(){
    */
   onShow() {
     GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
+      if(res.users[0].userName){
+        this.setData({
+          readerName:res.users[0].userName,   
+        })
+      }else{
+        this.setData({
+          readerName:res.users[0].displayReaderName,
+        })
+      }
       this.setData({
         libName:res.users[0].libName
       })

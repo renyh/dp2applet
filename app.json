@@ -16,7 +16,8 @@
     "pages/QRcode/QRcode",
     "pages/advancedSearch/advancedSearch",
     "pages/counter/counter",
-    "pages/Pay/Pay"
+    "pages/Pay/Pay",
+    "pages/Appointment/Appointment"
 
   ],
   "window": {

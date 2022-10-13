@@ -1,5 +1,5 @@
 // pages/accManagement/accManagement.js
-import {GetActiveUser} from "../../utils/axios"
+import {GetBindUsers} from "../../utils/axios"
 Page({
 
   /**
@@ -11,14 +11,16 @@ Page({
    oppenid: wx.getStorageSync('oppenid'),
    libName:"",   //图书馆名字
    displayReaderName:"" , //证条号码
-  
-  },
+   readerName:"" , //读者号码
+   readerList:[], //读者账号合集
+   wokerList:[]  //工作人员账号合集
+  }, 
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-   
+      
   },
   // 去主页
   goHome(){
@@ -78,14 +80,40 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    GetActiveUser({weixinId:this.data.oppenid,
+    GetBindUsers({
+      weixinId:this.data.oppenid,
+      containPublic:true
     }).then(res=>{
       console.log(res,11111);
-      this.setData({
-        displayReaderName:res.users[0].displayReaderName||res.users[0].userName,
-        libName:res.users[0].libName,
-        bindUserid:res.users[0].id
+      res.users.forEach((item,index)=>{
+        console.log(item.id);
+        if(item.type==0&&item.userName!="public"){
+           this.data.readerList.push(item)
+           this.setData({
+            readerList:this.data.readerList,
+            bindUserid:item.id
+           })
+        }
+        if(item.type==1&&item.userName!="public"){
+          this.data.wokerList.push(item)
+          this.setData({
+            wokerList:this.data.wokerList,
+            bindUserid:item.id
+          })
+        }
       })
+      this.setData({
+        libName:res.users[0].libName,
+      })
+      if(res.users[0].userName){
+        this.setData({
+          readerName:res.users[0].userName,   
+        })
+      }else{
+        this.setData({
+          readerName:res.users[0].displayReaderName,
+        })
+      }
     })
   },
 

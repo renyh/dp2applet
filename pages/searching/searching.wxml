@@ -1,5 +1,5 @@
 <!--pages/searching/searching.wxml-->
-<navs list="{{libName}}">书目查询</navs>
+<navs list="{{libName}}" readerName="{{readerName}}">书目查询</navs>
 <view class="searching">
   <view class="searchs">
     <image class="libPic" bindtap="scanCodeEvent" src="https://demo30.ilovelibrary.cn/i/img/barcode.png"></image>

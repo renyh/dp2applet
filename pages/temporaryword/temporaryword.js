@@ -15,7 +15,8 @@ Page({
     userName: "",
     ipone: "",
     temcode: "",
-    flag: false
+    flag: false,
+    readerName:""
   },
 
   /**
@@ -126,6 +127,15 @@ Page({
         libName: res.users[0].libName,
         libId: res.users[0].libId
       })
+      if(res.users[0].userName){
+        this.setData({
+          readerName:res.users[0].userName,   
+        })
+      }else{
+        this.setData({
+          readerName:res.users[0].displayReaderName,
+        })
+      }
     })
   },
 

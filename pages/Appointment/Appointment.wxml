@@ -1,0 +1,47 @@
+<!--pages/Appointment/Appointment.wxml-->
+<navs list="{{libName}}">预约请求</navs>
+<view>
+  <checkbox-group>
+    <view class="bookList" wx:for="{{reservations}}" wx:key="index">
+      <view >
+        <view class="bookList1">
+          <checkbox>册条码号</checkbox>
+        </view>
+        <view class="bookList2 text1">{{item.pureBarcodes}}</view>
+      </view>
+      <view >
+        <view class="bookList1">
+          请求日期
+        </view>
+        <view class="bookList2 ">{{item.requestdate}}</view>
+      </view>
+      <view >
+        <view class="bookList1">
+          操作者
+        </view>
+        <view class="bookList2">{{item.operatorAccount}}</view>
+      </view>
+      <view >
+        <view class="bookList1">
+         到达情况
+        </view>
+        <view class="bookList2 text2">{{item.stateText}}</view>
+      </view>
+      <view >
+        <view class="bookList1">
+          摘要
+        </view>
+        <view class="bookList2"></view>
+      </view>
+      <view >
+        <view class="bookList1">
+          操作
+        </view>
+        <view class="bookList2">
+         <button class="no" bindtap="cancelBooking" data-patronBarcode="{{item.pureBarcodes}}" data-itemBarcodes="{{item.operatorAccount}}">取消预约</button>
+        </view>
+      </view>
+    </view>
+  </checkbox-group>
+  <button class="merge">合并预约，请勾选需要合并的预约项</button>
+</view>

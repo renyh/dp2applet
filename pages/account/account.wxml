@@ -1,7 +1,7 @@
 <!--pages/account/account.wxml-->
 <!--pages/account/account.wxml-->
 <view class="account">
-  <navtop list="{{libName}}">
+  <navtop readerName="{{readerName}}" list="{{libName}}">
     绑定账号
   </navtop>
     <view class="num">

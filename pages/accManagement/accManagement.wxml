@@ -1,19 +1,33 @@
 <!--pages/accManagement/accManagement.wxml-->
-<nav list="{{libName}}">账号管理</nav>
-<view class="card">
-     <view class="reader">
-        <text>读者：</text><text>{{displayReaderName}}</text>
-     </view>
-     <view class="libName">
-        <text>图书馆：</text><text>{{libName}}</text>
-     </view>
-     <button class="unbundle" bindtap="unbundle">
-       解绑
-     </button>
-     
+<nav list="{{libName}}" readerName="{{readerName}}">账号管理</nav>
+<view wx:if="{{readerList.length}}">
+  <text class="Account">读者账号</text>
+  <view class="card" wx:for="{{readerList}}" wx:key="index">
+    <view class="reader">
+      <text>读者：</text><text>{{item.readerBarcode}}</text>
+    </view>
+    <view class="libName">
+      <text>图书馆：</text><text>{{item.libName}}</text>
+    </view>
+    <button class="unbundle" bindtap="unbundle">
+      解绑
+    </button>
+  </view>
 </view>
-      <view>
-          <button class="goHome" bindtap="goHome">去主页</button>
-      </view>
-
-
+<view wx:if="{{wokerList.length}}">
+  <text class="Account">工作人员账号</text>
+  <view class="card" wx:for="{{wokerList}}" wx:key="index">
+    <view class="reader" >
+      <text>读者：</text><text>{{item.userName}}</text>
+    </view>
+    <view class="libName">
+      <text>图书馆：</text><text>{{item.libName}}</text>
+    </view>
+    <button class="unbundle" bindtap="unbundle">
+      解绑
+    </button>
+  </view>
+</view>
+<view>
+  <button class="goHome" bindtap="goHome">去主页</button>
+</view>

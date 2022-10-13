@@ -1,13 +1,13 @@
 <!--pages/QRcode/QRcode.wxml-->
-<navs list="{{libName}}">二维码</navs>
-<view wx:if="{{arr.length}}">
+<navs list="{{libName}}" readerName="{{readerName}}">二维码</navs>
+<view wx:if="{{x}}">
+  你当前账户不是读者账户，不能查看二维码，请点击<text class="here" bindtap="goLogin">这里</text>进行绑定
+</view>
+<view wx:else="">
   <canvas canvas-id="myCanvas" bindlongpress="saveCode"></canvas>
   <view class="code">
     <text>{{readerName}}</text>
     <text>（{{patronBarcode}}）</text>
   </view>
   <text class="txt">（不要把二维码展示和提供给无关人员，以免账号被窃。）</text>
-</view>
-<view wx:else="">
-  你当前账户不是读者账户，不能查看二维码，请点击<text class="here" bindtap="goLogin">这里</text>进行绑定
 </view>

@@ -1,6 +1,9 @@
 <!--pages/myMessage/myMessage.wxml-->
-<topnav list="{{libName}}">我的信息</topnav>
-<view wx:if="{{binduser.length}}" class="myInfo">
+<topnav list="{{libName}}" readerName="{{readerName}}">我的信息</topnav>
+<view  wx:if="{{x}}">
+  <view class="">你当前账户不是读者账户，不能查看我的信息，请先点击<text class="here" bindtap="here">这里</text>进行绑定</view>
+</view>
+<view wx:else="" class="myInfo">
   <view class="infoClass">
     <view  bindtap="goPay"><text>待交费</text>
       <van-icon name="arrow" />
@@ -8,7 +11,10 @@
     <view><text>在借</text>
       <van-icon name="arrow" />
     </view>
-    <view><text>预约</text>
+    <view bindtap="goAppointment"><text>预约</text>
+     <view class="toBook" wx:if="{{reservations.length}}">
+      <text class="num">{{reservations.length}}</text><text class="toTooks">到书</text>
+     </view>
       <van-icon name="arrow" />
     </view>
     <view bindtap="changecode"><text>修改密码</text>
@@ -80,6 +86,3 @@
 
 
 
-<view wx:else="">
-  <view class="">你当前账户不是读者账户，不能查看我的信息，请先点击<text class="here" bindtap="here">这里</text>进行绑定</view>
-</view>

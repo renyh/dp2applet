@@ -23,7 +23,8 @@ Page({
     match:["left","middle","right","exact"],
     value:"",//输入框内容
     books:[],
-    libName:""
+    libName:"",
+    readerName:""
   },
   inputOne(){
     this.setData({
@@ -100,6 +101,15 @@ search(){
    */
   onShow() {
     GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
+      if(res.users[0].userName){
+        this.setData({
+          readerName:res.users[0].userName,   
+        })
+      }else{
+        this.setData({
+          readerName:res.users[0].displayReaderName,
+        })
+      }
       this.setData({
         libName:res.users[0].libName
       })
@@ -118,6 +128,8 @@ search(){
         weixinId:res.users[0].weixinId,
         libId:res.users[0].libId
       })
+      // 判断左上角显示
+ 
     })
   },
 

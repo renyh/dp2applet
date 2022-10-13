@@ -34,3 +34,8 @@
   color: white;
   margin-top: 80rpx;
 }
+.Account{
+  margin-left: 30rpx;
+  margin-top: 10rpx;
+  color: #a3a3a3;
+}
