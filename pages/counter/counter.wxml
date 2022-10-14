@@ -1,5 +1,5 @@
 <!--pages/counter/counter.wxml-->
-<navs list="{{libName}}">图书馆柜台绑定</navs>
+<navs list="{{libName}}"  readerName="{{ readerName}}">图书馆柜台绑定</navs>
 <view class="num">
       <van-cell-group inset>
         <van-field v-model="value1" label="图书馆" placeholder="{{libName}}" placeholder-style="color:#000" class="ipt" />

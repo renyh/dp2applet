@@ -1,7 +1,7 @@
 // pages/account/account.ts
 import {
     bind,
-    GetActiveUser
+    GetActiveUser,
 } from "../../utils/axios"
 Page({
 
@@ -22,7 +22,8 @@ Page({
         libName: "" || "请选择图书馆",
         libs: wx.getStorageInfoSync("libs"),
         id: "" ,//解绑时用的id
-        readerName:""
+        readerName:"",
+        bindLibraryCode:""   //绑定时图书馆代码
 
 
     },
@@ -77,7 +78,7 @@ Page({
         data = {
             "weixinId": this.data.opid,
             "libId": this.data.libid,
-            "bindLibraryCode": '',   //todo
+            "bindLibraryCode":this.data.bindLibraryCode,   //todo
             "prefix": this.data.prefix[this.data.x],
             "word": this.data.username,
             "password": this.data.password
@@ -140,10 +141,12 @@ Page({
         GetActiveUser({
             weixinId: this.data.oppenid
         }).then(res => {
+          console.log(res,444);
             this.setData({
                 weixinId: res.users[0].weixinId,
                 libid: res.users[0].libId,
-                libName: res.users[0].libName
+                libName: res.users[0].libName,
+                bindLibraryCode:res.users[0].bindLibraryCode
             })
             if(res.users[0].userName){
               this.setData({

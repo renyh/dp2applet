@@ -19,8 +19,9 @@ Page({
   // 请求图书馆名字
   onLoad(options) {
     GetAreaLib().then(res=>{
+      console.log(res,6666);
         this.setData({
-         arr:res
+         arr:res,
         })
     })
   },
@@ -34,8 +35,10 @@ Page({
 
 //  选择确认图书馆
 ok(e){
-    this.setData({    
-        libIb:e.currentTarget.dataset.libid, 
+    console.log(e);
+    this.setData({ 
+        libIb:e.currentTarget.dataset.libid,
+        flag:true
     })
     var that = this
     wx.request({

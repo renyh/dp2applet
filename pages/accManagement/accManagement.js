@@ -1,5 +1,5 @@
 // pages/accManagement/accManagement.js
-import {GetBindUsers} from "../../utils/axios"
+    import {GetBindUsers,GetActiveUser } from "../../utils/axios"
 Page({
 
   /**
@@ -13,7 +13,9 @@ Page({
    displayReaderName:"" , //证条号码
    readerName:"" , //读者号码
    readerList:[], //读者账号合集
-   wokerList:[]  //工作人员账号合集
+   wokerList:[], //工作人员账号合集
+   flag:false,
+   libNames:"" //错误信息图书馆名字
   }, 
 
   /**
@@ -31,36 +33,40 @@ Page({
   unbundle(){
       
 // 发请求解绑
-    console.log(this.data.bindUserid,12);
+    console.log(this.data.bindUserid);
+
+    var that = this
    wx.request({
      url: `https://demo30.ilovelibrary.cn/i/api2/wxuserApi/Unbind?bindUserId=${this.data.bindUserid}`,
      method:"DELETE",
      success(res){
-         console.log(res.data);
-         if(res.data.errorCode==0){
-            wx.showToast({
-                title: '解绑成功',    
-                icon: 'success',  
-                duration: 2000//持续的时间
-              })
-              wx.removeStorage({
-                key: 'binduser',   
-                success (res) {
-                  console.log(res)
-                }
-              })
-              setTimeout(()=>{
-                  wx.redirectTo({
-                    url: '/pages/account/account',
+            if(res.data.errorCode==0){
+                wx.showToast({
+                    title: '解绑成功',    
+                    icon: 'success',  
+                    duration: 2000//持续的时间
                   })
-              },2000)
-         }else{
-            wx.showToast({
-                title: '账号未找到',    
-                icon: 'error',  
-                duration: 2000//持续的时间
-              })
-         }
+                  wx.removeStorage({
+                    key: 'binduser',   
+                    success (res) {
+                      console.log(res)
+                    }
+                  })
+                  setTimeout(()=>{
+                      wx.redirectTo({
+                        url: '/pages/account/account',
+                      })
+                  },2000)
+             }else{
+                wx.showToast({
+                    title: res.errorInfo,
+                    icon: 'success',
+                    duration: 2000
+                  })
+             }
+        
+         console.log(res.data);
+         
      }
    })
   },
@@ -82,29 +88,33 @@ Page({
   onShow() {
     GetBindUsers({
       weixinId:this.data.oppenid,
-      containPublic:true
+      containPublic:false
     }).then(res=>{
-      console.log(res,11111);
+      res.forEach(item=>{
+        
+      })
+      //判断身份
+      this.data.readerList=[],
+      this.data.wokerList=[]
       res.users.forEach((item,index)=>{
-        console.log(item.id);
-        if(item.type==0&&item.userName!="public"){
-           this.data.readerList.push(item)
-           this.setData({
+        if(item.type==0){
+          this.data.readerList.push(item)
+          this.setData({
             readerList:this.data.readerList,
             bindUserid:item.id
-           })
+          })
         }
-        if(item.type==1&&item.userName!="public"){
+        if(item.type==1){
           this.data.wokerList.push(item)
           this.setData({
-            wokerList:this.data.wokerList,
+            wokerList:Array.from(new Set(this.data.wokerList)),
             bindUserid:item.id
           })
         }
       })
-      this.setData({
-        libName:res.users[0].libName,
-      })
+      // 图书馆名字显示
+     
+      // 判断左上角显示问题
       if(res.users[0].userName){
         this.setData({
           readerName:res.users[0].userName,   
@@ -115,8 +125,24 @@ Page({
         })
       }
     })
-  },
+    GetActiveUser({weixinId:this.data.oppenid,}).then(res=>{
 
+      this.setData({
+        libName:res.users[0].libName,
+      })
+      if(res.users[0].userName){
+        this.setData({
+          flag:true,
+          libNames:res.users[0].libName
+        })
+      }else{
+        this.setData({
+          flag:false
+        })
+      }   
+    })
+  },
+ 
   /**
    * 生命周期函数--监听页面隐藏
    */

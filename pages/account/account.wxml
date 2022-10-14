@@ -4,6 +4,7 @@
   <navtop readerName="{{readerName}}" list="{{libName}}">
     绑定账号
   </navtop>
+  
     <view class="num">
       <van-cell-group inset>
         <van-field v-model="value1" label="图书馆" placeholder="{{libName}}" placeholder-style="color:#000" class="ipt" />

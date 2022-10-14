@@ -30,6 +30,7 @@ Page({
     result.then(res=>{
         console.log(res);
         this.setData({
+           
             libName:res.users[0].libName
         })
     })

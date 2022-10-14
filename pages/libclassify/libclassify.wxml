@@ -5,11 +5,11 @@
     {{list}}
   </view>
   <view class="libarys">
-    <radio-group  >
+    <radio-group>
       <view wx:for="{{arr}}" wx:key="index" class="details">
         {{item.name}}-
         <label>
-          <radio  class="radios" color="#007aff" value="{{item.name}}" wx:for="{{item.libs}}" wx:for-item="items" wx:key="indexs" wx:key-index="indexs" bindtap="ok" data-lib="{{items.name}}" data-libid="{{items.libId}}">
+          <radio class="radios" color="#007aff" value="{{item.name}}" wx:for="{{item.libs}}" wx:for-item="items" wx:key="indexs" wx:key-index="indexs" bindtap="ok" data-lib="{{items.name}}" data-libid="{{items.libId}}" data-index="{{index}}">
             {{items.name}}
           </radio>
         </label>

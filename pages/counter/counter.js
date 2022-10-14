@@ -10,7 +10,8 @@ Page({
     libName:"",  //图书馆名字
     scanCode:"", //扫描结果
     bindLibraryCode:"",
-    libId:""   //图书馆Id
+    libId:""   ,//图书馆Id
+    readerName:""  //左上角
   },
   skip() {
     wx.navigateTo({
@@ -73,17 +74,7 @@ getCode(){
    */
   onLoad(options) {
 
-      GetActiveUser({
-        weixinId: this.data.oppenid
-      }).then(res=>{
-          console.log(res,9999);
-        this.setData({
-          libName:res.users[0].libName,
-          bindLibraryCode:res.users[0].libraryCode,
-          libId:res.users[0].libId,
-         
-        })
-      })
+    
   },
 
   /**
@@ -97,7 +88,24 @@ getCode(){
    * 生命周期函数--监听页面显示
    */
   onShow() {
-  
+    GetActiveUser({
+        weixinId: this.data.oppenid
+      }).then(res=>{
+        if(res.users[0].userName){
+            this.setData({
+              readerName:res.users[0].userName,   
+            })
+          }else{
+            this.setData({
+              readerName:res.users[0].displayReaderName,
+            })
+          }
+        this.setData({
+          libName:res.users[0].libName,
+          bindLibraryCode:res.users[0].libraryCode,
+          libId:res.users[0].libId, 
+        })
+      })
     
   },
 

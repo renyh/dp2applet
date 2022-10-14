@@ -71,7 +71,7 @@ getQcode(){
    */
   onShow() {
     GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
-
+    console.log(res);
      if(res.users==null){
         this.setData({
             x:1
