@@ -1,5 +1,5 @@
 // compotents/navtop.js
-import {GetActiveUser} from  "../../utils/axios"
+
 Component({
   /**
    * 组件的属性列表

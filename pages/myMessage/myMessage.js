@@ -2,7 +2,9 @@
 
 import {
   GetActiveUser,
-  GetPatron
+  GetPatron,
+  GetBindUsers,
+  GetPatronQRcode
 } from "../../utils/axios"
 // 引入生成二维码的文件
 const qrCode = require("../../utils/weapp-qrcode.js")
@@ -12,6 +14,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    oppenid: wx.getStorageSync('oppenid'),
     libName: "",
     id: "",
     list: [],
@@ -24,6 +27,7 @@ Page({
     userName: "", //判断显示界面
     type:"", //个人类型
     x:"",
+    y:"",   //判断
     readerName:""//左上角显示
   },
   // 去待交费界面
@@ -32,9 +36,22 @@ Page({
       url: '/pages/Pay/Pay',
     })
   },
+  // 绑定判断
   here() {
-    wx.navigateTo({
-      url: '/pages/account/account',
+    GetBindUsers({
+      weixinId:this.data.oppenid,
+      containPublic:false
+    }).then(res=>{
+      if(res.users.length){
+        wx.navigateTo({
+          url: '/pages/accManagement/accManagement',
+        })
+      }else{
+        wx.navigateTo({
+          url:'/pages/account/account'
+      })
+      }
+    
     })
   },
   // 去预约界面
@@ -53,26 +70,21 @@ Page({
     })
   },
   onLoad(options) {
-
-
     //  获取个人用户信息
     this.setData({
       id: wx.getStorageSync('oppenid'),
     })
-    var that = this
-    wx.getStorage({
-      key: 'binduser',
-      success(res) {
-        that.setData({
-          binduser: res.data
-        })
-      }
-    })
+
     //  判断显示页面
 
 
   },
-
+  // 选择图书馆
+  slectLibary(){
+    wx.navigateTo({
+      url: '/pages/libclassify/libclassify',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -85,49 +97,65 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+  
     var data = {
       weixinId: this.data.id,
-
     }
     GetActiveUser(data).then(res => {
-      console.log(res,1111);
-      this.setData({
-        libid: res.users[0].libId,
-        patronBarcode: res.users[0].displayReaderBarcode,
-        username: res.users[0].userName,
-        libName: res.users[0].libName,
-        userName: res.users[0].userName,
-        type: res.users[0].type
-      })
-      console.log(this.data.userName.length,6666);
-      if (!this.data.userName&&this.data.binduser.length&&this.data.type=="0") {
+
+      if(res.users==null){
         this.setData({
-          x: 0
-        })
-      } else { //说明为public，未绑定读者账号
-        this.setData({
-          x: 1
-        })
-      } 
-      console.log(this.data.x);
-      if(res.users[0].userName){
-        this.setData({
-          readerName:res.users[0].userName,   
+          y:1
         })
       }else{
         this.setData({
-          readerName:res.users[0].displayReaderName,
+          libid: res.users[0].libId,
+          patronBarcode: res.users[0].displayReaderBarcode,
+          username: res.users[0].userName,
+          libName: res.users[0].libName,
+          userName: res.users[0].userName,
+          type: res.users[0].type,
+          y:0
         })
+        if (this.data.type=="0") {
+          this.setData({
+            x: 0
+          })
+        } else { //说明为public，未绑定读者账号
+          this.setData({
+            x: 1
+          })
+        } 
+
+        if(res.users[0].userName){
+          this.setData({
+            readerName:res.users[0].userName,   
+          })
+        }else{
+          this.setData({
+            readerName:res.users[0].displayReaderName,
+          })
+        }
       }
+      GetPatronQRcode({
+          weixinId:this.data.oppenid,
+          libId:this.data.libid,
+          patronBarcode:this.data.patronBarcode
+      }).then(res=>{
+        this.setData({
+          qrcodeUrl: res.info
+        })
+      })
       GetPatron({
         libid: this.data.libid,
         patronBarcode: this.data.patronBarcode,
         username: this.data.username
       }).then(res => {
+
         this.setData({
           list: res.obj,
           reservations: res.obj.reservations,
-          qrcodeUrl: res.obj.qrcodeUrl
+          
         })
         //  生成二维码
         new qrCode("myCanvas", {

@@ -22,7 +22,9 @@ Page({
     placeholder:"请输入检索词"||"",
     errorInfo:"", //提示信息
     flag:"",
-    readerName:""
+    readerName:"",
+    flag1:"" , //判断显示下方显示信息
+    y:""
 
   },
 
@@ -44,27 +46,29 @@ Page({
       "match":"left",
       "resultSet":"applet"
     }).then(res=>{
-      console.log(res);
+      console.log(res,66666);
       if(res.apiResult.errorCode==-1){
         wx.showModal({
           title: '提示',
           content:res.apiResult.errorInfo,
         })
         this.setData({
-          errorInfo:res.apiResult.errorInfo
+          errorInfo:res.apiResult.errorInfo,
+          flag1:false
         })
       }else{
         // 判断图书命中方式
         if(res.records.length){
           this.setData({
-            books:res.records,
-            book:res,
-            flag:false
+            books:res,
+            flag:false,
+            flag1:true
           })
         }else{
           this.setData({
             flag:true,
-            books:[]
+            books:[],
+            flag1:true
           })
         }
        
@@ -114,39 +118,53 @@ scanCodeEvent(){
   onReady() {
 
   },
-
+  slectLibary(){
+    wx.navigateTo({
+      url: '/pages/libclassify/libclassify',
+    })
+  },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
     GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
-      if(res.users[0].userName){
+      if(res.users==null){
         this.setData({
-          readerName:res.users[0].userName,   
+          y:1
         })
       }else{
+        if(res.users[0].userName){
+          this.setData({
+            readerName:res.users[0].userName,   
+          })
+        }else{
+          this.setData({
+            readerName:res.users[0].displayReaderName,
+          })
+        }
         this.setData({
-          readerName:res.users[0].displayReaderName,
+          libName:res.users[0].libName,
+          y:0
+          
+        })
+        if(res.users[0].type==0){
+          this.setData({
+           loginUserType:"patron",
+           loginUserName:res.users[0].displayReaderName,
+          })
+        }else if(res.users[0].type==1){
+         this.setData({
+           loginUserType:"",
+           loginUserName:res.users[0].userName
+          })
+        }
+        this.setData({
+         libId:res.users[0].libId,
+         wxid:res.users[0].weixinId
         })
       }
-      this.setData({
-        libName:res.users[0].libName
-      })
-      if(res.users[0].type==0){
-        this.setData({
-         loginUserType:"patron",
-         loginUserName:res.users[0].displayReaderName,
-        })
-      }else if(res.users[0].type==1){
-       this.setData({
-         loginUserType:"",
-         loginUserName:res.users[0].userName
-        })
-      }
-      this.setData({
-       libId:res.users[0].libId,
-       wxid:res.users[0].weixinId
-      })
+
+     
     })
   },
 
@@ -190,8 +208,9 @@ scanCodeEvent(){
       "match":"left",
       "resultSet":"applet"
     }).then(res=>{
-      console.log(res);
-      this.data.books.push(...res.records)
+      console.log(res,5);
+      console.log(this.data.books,999);
+      this.data.books.records.push(...res.records)
       this.setData({
         books:this.data.books
       })

@@ -31,3 +31,13 @@
   color: white;
   line-height: 80rpx;
 }
+.libNames{
+  display: flex;
+}
+.alert{
+  width: 90%;
+  margin: 0 auto;
+  font-size: 30rpx;
+  border: 3px dotted #cccc00;
+  padding: 10rpx;
+}

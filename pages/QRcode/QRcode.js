@@ -1,4 +1,4 @@
-  import {GetActiveUser,GetPatronQRcode} from "../../utils/axios"
+  import {GetActiveUser,GetPatronQRcode,GetBindUsers} from "../../utils/axios"
   const qrCode =  require("../../utils/weapp-qrcode.js")
 Page({
 
@@ -12,29 +12,42 @@ Page({
     patronBarcode:"", //读者证条码号
     info:'',  //二维码信息
     readerName:"",  //读者姓名
-    binduser:[]  , //判断页面
     libName:"",
     userName: "", //判断显示界面
     type:"", //个人类型
     x:"",
-    readerName:""//左上角显示
-
+    readerName:"",//左上角显示
+    y:""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    // 获取本地存储信息
-    this.setData({
-        binduser:wx.getStorageSync('binduser')
-    })
+    
    
+  },
+  slectLibary(){
+    wx.navigateTo({
+      url: '/pages/libclassify/libclassify',
+    })
   },
 // 跳转到登录页面
 goLogin(){
-  wx.navigateTo({
-    url: '/pages/account/account',
+  GetBindUsers({
+    weixinId:this.data.oppenid,
+    containPublic:false
+  }).then(res=>{
+    if(res.users.length){
+      wx.navigateTo({
+        url: '/pages/accManagement/accManagement',
+      })
+    }else{
+      wx.navigateTo({
+        url:'/pages/account/account'
+    })
+    }
+  
   })
 },
   /**
@@ -50,44 +63,50 @@ goLogin(){
   onShow() {
  // 获取用户信息
  GetActiveUser({weixinId:this.data.oppenid,
-      
  }).then(res=>{
-     console.log(res);
-   this.setData({
-     libId:res.users[0].libId,
-     patronBarcode:res.users[0].displayReaderBarcode,
-     readerName:res.users[0].readerName,
-     weixinId:res.users[0].weixinId,
-     libName:res.users[0].libName,
-     userName: res.users[0].userName,
-     type: res.users[0].type
-   })
-   if (!this.data.userName&&this.data.binduser.length&&this.data.type=="0") {
+  if(res.users==null){
     this.setData({
-      x: 0
-    })
-  } else { //说明为public，未绑定读者账号
-    this.setData({
-      x: 1
-    })
-  } 
-  console.log(this.data.x);
-  if(res.users[0].userName){
-    this.setData({
-      readerName:res.users[0].userName,   
+      y:1
     })
   }else{
     this.setData({
-      readerName:res.users[0].displayReaderName,
+      libId:res.users[0].libId,
+      patronBarcode:res.users[0].displayReaderBarcode,
+      readerName:res.users[0].readerName,
+      weixinId:res.users[0].weixinId,
+      libName:res.users[0].libName,
+      userName: res.users[0].userName,
+      type: res.users[0].type,
+      y:0
     })
+    if (this.data.type=="0") {
+     this.setData({
+       x: 0
+     })
+   } else { //说明为public，未绑定读者账号
+     this.setData({
+       x: 1
+     })
+   } 
+   if(res.users[0].userName){
+     this.setData({
+       readerName:res.users[0].userName,   
+     })
+   }else{
+     this.setData({
+       readerName:res.users[0].displayReaderName,
+     })
+   }
+
   }
+
    // 获取二维码信息
    GetPatronQRcode({
      weixinId:this.data.weixinId,
      libId:this.data.libId,
      patronBarcode:this.data.patronBarcode
    }).then(res=>{
-     console.log(res,12333);
+
      this.setData({
        info:res.info
      })
@@ -98,7 +117,7 @@ goLogin(){
        height:200,
        padding:12,
        callback:res=>{
-           console.log(res.path,44444);
+  
            this.setData({
                codePath:res.path
            })

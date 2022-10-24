@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-   list:[],
+  
    bindUserid:"",  //解绑id
    oppenid: wx.getStorageSync('oppenid'),
    libName:"",   //图书馆名字
@@ -15,7 +15,7 @@ Page({
    readerList:[], //读者账号合集
    wokerList:[], //工作人员账号合集
    flag:false,
-   libNames:"" //错误信息图书馆名字
+
   }, 
 
   /**
@@ -34,12 +34,13 @@ Page({
       
 // 发请求解绑
     console.log(this.data.bindUserid);
-
+  
     var that = this
    wx.request({
      url: `https://demo30.ilovelibrary.cn/i/api2/wxuserApi/Unbind?bindUserId=${this.data.bindUserid}`,
      method:"DELETE",
      success(res){
+       console.log(res,191919);
             if(res.data.errorCode==0){
                 wx.showToast({
                     title: '解绑成功',    
@@ -76,9 +77,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-    this.setData({
-        list: wx.getStorageSync('list'),
-      })
+
      
   },
   
@@ -90,9 +89,6 @@ Page({
       weixinId:this.data.oppenid,
       containPublic:false
     }).then(res=>{
-      res.forEach(item=>{
-        
-      })
       //判断身份
       this.data.readerList=[],
       this.data.wokerList=[]
@@ -130,14 +126,16 @@ Page({
       this.setData({
         libName:res.users[0].libName,
       })
-      if(res.users[0].userName){
+      if(res.users[0].userName=="public"){
         this.setData({
           flag:true,
-          libNames:res.users[0].libName
+          libNames:res.users[0].libName,
+          readerName:res.users[0].userName
         })
       }else{
         this.setData({
-          flag:false
+          flag:false,
+          readerName:res.users[0].readerBarcode
         })
       }   
     })

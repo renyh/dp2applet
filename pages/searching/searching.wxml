@@ -1,6 +1,9 @@
 <!--pages/searching/searching.wxml-->
 <navs list="{{libName}}" readerName="{{readerName}}">书目查询</navs>
-<view class="searching">
+<view wx:if="{{y}}">
+  <view class="textLib">你尚未选择图书馆,<text class="txt" bindtap="slectLibary">请先选择图书馆。</text></view>
+</view>
+<view class="searching" wx:else="">
   <view class="searchs">
     <image class="libPic" bindtap="scanCodeEvent" src="https://demo30.ilovelibrary.cn/i/img/barcode.png"></image>
     <input type="text" bindchange="getword" class="ipt" placeholder="{{placeholder}}" />
@@ -10,11 +13,11 @@
     <text>(简单检索默认以"前方一致"匹配)</text>
     <text class="tall" bindtap="advancedSearch">高级检索</text>
   </view>
-  <view wx:if="{{!books.length}}" class="errorInfo">
-  {{errorInfo}}
+  <view wx:if="{{flag1}}">
+    <text wx:if="{{flag}}" class="miss">未命中</text>
+    <books books="{{books}}"></books>
   </view>
- <view>
-  <text wx:if="{{flag}}" class="miss">未命中</text>
-  <books books="{{books}}"></books>
- </view>
+  <view wx:else=""  class="errorInfo">
+    {{errorInfo}}
+  </view>
 </view>

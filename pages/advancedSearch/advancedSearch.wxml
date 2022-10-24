@@ -25,5 +25,11 @@
     <text>(简单检索默认与“前方一致”匹配)</text>
     <text class="tall" bindtap="simpleSearch">简单检索</text>
   </view>
-  <books books="{{books}}"></books>
+  <view wx:if="{{flag1}}">
+    <text wx:if="{{flag}}" class="miss">未命中</text>
+    <books books="{{books}}"></books>
+  </view>
+  <view wx:else=""  class="errorInfo">
+    {{errorInfo}}
+  </view>
 </view>

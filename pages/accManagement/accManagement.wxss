@@ -46,3 +46,14 @@
   display: block;
   font-size: 35rpx;
 }
+.errorInfo{
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  color: red;
+}
+.readerName{
+  margin-left: 10rpx;
+  font-weight: 700;
+  color: #006400;
+}

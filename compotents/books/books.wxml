@@ -1,9 +1,9 @@
 <!--compotents/books/books.wxml-->
 <view class="books">
-  <view class="numbers" wx:if="{{books.length}}">
-    命中{{books.length}}条记录
+  <view class="numbers" wx:if="{{books.records.length}}">
+    命中{{books.apiResult.errorCode}}条记录
   </view>
-  <view class="bookItem" wx:for="{{books}}" wx:key="index" data-recPach="{{item.recPath}}" bindtap="getDetail">
+  <view class="bookItem" wx:for="{{books.records}}" wx:key="index" data-recPach="{{item.recPath}}" bindtap="getDetail">
       <view class="text"><text class="text1">{{item.no}}</text>{{item.name}}</view>
       <view class="text2">{{item.recPath}}</view>
   </view> 

@@ -9,7 +9,6 @@ Page({
      * 页面的初始数据
      */
     data: {
-        value1: "",
         onShow: false,
         x: 0,
         hiddens: ["姓名（不是账户名）", "证条号码", "电话号码", "工作人员账户"],
@@ -24,8 +23,6 @@ Page({
         id: "" ,//解绑时用的id
         readerName:"",
         bindLibraryCode:""   //绑定时图书馆代码
-
-
     },
     // 下拉框展示
     selecTap() {
@@ -78,29 +75,22 @@ Page({
         data = {
             "weixinId": this.data.opid,
             "libId": this.data.libid,
-            "bindLibraryCode":this.data.bindLibraryCode,   //todo
+            "bindLibraryCode":this.data.bindLibraryCode,   
             "prefix": this.data.prefix[this.data.x],
             "word": this.data.username,
             "password": this.data.password
         }
         bind(data).then(res => {
             console.log(res,123);
-            this.setData({
-              id:res.users[0].id
-            })
             if (res.errorCode == 0) {
                 wx.showToast({
                     title: '绑定成功',
                     icon: 'success',
                     duration: 2000 //持续的时间
                 })
-                wx.setStorage({
-                    key: "binduser",
-                    data: res.users
-                }) //todo  binduser
                 setTimeout(() => {
                     wx.navigateTo({
-                        url: `../../pages/accManagement/accManagement?id=${this.data.id}`,
+                        url: `../../pages/accManagement/accManagement?`,
                     })
                 }, 2000)
             } else {
@@ -141,7 +131,6 @@ Page({
         GetActiveUser({
             weixinId: this.data.oppenid
         }).then(res => {
-          console.log(res,444);
             this.setData({
                 weixinId: res.users[0].weixinId,
                 libid: res.users[0].libId,

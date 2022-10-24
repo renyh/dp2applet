@@ -7,6 +7,8 @@ Page({
    */
   data: {
     oppenid: wx.getStorageSync('oppenid'),
+    readerName:"", //用于导航栏左上角
+    libName:"",//用于导航栏右上角
   },
   // 跳转检索页
   search(){
@@ -33,15 +35,19 @@ Page({
    */
   onShow() {
     GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
-     if(res.users==null){
-        this.setData({
-            x:1
-        })
-     }else{
-      this.setData({
-          x:0
-      })
-     }
+        //判断导航栏左上角信息提示
+        if(res.users[0].type==0){
+          this.setData({
+           readerName:res.users[0].readerBarcode,
+          })
+        }else{
+         this.setData({
+           readerName:res.users[0].userName,
+          })
+        }
+         this.setData({    
+           libName:res.users[0].libName
+         })
     })
   },
   slectLibary(){

@@ -37,7 +37,12 @@ Page({
       ipone: e.detail
     })
   },
-
+  // 跳转到图书馆选择
+  skip() {
+    wx.navigateTo({
+        url: '/pages/libclassify/libclassify',
+    })
+},
   // 获取临时密码
   getPoCode() {
     var that = this

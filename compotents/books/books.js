@@ -5,7 +5,7 @@ Component({
    */
   properties: {
     books:{
-      type:Array
+      type:Object
     }
   },
 
@@ -14,7 +14,8 @@ Component({
    */
   data: {
     list:[],   //判断下方显示内容
-    flag:""
+    flag:"",
+    num:""   //书目总数
   },
 
   /**
@@ -30,6 +31,6 @@ Component({
     },
   },
   lifetimes:{
- 
+     
   }
 })

@@ -49,4 +49,22 @@
 .subscribe{
   width: 180rpx;
   height: 100rpx;
+  margin-left: 100rpx;
+}
+.here{
+  color: #008cfc;
+}
+.booked{
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.giveUp{
+width: 300rpx;
+position: absolute;
+top: 0rpx;
+right:-40rpx;
+}
+.book6{
+  background-color: yellow;
 }

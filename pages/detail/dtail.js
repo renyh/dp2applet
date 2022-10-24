@@ -3,7 +3,7 @@ import {
   GetActiveUser,
   GetBiblio,
   getItems,
-  Reserveh
+  GetPatron
 } from "../../utils/axios"
 Page({
 
@@ -11,22 +11,32 @@ Page({
    * 页面的初始数据
    */
   data: {
-    recpach: "",  //接受跳转过来的书目路径
+    recpach: "", //接受跳转过来的书目路径
     oppenid: wx.getStorageSync('oppenid'),
     loginUserName: "",
     loginUserType: "",
     libId: "",
-    displayReaderBarcode:"",  //读者证条码号
-    itemBarcodes:"",   //册条码号
+    displayReaderBarcode: "", //读者证条码号
+    itemBarcodes: "", //册条码号
     format: "table",
-    binduser:[],
-    jsonItem:[], //转化
-    images:[],  //图片管理
-    books:[],//册信息
-    userName:"" //判断是否为读者
+    binduser: [],
+    jsonItem: [], //转化
+    images: [], //图片管理
+    books: [], //册信息
+    userName: "", //判断是否为读者
+    flag: "",
+    barcode: "",
+    flag: true,
+    flag1: false,
+    flag2: false,
+    errorInfo: "",
+    patronBarcode: "",
+    userName: "",
+    infos: [], //预约信息
+    infoss: "未预约"
   },
   // 跳转到绑定账户界面
-  goBound(){
+  goBound() {
     wx.navigateTo({
       url: '/pages/account/account',
     })
@@ -36,28 +46,64 @@ Page({
    */
   onLoad(options) {
     this.setData({
-      recpach:options.recpach,
-      binduser:wx.getStorageSync('binduser')
+      recpach: options.recpach,
+
     })
 
 
-   
+
+  },
+  goHere() {
+    if (this.data.binduser.length) {
+      wx.navigateTo({
+        url: '/pages/accManagement/accManagement',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/account/account'
+      })
+    }
   },
   //点击进行图书预约
-  getSubscribe(){
-    wx.request({
-      url: `http://demo30.ilovelibrary.cn/i/api2/CirculationApi/Reserve?weixinId=${this.data.oppenid}&libId=${this.data.libId}&patronBarcode=${this.data.displayReaderBarcode}&itemBarcodes=${this.data.itemBarcodes}&style=new`,
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      method: "POST",
-      success(res){
-        console.log(res);
+  getSubscribe() {
+    var that = this
+    wx.showModal({
+      title: '提示',
+      content: `你确定对该册进行预约吗？`,
+      success(res) {
+        if (res.confirm) {
+          wx.request({
+            url: `http://demo30.ilovelibrary.cn/i/api2/CirculationApi/Reserve?weixinId=${that.data.oppenid}&libId=${that.data.libId}&patronBarcode=${that.data.displayReaderBarcode}&itemBarcodes=${that.data.itemBarcodes}&style=new`,
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            method: "POST",
+            success(res) {
+              console.log(res.data, 66644);
+              if (res.data.errorCode == 0) {
+                that.setData({
+                  errorInfo: res.data.errorInfo
+                })
+                that.setData({
+                  flag: false,
+                  flag1: true,
+                  flag2: true,
+                  infoss: "已到书"
+                })
+              }
+            }
+          })
+        } else if (res.cancel) {
+            
+        }
       }
     })
-    
-  },
 
+  },
+  // 放弃取书
+  giveUpBook() {
+
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -73,21 +119,26 @@ Page({
     GetActiveUser({
       weixinId: this.data.oppenid,
     }).then(res => {
-      console.log(res,666666);
+      console.log(res, 666666);
+
       if (res.users[0].type == 0) {
         this.setData({
-          loginUserType:"patron",
+          flag: false,
+          loginUserType: "patron",
           loginUserName: res.users[0].displayReaderName,
-          displayReaderBarcode:res.users[0].displayReaderBarcode
+          displayReaderBarcode: res.users[0].displayReaderBarcode
         })
       } else if (res.users[0].type == 1) {
         this.setData({
+          flag: true,
           loginUserType: "",
           loginUserName: res.users[0].userName
         })
       }
       this.setData({
-        libId: res.users[0].libId
+        libId: res.users[0].libId,
+        patronBarcode: res.users[0].displayReaderBarcode,
+        userName: res.users[0].userName,
       })
       GetBiblio({
         loginUserName: this.data.loginUserName,
@@ -96,26 +147,37 @@ Page({
         libId: this.data.libId,
         biblioPath: this.data.recpach,
       }).then(res => {
-        console.log(res,1111);
-        res.info=res.info.replace(/@/g,'')
+        console.log(res, 1111);
+        res.info = res.info.replace(/@/g, '')
         var info1 = JSON.parse(res.info)
         console.log(info1);
         var info2 = info1.root.line
-        if(info2[0].name!="_coverImage"){
+        if (info2[0].name != "_coverImage") {
           info2.unshift({
-            value:""
+            value: ""
           })
           this.setData({
-            images:info2[0],
-            jsonItem:info2.slice(1)
+            images: info2[0],
+            jsonItem: info2.slice(1)
           })
-        }else{
+        } else {
           this.setData({
-            images:info2[0],
-            jsonItem:info2.slice(1)
+            images: info2[0],
+            jsonItem: info2.slice(1)
           })
         }
 
+      })
+      // 获取预约信息i
+      GetPatron({
+        libId: this.data.libId,
+        patronBarcode: this.data.patronBarcode,
+        userName: this.data.userName
+      }).then(res => {
+        console.log(res.obj.reservations, 89898989);
+        this.setData({
+          infos: res.obj.reservations
+        })
       })
       // 获取册信息
       getItems({
@@ -124,13 +186,38 @@ Page({
         weixinId: this.data.oppenid,
         libId: this.data.libId,
         biblioPath: this.data.recpach,
-      }).then(res=>{
-        console.log(res,995);
+      }).then(res => {
+        console.log(res, 995);
         this.setData({
-          books:res.itemList,
-          itemBarcodes:res.itemList[0].barcode
+          barcode: res.itemList.barcode,
+          books: res.itemList,
+          itemBarcodes: res.itemList[0].barcode
+        })
+        this.data.infos.forEach(item => {
+          console.log(item, 9999999);
+          res.itemList.forEach(item1 => {
+            console.log(item1, 22222222);
+            if (item.pureBarcodes == item1.barcode) {
+              this.setData({
+                flag: false,
+                flag1: true,
+                flag2: true,
+                infoss: "已到书"
+              })
+            }
+          })
         })
       })
+
+    })
+    var that = this
+    wx.getStorage({
+      key: 'binduser',
+      success(res) {
+        that.setData({
+          binduser: res.data
+        })
+      }
     })
   },
 

@@ -41,3 +41,6 @@
   margin: 0 auto;
   color: red;
 }
+.txt{
+  color: #007afd;
+}

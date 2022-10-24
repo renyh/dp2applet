@@ -1,5 +1,5 @@
 // pages/mylibrary/mylibrary.ts
-import { GetActiveUser } from "../../utils/axios"
+import { GetActiveUser,GetBindUsers } from "../../utils/axios"
 Page({
 
   /**
@@ -8,8 +8,10 @@ Page({
   data: {
      list:[],
      binduser:[],
-     x:"",
      oppenid: wx.getStorageSync('oppenid'),
+     readerName:"", //用于导航栏左上角
+     libName:"",//用于导航栏右上角
+     users:[] // 判断跳转页面
   },
   slectLibary(){
     wx.navigateTo({
@@ -24,7 +26,7 @@ Page({
   },
 //   绑定账户
   jmp(){
-      if(this.data.binduser.length){
+      if(this.data.users.length){
         wx.navigateTo({
           url: '/pages/accManagement/accManagement',
         })
@@ -71,25 +73,28 @@ getQcode(){
    */
   onShow() {
     GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
-    console.log(res);
-     if(res.users==null){
-        this.setData({
-            x:1
-        })
+    //判断导航栏左上角信息提示
+     if(res.users[0].type==0){
+       this.setData({
+        readerName:res.users[0].readerBarcode,
+       })
      }else{
       this.setData({
-          x:0
-      })
+        readerName:res.users[0].userName,
+       })
      }
+      this.setData({
+        libName:res.users[0].libName
+      })
     })
-    var that = this
-    wx.getStorage({
-      key: 'binduser',
-      success (res) {
-        that.setData({
-            binduser:res.data
-        })
-      }
+    GetBindUsers({
+      weixinId:this.data.oppenid,
+      containPublic:false
+    }).then(res=>{
+      console.log(res,55555);
+      this.setData({
+        users:res.users
+      })
     })
 
   },

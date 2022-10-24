@@ -15,12 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    console.log(0||1);
-    console.log(0||0);
-    console.log(1||2);
-    console.log(1&&0);
-    console.log(0&&0);
-    console.log(1&&2);
+
   },
 
   /**

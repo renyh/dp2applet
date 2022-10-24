@@ -5,7 +5,7 @@
   <text class="Account">读者账号</text>
   <view class="card" wx:for="{{readerList}}" wx:key="index">
     <view class="reader">
-      <text>读者：</text><text>{{item.readerBarcode}}</text>
+      <text>读者：</text><text>{{item.readerBarcode}}</text><text class="readerName">{{item.displayReaderName}}</text>
     </view>
     <view class="libName">
       <text>图书馆：</text><text>{{item.libName}}</text>

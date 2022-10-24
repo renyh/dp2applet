@@ -41,13 +41,6 @@ getCode(){
                    wx.showModal({
                     title: '提示',
                     content: res.errorInfo+data.word,
-                    success (res) {
-                      if (res.confirm) {
-                        console.log('用户点击确定')
-                      } else if (res.cancel) {
-                        console.log('用户点击取消')
-                      }
-                    }
                    })
                }else{
                 wx.showToast({
@@ -55,10 +48,6 @@ getCode(){
                     icon: 'success',
                     duration: 2000 //持续的时间
                 })
-                wx.setStorage({
-                    key: "binduser",
-                    data: res.users
-                }) //todo  binduser
                 setTimeout(() => {
                     wx.navigateTo({
                         url: `../accManagement/accManagement`,

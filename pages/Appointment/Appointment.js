@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    errorInfo:"", //提示信息
     reservations:[], //存放借书信息
     patronbarcode:"" ,//册条码号
     operatorAccount:"",  //读者证条码号

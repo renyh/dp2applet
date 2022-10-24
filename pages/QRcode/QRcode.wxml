@@ -1,6 +1,10 @@
 <!--pages/QRcode/QRcode.wxml-->
 <navs list="{{libName}}" readerName="{{readerName}}">二维码</navs>
-<view wx:if="{{x}}">
+<view wx:if="{{y}}">
+  <view class="textLib">你尚未选择图书馆,<text class="txt1" bindtap="slectLibary">请先选择图书馆。</text></view>
+</view>
+<view wx:else="">
+  <view wx:if="{{x}}">
   你当前账户不是读者账户，不能查看二维码，请点击<text class="here" bindtap="goLogin">这里</text>进行绑定
 </view>
 <view wx:else="">
@@ -10,4 +14,5 @@
     <text>（{{patronBarcode}}）</text>
   </view>
   <text class="txt">（不要把二维码展示和提供给无关人员，以免账号被窃。）</text>
+</view>
 </view>
