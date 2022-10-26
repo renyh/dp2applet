@@ -1,9 +1,9 @@
 <!--pages/temporaryword/temporaryword.wxml-->
-<nav list="{{libName}}" readerName="{{readerName}}">找回密码</nav>
+<navs id="getActivelib">找回密码</navs>
 <view>
   <van-cell-group inset>
    <view class="libNames">
-    <van-field v-model="value" label="图书馆" placeholder="{{libName}}" placeholder-style="color:#000" readonly />
+    <van-field v-model="value" label="图书馆" placeholder="{{libNames}}" placeholder-style="color:#000" readonly />
     <van-button icon="weapp-nav.path" bindtap="skip"></van-button>
    </view>
     <van-field v-model="value1" bindchange="getName" label="姓名" placeholder="请输入姓名" />

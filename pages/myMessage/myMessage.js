@@ -71,11 +71,9 @@ Page({
   },
   onLoad(options) {
     //  获取个人用户信息
-    this.setData({
-      id: wx.getStorageSync('oppenid'),
-    })
 
-    //  判断显示页面
+
+
 
 
   },
@@ -97,12 +95,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-  
+    this.selectComponent("#getActivelib").getActivelib()
     var data = {
       weixinId: this.data.id,
     }
     GetActiveUser(data).then(res => {
-
       if(res.users==null){
         this.setData({
           y:1
@@ -126,16 +123,6 @@ Page({
             x: 1
           })
         } 
-
-        if(res.users[0].userName){
-          this.setData({
-            readerName:res.users[0].userName,   
-          })
-        }else{
-          this.setData({
-            readerName:res.users[0].displayReaderName,
-          })
-        }
       }
       GetPatronQRcode({
           weixinId:this.data.oppenid,
@@ -151,7 +138,6 @@ Page({
         patronBarcode: this.data.patronBarcode,
         username: this.data.username
       }).then(res => {
-
         this.setData({
           list: res.obj,
           reservations: res.obj.reservations,

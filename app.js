@@ -28,7 +28,10 @@ App({
 
   },
   globalData: {
-    userInfo: null,
-    libs:[]
+   
   }
 })
+
+export {
+
+}

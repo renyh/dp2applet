@@ -1,6 +1,6 @@
 <!--pages/advancedSearch/advancedSearch.wxml-->
 <view class="adsearch">
-  <navs list="{{libName}}" readerName="{{readerName}}">书目查询</navs>
+  <navs id="getActivelib"> 书目查询</navs>
 <view class="opptions" wx:if="{{onShow}}">
     <view wx:for="{{hiddens}}" wx:key="index" bindtap="opption" data-index="{{index}}" data-item="{{item}}" class="{{x==index?'active':''}}">{{item}}</view>
 </view>

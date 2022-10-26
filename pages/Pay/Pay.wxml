@@ -1,4 +1,4 @@
 <!--pages/Pay/Pay.wxml-->
-<navs list="{{libName}}">违约交费</navs>
+<navs id="getActivelib">违约交费</navs>
 <image class="pic" src="https://demo30.ilovelibrary.cn/i/img/empty2.jpg"></image>
 <text class="txt">你目前没有违约交费记录。</text>

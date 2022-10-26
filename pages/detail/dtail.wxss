@@ -68,3 +68,16 @@ right:-40rpx;
 .book6{
   background-color: yellow;
 }
+.bookMation{
+  width: 90%;
+  height: 60rpx;
+  margin: 0 auto;
+  padding: 10rpx;
+  border: 1rpx solid #DDD;
+  border-radius: 10rpx;
+  color: #999;
+  overflow: hidden;
+}
+.bookMation>text{
+  margin-bottom: 30rpx;
+}

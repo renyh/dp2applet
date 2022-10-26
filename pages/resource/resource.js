@@ -6,9 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    oppenid: wx.getStorageSync('oppenid'),
-    readerName:"", //用于导航栏左上角
-    libName:"",//用于导航栏右上角
+
+
   },
   // 跳转检索页
   search(){
@@ -34,25 +33,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
-        //判断导航栏左上角信息提示
-        if(res.users[0].type==0){
-          this.setData({
-           readerName:res.users[0].readerBarcode,
-          })
-        }else{
-         this.setData({
-           readerName:res.users[0].userName,
-          })
-        }
-         this.setData({    
-           libName:res.users[0].libName
-         })
-    })
+    this.selectComponent("#getActivelib").getActivelib()
   },
   slectLibary(){
     wx.navigateTo({
-      url: '/pages/libclassify/libclassify',
+      url: '/pages/selectlibs/selectlibs',
     })
 },
 

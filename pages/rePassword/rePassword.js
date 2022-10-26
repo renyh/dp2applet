@@ -1,5 +1,5 @@
 // pages/rePassword/rePassword.js
-import {GetActiveUser} from "../../utils/axios"
+import {baseUrl} from "../../utils/axios"
 
 Page({ 
   /**
@@ -49,7 +49,7 @@ Page({
   // 修改密码
   amendCode(){
     wx.request({
-      url:  `https://demo30.ilovelibrary.cn/i/api2/wxuserApi/ChangePassword?&libId=${this.data.libId}&patron=${this.data.CardId}&oldPassword=${this.data.oldCode}&newPassword=${this.data.newCode}`,
+      url:  baseUrl+`/i/api2/wxuserApi/ChangePassword?&libId=${this.data.libId}&patron=${this.data.CardId}&oldPassword=${this.data.oldCode}&newPassword=${this.data.newCode}`,
       header:{
         "Content-Type":"application/x-www-form-urlencoded"
       },
@@ -96,23 +96,7 @@ Page({
    */
   onShow() {
  // 获取图书馆信息
- GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
-  console.log(res,123333);
-  // 获取当前图书馆名字及id
-  this.setData({
-    libName:res.users[0].libName,
-    libId:res.users[0].libId
-  })
-  if(res.users[0].userName){
-    this.setData({
-      readerName:res.users[0].userName,   
-    })
-  }else{
-    this.setData({
-      readerName:res.users[0].displayReaderName,
-    })
-  }
-})
+ this.selectComponent("#getActivelib").getActivelib()
   },
 
   /**

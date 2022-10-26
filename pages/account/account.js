@@ -15,11 +15,10 @@ Page({
         prefix: ["NB", "", "TP", "UN"],
         username: '',
         password: '',
-        opid: "",
         libid: '',
         oppenid: wx.getStorageSync('oppenid'),
-        libName: "" || "请选择图书馆",
-        libs: wx.getStorageInfoSync("libs"),
+        libName: "",
+        libNames:"" || "请选择图书馆",
         id: "" ,//解绑时用的id
         readerName:"",
         bindLibraryCode:""   //绑定时图书馆代码
@@ -39,7 +38,7 @@ Page({
     },
     skip() {
         wx.navigateTo({
-            url: '/pages/libclassify/libclassify',
+            url: '/pages/selectlibs/selectlibs',
         })
     },
     // 找回密码
@@ -73,7 +72,7 @@ Page({
         // 登录
         var data
         data = {
-            "weixinId": this.data.opid,
+            "weixinId": this.data.oppenid,
             "libId": this.data.libid,
             "bindLibraryCode":this.data.bindLibraryCode,   
             "prefix": this.data.prefix[this.data.x],
@@ -108,47 +107,33 @@ Page({
         // 获取对应参数集合
 
     },
-    //  下拉框
+
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady() {
-        var that = this
-        wx.getStorage({
-            key: 'oppenid',
-            success(res) {
-                that.setData({
-                    opid: res.data
-                })
-            }
-        })
+      
     },
     /**
      * 生命周期函数--监听页面显示
      */
     onShow() {
+      this.selectComponent("#getActivelib").getActivelib()
         GetActiveUser({
             weixinId: this.data.oppenid
         }).then(res => {
+          if(res.users!=null){
             this.setData({
-                weixinId: res.users[0].weixinId,
-                libid: res.users[0].libId,
-                libName: res.users[0].libName,
-                bindLibraryCode:res.users[0].bindLibraryCode
-            })
-            if(res.users[0].userName){
-              this.setData({
-                readerName:res.users[0].userName,   
-              })
-            }else{
-              this.setData({
-                readerName:res.users[0].displayReaderName,
-              })
-            }
+              weixinId: res.users[0].weixinId,
+              libid: res.users[0].libId,
+              libName: res.users[0].libName,
+              libNames:res.users[0].libName,
+              bindLibraryCode:res.users[0].bindLibraryCode
+          })
+       
+          }
         })
-
-
     },
 
     /**

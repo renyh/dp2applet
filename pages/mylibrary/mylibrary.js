@@ -1,66 +1,78 @@
 // pages/mylibrary/mylibrary.ts
-import { GetActiveUser,GetBindUsers } from "../../utils/axios"
+import {
+
+  GetBindUsers
+} from "../../utils/axios"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-     list:[],
-     binduser:[],
-     oppenid: wx.getStorageSync('oppenid'),
-     readerName:"", //用于导航栏左上角
-     libName:"",//用于导航栏右上角
-     users:[] // 判断跳转页面
+    list: [],
+    binduser: [],
+    oppenid: wx.getStorageSync('oppenid'),
+    readerName: "", //用于导航栏左上角
+    libName: "", //用于导航栏右上角
+    users: [] // 判断跳转页面
   },
-  slectLibary(){
+  slectLibary() {
     wx.navigateTo({
-      url: '/pages/libclassify/libclassify',
+      url: '/pages/selectlibs/selectlibs',
     })
-},
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad() {
-  
+
   },
-//   绑定账户
-  jmp(){
-      if(this.data.users.length){
-        wx.navigateTo({
-          url: '/pages/accManagement/accManagement',
-        })
-      }else{
-        wx.navigateTo({
-          url:'/pages/account/account'
+  //   绑定账户
+  jmp() {
+    GetBindUsers({
+      weixinId: this.data.oppenid,
+      containPublic: false   //不包含内置public账号
+    }).then(res => {
+      this.setData({
+        users: res.users
       })
-      }
-     
+    })
+
+    if (this.data.users.length) {
+      wx.navigateTo({
+        url: '/pages/accManagement/accManagement',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/account/account'
+      })
+    }
+
   },
-//   我的信息
- info(){
-     wx.navigateTo({
-       url: '/pages/myMessage/myMessage',
-     })
- },
-//  找回密码
- retrieveWord(){
-   wx.navigateTo({
-     url: '/pages/rePassword/rePassword',
-   })
- },
-//  获取临时密码
-temporaryord(){
-  wx.navigateTo({
-    url: '/pages/temporaryword/temporaryword',
-  })
-},
-// 二维码
-getQcode(){
-  wx.navigateTo({
-    url: '/pages/QRcode/QRcode',
-  })
-},
+  //   我的信息
+  info() {
+    wx.navigateTo({
+      url: '/pages/myMessage/myMessage',
+    })
+  },
+  //  找回密码
+  retrieveWord() {
+    wx.navigateTo({
+      url: '/pages/rePassword/rePassword',
+    })
+  },
+  //  获取临时密码
+  temporaryord() {
+    wx.navigateTo({
+      url: '/pages/temporaryword/temporaryword',
+    })
+  },
+  // 二维码
+  getQcode() {
+    wx.navigateTo({
+      url: '/pages/QRcode/QRcode',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -72,31 +84,8 @@ getQcode(){
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
-    //判断导航栏左上角信息提示
-     if(res.users[0].type==0){
-       this.setData({
-        readerName:res.users[0].readerBarcode,
-       })
-     }else{
-      this.setData({
-        readerName:res.users[0].userName,
-       })
-     }
-      this.setData({
-        libName:res.users[0].libName
-      })
-    })
-    GetBindUsers({
-      weixinId:this.data.oppenid,
-      containPublic:false
-    }).then(res=>{
-      console.log(res,55555);
-      this.setData({
-        users:res.users
-      })
-    })
-
+    this.selectComponent("#getActivelib").getActivelib()
+   
   },
 
   /**

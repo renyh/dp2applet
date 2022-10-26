@@ -1,7 +1,7 @@
 // pages/temporaryword/temporaryword.js
 import {
   GetActiveUser,
-  bound
+  bind
 } from "../../utils/axios"
 Page({
 
@@ -10,13 +10,14 @@ Page({
    */
   data: {
     libName: "", // 图书馆名字
+    libNames: "" || "请选择图书馆",
     libId: '', //图书馆Id
     oppenid: wx.getStorageSync('oppenid'), //唯一Id
     userName: "",
     ipone: "",
     temcode: "",
     flag: false,
-    readerName:""
+    readerName: ""
   },
 
   /**
@@ -40,9 +41,9 @@ Page({
   // 跳转到图书馆选择
   skip() {
     wx.navigateTo({
-        url: '/pages/libclassify/libclassify',
+      url: '/pages/libclassify/libclassify',
     })
-},
+  },
   // 获取临时密码
   getPoCode() {
     var that = this
@@ -82,7 +83,7 @@ Page({
     })
   },
   enter() {
-    bound({
+    bind({
       "weixinId": this.data.oppenid,
       "libId": this.data.libId,
       "bindLibraryCode": "",
@@ -123,23 +124,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    this.selectComponent("#getActivelib").getActivelib()
     // 获取图书馆信息
     GetActiveUser({
       weixinId: this.data.oppenid
     }).then(res => {
       // 获取当前图书馆名字及id
-      this.setData({
-        libName: res.users[0].libName,
-        libId: res.users[0].libId
-      })
-      if(res.users[0].userName){
+      if (res.users != null) {
         this.setData({
-          readerName:res.users[0].userName,   
+          libName: res.users[0].libName,
+          libNames: res.users[0].libName,
+          libId: res.users[0].libId
         })
-      }else{
-        this.setData({
-          readerName:res.users[0].displayReaderName,
-        })
+      
       }
     })
   },

@@ -4,48 +4,54 @@
   <view class="detail1">{{item.name}}</view>
   <view class="detail2">{{item.value}}</view>
 </view>
-<view class="books" wx:for="{{books}}" wx:key="index" >
-  <view class="book">
-    <view class="book1">册条码</view>
-    <view class="book2">{{item.barcode}}</view>
-  </view>
-  <view class="book">
-    <view class="book1">馆藏地</view>
-    <view class="book2 book3">{{item.location}}</view>
-  </view>
-  <view class="book">
-    <view class="book1">当前位置</view>
-    <view class="book2"></view>
-  </view>
-  <view class="book">
-    <view class="book1">索取号</view>
-    <view class="book2 book3">{{item.accessNo}}</view>
-  </view>
-  <view class="book">
-    <view class="book1">价格</view>
-    <view class="book2">{{item.price}}</view>
-  </view>
-  <view class="book">
-    <view class="book1">再借情况</view>
-    <view class="book2">{{item.borrowInfo}}</view>
-  </view>
-  <view class="book">
-    <view class="book1">预约信息</view>
-    <view wx:if="{{flag}}" class="book2">
-      <view>你当前账户不是读者账号，不能预约图书，点击<text class="here" bindtap="goHere">这里</text>绑定读者账号</view>
+
+<view wx:if="{{itemList.length}}">
+  <view class="books" wx:for="{{books}}" wx:key="index" >
+    <view class="book">
+      <view class="book1">册条码</view>
+      <view class="book2">{{item.barcode}}</view>
     </view>
-    <view wx:else="" class="booked">
-      <text>{{infoss}}</text>
-      <button wx:if="{{flag}}" class="subscribe" bindtap="getSubscribe" wx:if="{{loginUserType}}" >预约</button>
-      <button wx:if="{{flag1}}" class="giveUp"  bindtap="giveUpBook">放弃取书</button>
+    <view class="book">
+      <view class="book1">馆藏地</view>
+      <view class="book2 book3">{{item.location}}</view>
+    </view>
+    <view class="book">
+      <view class="book1">当前位置</view>
+      <view class="book2"></view>
+    </view>
+    <view class="book">
+      <view class="book1">索取号</view>
+      <view class="book2 book3">{{item.accessNo}}</view>
+    </view>
+    <view class="book">
+      <view class="book1">价格</view>
+      <view class="book2">{{item.price}}</view>
+    </view>
+    <view class="book">
+      <view class="book1">再借情况</view>
+      <view class="book2">{{item.borrowInfo}}</view>
+    </view>
+    <view class="book">
+      <view class="book1">预约信息</view>
+      <view wx:if="{{flag}}" class="book2">
+        <view>你当前账户不是读者账号，不能预约图书，点击<text class="here" bindtap="goHere">这里</text>绑定读者账号</view>
+      </view>
+      <view wx:else="" class="booked">
+        <text>{{infoss}}</text>
+        <button wx:if="{{flag}}" class="subscribe" bindtap="getSubscribe" wx:if="{{loginUserType}}">预约</button>
+        <button wx:if="{{flag1}}" class="giveUp" bindtap="giveUpBook">放弃取书</button>
+      </view>
+    </view>
+    <view class="book" wx:if="{{flag2}}">
+      <view class="book1"></view>
+      <view class="book2 book6"><text>预约操作成功\n{{errorInfo}}</text></view>
+    </view>
+    <view class="book">
+      <view class="book1">参考ID</view>
+      <view class="book2 book5">{{item.refID}}</view>
     </view>
   </view>
-  <view class="book" wx:if="{{flag2}}">
-    <view class="book1"></view>
-    <view class="book2 book6"><text>预约操作成功\n{{errorInfo}}</text></view>
-  </view>
-  <view class="book">
-    <view class="book1">参考ID</view>
-    <view class="book2 book5">{{item.refID}}</view>
-  </view>
+</view>
+<view class="bookMation" wx:else="">
+  <text>没有册信息</text>
 </view>

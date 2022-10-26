@@ -1,12 +1,11 @@
 // pages/Pay/Pay.js
-import {result} from "../../utils/mesage"
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-   libName:""
   },
 
   /**
@@ -27,13 +26,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    result.then(res=>{
-        console.log(res);
-        this.setData({
-           
-            libName:res.users[0].libName
-        })
-    })
+    this.selectComponent("#getActivelib").getActivelib()
   },
 
   /**

@@ -3,7 +3,8 @@ import {
   GetActiveUser,
   GetBiblio,
   getItems,
-  GetPatron
+  GetPatron,
+  baseUrl
 } from "../../utils/axios"
 Page({
 
@@ -33,7 +34,8 @@ Page({
     patronBarcode: "",
     userName: "",
     infos: [], //预约信息
-    infoss: "未预约"
+    infoss: "未预约",
+    itemList:""  //判断册信息
   },
   // 跳转到绑定账户界面
   goBound() {
@@ -73,7 +75,7 @@ Page({
       success(res) {
         if (res.confirm) {
           wx.request({
-            url: `http://demo30.ilovelibrary.cn/i/api2/CirculationApi/Reserve?weixinId=${that.data.oppenid}&libId=${that.data.libId}&patronBarcode=${that.data.displayReaderBarcode}&itemBarcodes=${that.data.itemBarcodes}&style=new`,
+            url: baseUrl+`/i/api2/CirculationApi/Reserve?weixinId=${that.data.oppenid}&libId=${that.data.libId}&patronBarcode=${that.data.displayReaderBarcode}&itemBarcodes=${that.data.itemBarcodes}&style=new`,
             header: {
               "Content-Type": "application/x-www-form-urlencoded"
             },
@@ -120,12 +122,11 @@ Page({
       weixinId: this.data.oppenid,
     }).then(res => {
       console.log(res, 666666);
-
       if (res.users[0].type == 0) {
         this.setData({
           flag: false,
           loginUserType: "patron",
-          loginUserName: res.users[0].displayReaderName,
+          loginUserName: res.users[0].readerBarcode,
           displayReaderBarcode: res.users[0].displayReaderBarcode
         })
       } else if (res.users[0].type == 1) {
@@ -174,7 +175,7 @@ Page({
         patronBarcode: this.data.patronBarcode,
         userName: this.data.userName
       }).then(res => {
-        console.log(res.obj.reservations, 89898989);
+
         this.setData({
           infos: res.obj.reservations
         })
@@ -187,16 +188,15 @@ Page({
         libId: this.data.libId,
         biblioPath: this.data.recpach,
       }).then(res => {
-        console.log(res, 995);
+        console.log(res.itemList, 995);
         this.setData({
           barcode: res.itemList.barcode,
           books: res.itemList,
-          itemBarcodes: res.itemList[0].barcode
+          itemBarcodes: res.itemList[0].barcode,
+          itemList:res.itemList
         })
         this.data.infos.forEach(item => {
-          console.log(item, 9999999);
           res.itemList.forEach(item1 => {
-            console.log(item1, 22222222);
             if (item.pureBarcodes == item1.barcode) {
               this.setData({
                 flag: false,

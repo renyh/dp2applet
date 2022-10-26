@@ -1,5 +1,5 @@
 <!--pages/searching/searching.wxml-->
-<navs list="{{libName}}" readerName="{{readerName}}">书目查询</navs>
+<navs id="getActivelib">书目查询</navs>
 <view wx:if="{{y}}">
   <view class="textLib">你尚未选择图书馆,<text class="txt" bindtap="slectLibary">请先选择图书馆。</text></view>
 </view>

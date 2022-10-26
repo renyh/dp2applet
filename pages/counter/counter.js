@@ -11,11 +11,10 @@ Page({
     scanCode:"", //扫描结果
     bindLibraryCode:"",
     libId:""   ,//图书馆Id
-    readerName:""  //左上角
   },
   skip() {
     wx.navigateTo({
-        url: '/pages/libclassify/libclassify',
+        url: '/pages/selectlibs/selectlibs',
     })
 },
 // 扫码并绑定
@@ -24,7 +23,6 @@ getCode(){
     wx.scanCode({
       onlyFromCamera: true,// 只允许从相机扫码
       success(res){
-          console.log(that.data.oppenid,555);
           var data = {
             weixinId:that.data.oppenid,
             prefix:"PQR",
@@ -77,18 +75,10 @@ getCode(){
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    this.selectComponent("#getActivelib").getActivelib()
     GetActiveUser({
         weixinId: this.data.oppenid
       }).then(res=>{
-        if(res.users[0].userName){
-            this.setData({
-              readerName:res.users[0].userName,   
-            })
-          }else{
-            this.setData({
-              readerName:res.users[0].displayReaderName,
-            })
-          }
         this.setData({
           libName:res.users[0].libName,
           bindLibraryCode:res.users[0].libraryCode,

@@ -16,7 +16,6 @@ Page({
     userName: "", //判断显示界面
     type:"", //个人类型
     x:"",
-    readerName:"",//左上角显示
     y:""
   },
 
@@ -61,6 +60,7 @@ goLogin(){
    * 生命周期函数--监听页面显示
    */
   onShow() {
+  this.selectComponent("#getActivelib").getActivelib()
  // 获取用户信息
  GetActiveUser({weixinId:this.data.oppenid,
  }).then(res=>{
@@ -88,16 +88,6 @@ goLogin(){
        x: 1
      })
    } 
-   if(res.users[0].userName){
-     this.setData({
-       readerName:res.users[0].userName,   
-     })
-   }else{
-     this.setData({
-       readerName:res.users[0].displayReaderName,
-     })
-   }
-
   }
 
    // 获取二维码信息

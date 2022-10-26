@@ -4,12 +4,13 @@ const GET = 'GET';
 const POST = 'POST';
 
 // 通用的请求函数
-function requeat(method,url, data={}){
+function requeat(method,url, data={},parama=''){
   wx.showLoading()
+  url=url+parama
   return new Promise(resolve=>{
     wx.request({
      method: method,
-      url, data, 
+      url, data,
       success(res){
         resolve(res.data)
         wx.hideLoading()
@@ -38,7 +39,8 @@ const GetPatronQRcode = data => requeat(GET,baseUrl+'/i/api2/WxUserApi/GetPatron
 const GetActiveUser = data=> requeat(GET,baseUrl+'/i/api2/wxuserApi/GetActiveUser',data)
 // 预约图书
 const  Reserveh = data=>requeat(POST,baseUrl+'/i/api2/CirculationApi/Reserve',data)
-
+// 设置当前图书馆
+const SetCurrentLib = data=>requeat(POST,baseUrl+'/i/api2/wxuserApi/SetCurrentLib',data)
 // 导出请求
 export{
     GetAreaLib,
@@ -51,5 +53,6 @@ export{
     getItems,
     GetActiveUser,
     Reserveh,
-   
+    SetCurrentLib,
+    baseUrl
 }

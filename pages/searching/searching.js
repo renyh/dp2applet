@@ -18,11 +18,10 @@ Page({
     books:[],
     wxid:"",
     book:[],
-    words:15,
+    words:"",
     placeholder:"请输入检索词"||"",
     errorInfo:"", //提示信息
     flag:"",
-    readerName:"",
     flag1:"" , //判断显示下方显示信息
     y:""
 
@@ -46,7 +45,7 @@ Page({
       "match":"left",
       "resultSet":"applet"
     }).then(res=>{
-      console.log(res,66666);
+      console.log(res,999);
       if(res.apiResult.errorCode==-1){
         wx.showModal({
           title: '提示',
@@ -62,7 +61,8 @@ Page({
           this.setData({
             books:res,
             flag:false,
-            flag1:true
+            flag1:true,
+            words:res.resultCount
           })
         }else{
           this.setData({
@@ -99,7 +99,6 @@ scanCodeEvent(){
             word : res.result,
             placeholder:res.result
         })
-        console.log(11233);
        that.getSearchBiblio()
       }
     })
@@ -127,25 +126,15 @@ scanCodeEvent(){
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    this.selectComponent("#getActivelib").getActivelib()
     GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
       if(res.users==null){
         this.setData({
           y:1
         })
       }else{
-        if(res.users[0].userName){
-          this.setData({
-            readerName:res.users[0].userName,   
-          })
-        }else{
-          this.setData({
-            readerName:res.users[0].displayReaderName,
-          })
-        }
         this.setData({
-          libName:res.users[0].libName,
-          y:0
-          
+          y:0 
         })
         if(res.users[0].type==0){
           this.setData({
@@ -195,9 +184,6 @@ scanCodeEvent(){
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-    this.setData({
-      words:this.data.words+10
-    })
     SearchBiblio({
       "loginUserName":this.data.loginUserName,
       "loginUserType":this.data.loginUserType,
@@ -208,12 +194,16 @@ scanCodeEvent(){
       "match":"left",
       "resultSet":"applet"
     }).then(res=>{
-      console.log(res,5);
-      console.log(this.data.books,999);
+    if(res.records==null){
+      return
+    }else{
       this.data.books.records.push(...res.records)
       this.setData({
-        books:this.data.books
+        books:this.data.books,
+        words:this.data.words+res.resultCount
       })
+
+    }
     })
   },
 

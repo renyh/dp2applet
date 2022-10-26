@@ -1,8 +1,7 @@
 // pages/more/more.js
-import {GetActiveUser } from "../../utils/axios"
-
-Page({
-
+import {result} from "../../utils/mesage"
+Page({ 
+   
   /**
    * 页面的初始数据
    */
@@ -15,7 +14,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+   
   },
 
   /**
@@ -34,17 +33,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
-       if(res.users==null){
-          this.setData({
-              x:1
-          })
-       }else{
-        this.setData({
-            x:0
-        })
-       }
-      })
+  console.log(result);
+  result().then(res=>{
+    console.log(res);
+  })
   },
 
   /**

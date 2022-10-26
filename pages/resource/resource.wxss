@@ -1,7 +1,6 @@
 /* pages/resource/resource.wxss */
 .resource{
-
-  background-color: aliceblue;
+  background-color: #f5f5f5;
 }
 .items>view{
   height: 100rpx;

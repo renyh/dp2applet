@@ -1,12 +1,11 @@
 <!--pages/account/account.wxml-->
 <!--pages/account/account.wxml-->
 <view class="account">
-  <navtop readerName="{{readerName}}" list="{{libName}}">
-    绑定账号
-  </navtop>
+  <navs id="getActivelib" > 绑定账号</navs>
+
     <view class="num">
       <van-cell-group inset>
-        <van-field v-model="value1" label="图书馆" placeholder="{{libName}}" placeholder-style="color:#000" class="ipt" />
+        <van-field v-model="value1" label="图书馆" placeholder="{{libNames}}" placeholder-style="color:#000" class="ipt" />
       </van-cell-group>
       <van-button icon="weapp-nav.path" bindtap="skip"></van-button>
     </view>

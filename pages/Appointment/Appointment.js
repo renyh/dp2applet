@@ -1,5 +1,5 @@
 // pages/Appointment/Appointment.js
-import {GetActiveUser} from "../../utils/axios"
+import {GetActiveUser,baseUrl} from "../../utils/axios"
 Page({
 
   /**
@@ -17,7 +17,7 @@ Page({
   // 取消预约接口
   getCancelBooking(a,b,c){
     wx.request({
-      url: `http://demo30.ilovelibrary.cn/i/api2/CirculationApi/Reserve?weixinId=${this.data.oppenid}&libId=${this.data.libId}&patronBarcode=${a}&itemBarcodes=${b}&style=${c}`,
+      url: baseUrl+`/i/api2/CirculationApi/Reserve?weixinId=${this.data.oppenid}&libId=${this.data.libId}&patronBarcode=${a}&itemBarcodes=${b}&style=${c}`,
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
@@ -61,6 +61,7 @@ Page({
    */
   // 拿到用户信息
   onShow() {
+    this.selectComponent("#getActivelib").getActivelib()
     GetActiveUser({weixinId:this.data.oppenid}).then(res=>{
       console.log(res);
       this.setData({

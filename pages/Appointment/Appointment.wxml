@@ -1,5 +1,5 @@
 <!--pages/Appointment/Appointment.wxml-->
-<navs list="{{libName}}">预约请求</navs>
+<navs id="getActivelib">预约请求</navs>
 <view>
   <checkbox-group>
     <view class="bookList" wx:for="{{reservations}}" wx:key="index">

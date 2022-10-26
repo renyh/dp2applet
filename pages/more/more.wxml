@@ -1,10 +1,10 @@
-<!--pages/more/more.wxml-->
+<!-- pages/more/more.wxml
 <view  wx:if="{{x}}">
     <view class="topNav">图书馆介绍</view>
     <view class="textLib">你尚未选择图书馆,<text class="txt" bindtap="slectLibary">请先选择图书馆。</text></view>
 </view>
 <view  wx:else="">
     <text>1</text>
-</view>
+</view> -->
 
 

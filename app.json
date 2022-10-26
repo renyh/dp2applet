@@ -17,7 +17,8 @@
     "pages/advancedSearch/advancedSearch",
     "pages/counter/counter",
     "pages/Pay/Pay",
-    "pages/Appointment/Appointment"
+    "pages/Appointment/Appointment",
+    "pages/selectlibs/selectlibs"
 
   ],
   "window": {

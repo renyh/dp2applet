@@ -1,6 +1,6 @@
 <!--pages/accManagement/accManagement.wxml-->
-<nav list="{{libName}}" readerName="{{readerName}}">账号管理</nav>
-<text class="alert" wx:if="{{flag}}">您尚未绑定当前图书馆[[{{libNames}}]]的账户,请点击'新增绑定账号'按钮绑定账户</text>
+<navs id="getActivelib" > 账号管理</navs>
+<text class="alert" wx:if="{{flag}}">您尚未绑定当前图书馆[[{{libName}}]]的账户,请点击'新增绑定账号'按钮绑定账户</text>
 <view wx:if="{{readerList.length}}">
   <text class="Account">读者账号</text>
   <view class="card" wx:for="{{readerList}}" wx:key="index">
@@ -19,7 +19,7 @@
   <text class="Account">工作人员账号</text>
   <view class="card" wx:for="{{wokerList}}" wx:key="index">
     <view class="reader" >
-      <text>读者：</text><text>{{item.userName}}</text>
+      <text>账号名：</text><text>{{item.userName}}</text>
     </view>
     <view class="libName">
       <text>图书馆：</text><text>{{item.libName}}</text>

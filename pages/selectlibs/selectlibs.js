@@ -1,16 +1,21 @@
-// pages/libclassify/libclassify.js
-import {GetAreaLib,GetActiveUser} from "../../utils/axios"
+// pages/selectlibs/selectlibs.js
+import {
+  GetAreaLib,
+  baseUrl
+} from "../../utils/axios"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    oppenid: wx.getStorageSync('oppenid'),   //本地oppenid
-    libName:"",     //图书馆名字
-    libIb:"",       //图书馆id
-    libs:wx.getStorageSync('libs') || [],
-    flag:"",
+    oppenid: wx.getStorageSync('oppenid'), //本地oppenid
+    libName: "", //图书馆名字
+    libIb: "", //图书馆id
+    libarys: [], //图书馆
+    readerName: "",
+    libName: "",
+    libraryCode: "" //分管信息
   },
 
   /**
@@ -18,11 +23,11 @@ Page({
    */
   // 请求图书馆名字
   onLoad(options) {
-    GetAreaLib().then(res=>{
-      console.log(res,6666);
-        this.setData({
-         arr:res,
-        })
+    GetAreaLib().then(res => {
+      this.setData({
+        libarys: res,
+      })
+      console.log(this.data.libarys);
     })
   },
 
@@ -30,42 +35,43 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-      
+
+  },
+  radioChange(e) {
+
   },
 
-//  选择确认图书馆
-ok(e){
-    console.log(e);
-    this.setData({ 
-        libIb:e.currentTarget.dataset.libid,
-        flag:true
+  //  选择确认图书馆
+  ok(e) {
+    this.setData({
+      libIb: e.currentTarget.dataset.libid,
+      libraryCode: e.currentTarget.dataset.branchedpassage
     })
-    var that = this
+    console.log(baseUrl);
     wx.request({
-        url: `https://demo30.ilovelibrary.cn/i/api2/wxuserApi/SetCurrentLib?&libId=${this.data.libIb}&weixinId=${this.data.oppenid}`,
+        url: baseUrl+`/i/api2/wxuserApi/SetCurrentLib?&weixinId=${this.data.oppenid}&libId=${this.data.libIb}~${this.data.libraryCode}`,
         header: {
             "Content-Type":"application/x-www-form-urlencoded"
         },
         method: "POST",
         success(res){
+          console.log(res);
+          // 返回上一级使用微信小程序自带功能  todo
             if(res.data.errorCode==0){
-              GetActiveUser({weixinId:that.data.oppenid}).then(res=>{
-                that.setData({
-                  libName:res.users[0].libName,
-                })
-            })   
                 wx.navigateBack({
                   delta: 0,
                 })
             }
+
         }
     })
-},
+  },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
- 
+    this.selectComponent("#getActivelib").getActivelib()
+    //  
   },
 
   /**
