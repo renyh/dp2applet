@@ -38,7 +38,7 @@ Page({
     },
     skip() {
         wx.navigateTo({
-            url: '/pages/selectlibs/selectlibs',
+            url: '/pages/selectlib/selectlib',
         })
     },
     // 找回密码
@@ -69,7 +69,7 @@ Page({
     },
     //  点击绑定按钮
     binding() {
-        // 登录
+        // 绑定逻辑
         var data
         data = {
             "weixinId": this.data.oppenid,

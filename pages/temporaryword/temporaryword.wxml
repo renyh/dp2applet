@@ -16,5 +16,5 @@
 </view>
 <view class="login" wx:if="{{flag}}">
     <input class="ipts" bindchange="getchange" placeholder="请输入临时密码" type="text" />
-    <button class="enter" bindtap="enter">绑定</button>
+    <button class="enter" bindtap="bind_click">绑定</button>
 </view>

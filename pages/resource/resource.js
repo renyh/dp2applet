@@ -37,7 +37,7 @@ Page({
   },
   slectLibary(){
     wx.navigateTo({
-      url: '/pages/selectlibs/selectlibs',
+      url: '/pages/selectlib/selectlib',
     })
 },
 

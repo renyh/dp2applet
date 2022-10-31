@@ -1,6 +1,6 @@
 <!--pages/selectlibs/selectlibs.wxml-->
 <view class="libs">
-  <navs id="getActivelib" list="{{libName}}" readerName="{{ readerName}}">选择图书馆</navs>
+  <navs id="getActivelib">选择图书馆</navs>
   <view class="libarys">
     <radio-group  bindchange="radioChange">
       <view wx:for="{{libarys}}" wx:key="index" class="details">
@@ -8,8 +8,8 @@
         <label>
           <radio class="radios" color="#007aff" value="{{item.name}}"
            wx:for="{{item.libs}}" wx:for-item="items" wx:key="indexs"
-            wx:key-index="indexs" bindtap="ok" data-branchedPassage="{{items.libraryCode}}" checked=""
-             data-libid="{{items.libId}}" data-index="{{index}}" >
+            wx:key-index="indexs" bindtap="ok" data-branchedPassage="{{items.libraryCode}}" checked="{{items.flag}}"
+             data-libid="{{items.libId}}" data-index="{{index}}" data-name="{{items.name}}" >
             {{items.name}}
           </radio>
         </label>

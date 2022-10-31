@@ -10,7 +10,7 @@ function requeat(method,url, data={},parama=''){
   return new Promise(resolve=>{
     wx.request({
      method: method,
-      url, data,
+      url, data,parama,
       success(res){
         resolve(res.data)
         wx.hideLoading()
@@ -18,7 +18,6 @@ function requeat(method,url, data={},parama=''){
     })
   })  
 }
-  
 // 图书馆分类
 const GetAreaLib = data=>requeat(GET,baseUrl+'/i/api2/LibrarySettingApi/GetAreaLib',data)
 //  获取前端用户绑定的图书馆帐号

@@ -8,7 +8,7 @@
                 <image src="/img/info.png"></image>
                 <text>我的信息</text>
             </view>
-            <view class="account" bindtap="jmp">
+            <view class="account" bindtap="getAccount">
                 <image src="/img/account.png"></image>
                 <text>绑定账户</text>
             </view>

@@ -1,6 +1,5 @@
 // pages/mylibrary/mylibrary.ts
 import {
-
   GetBindUsers
 } from "../../utils/axios"
 Page({
@@ -18,7 +17,7 @@ Page({
   },
   slectLibary() {
     wx.navigateTo({
-      url: '/pages/selectlibs/selectlibs',
+      url: '/pages/selectlib/selectlib',
     })
   },
   /**
@@ -28,31 +27,30 @@ Page({
 
   },
   //   绑定账户
-  jmp() {
+  getAccount() {
     GetBindUsers({
       weixinId: this.data.oppenid,
-      containPublic: false   //不包含内置public账号
+      containPublic: false //不包含内置public账号
     }).then(res => {
       this.setData({
         users: res.users
       })
+   //判断跳转页面
+      if (this.data.users.length) {
+        wx.navigateTo({
+          url: '/pages/accManagement/accManagement',
+        })
+      } else {
+        wx.navigateTo({
+          url: '/pages/account/account'
+        })
+      }
     })
-
-    if (this.data.users.length) {
-      wx.navigateTo({
-        url: '/pages/accManagement/accManagement',
-      })
-    } else {
-      wx.navigateTo({
-        url: '/pages/account/account'
-      })
-    }
-
   },
   //   我的信息
   info() {
     wx.navigateTo({
-      url: '/pages/myMessage/myMessage',
+      url: '/pages/partonInfo/partonInfo',
     })
   },
   //  找回密码
@@ -85,7 +83,6 @@ Page({
    */
   onShow() {
     this.selectComponent("#getActivelib").getActivelib()
-   
   },
 
   /**

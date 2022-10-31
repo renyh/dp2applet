@@ -25,9 +25,9 @@
     <text>(简单检索默认与“前方一致”匹配)</text>
     <text class="tall" bindtap="simpleSearch">简单检索</text>
   </view>
-  <view wx:if="{{flag1}}">
-    <text wx:if="{{flag}}" class="miss">未命中</text>
-    <books books="{{books}}"></books>
+  <view wx:if="{{berror}}">
+    <text wx:if="{{isReturnRecords}}" class="miss">未命中</text>
+    <biblio biblio="{{biblio}}"></biblio>
   </view>
   <view wx:else=""  class="errorInfo">
     {{errorInfo}}

@@ -12,7 +12,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-     Name:"",
+    accountName:"",
      libName:"",
      oppenid: wx.getStorageSync('oppenid'),
   },
@@ -23,23 +23,22 @@ Component({
   methods: {
     selectlib(){
          wx.navigateTo({
-           url: '/pages/selectlibs/selectlibs',
+           url: '/pages/selectlib/selectlib',
          })
      },
     getActivelib(){
       GetActiveUser({
         weixinId: this.data.oppenid
       }).then(res => {
-        console.log(res,99999);
         if (res.users!= null) {
           //判断导航栏左上角信息提示
           if (res.users[0].type == 0) {
             this.setData({
-              Name: res.users[0].readerBarcode,
+              accountName: res.users[0].readerBarcode,
             })
           } else {
             this.setData({
-              Name: res.users[0].userName,
+              accountName: res.users[0].userName,
             })
           }
           this.setData({
@@ -50,7 +49,7 @@ Component({
      }
   },
   lifetimes:{
-  
+ 
       
   }
   

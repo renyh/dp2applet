@@ -19,12 +19,12 @@
   color: blue;
 }
 .searpic{
-  width: 60rpx;
-  height: 60rpx;
+  width: 70rpx;
+  height: 70rpx;
   position: absolute;
-  right: 60rpx;
+  right: 40rpx;
   top: 190rpx;
-  z-index: 10;
+  z-index: 99;
 }
 .libPic{
  width:50rpx;
@@ -43,4 +43,8 @@
 }
 .txt{
   color: #007afd;
+}
+.miss{
+  color: red;
+  margin-left: 30rpx;
 }

@@ -1,7 +1,8 @@
 // pages/temporaryword/temporaryword.js
 import {
   GetActiveUser,
-  bind
+  bind,
+  baseUrl
 } from "../../utils/axios"
 Page({
 
@@ -48,7 +49,7 @@ Page({
   getPoCode() {
     var that = this
     wx.request({
-      url: `https://demo30.ilovelibrary.cn/i/api2/wxuserApi/ResetPassword?weixinId=${this.data.oppenid}&libId=${this.data.libId}&name=${this.data.userName}&tel=${this.data.ipone}`,
+      url: baseUrl+`/i/api2/wxuserApi/ResetPassword?weixinId=${this.data.oppenid}&libId=${this.data.libId}&name=${this.data.userName}&tel=${this.data.ipone}`,
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
@@ -82,7 +83,8 @@ Page({
       temcode: e.detail.value
     })
   },
-  enter() {
+  // 绑定按钮  bind_click  todo
+  bind_click() {
     bind({
       "weixinId": this.data.oppenid,
       "libId": this.data.libId,
@@ -96,13 +98,13 @@ Page({
         console.log(res.users, 12366);
         wx.setStorageSync('list', res.users)
         wx.showToast({
-          title: '登录成功',
+          title: '绑定成功',
           icon: 'success',
           duration: 2000 //持续的时间
         })
         setTimeout(() => {
           wx.navigateTo({
-            url: `../myMessage/myMessage`,
+            url: `../partonInfo/partonInfo`,
           })
         }, 2000)
       } else {

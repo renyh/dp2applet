@@ -10,7 +10,7 @@ Page({
     weixinId:"",
     libId:"",         //图书馆id,
     patronBarcode:"", //读者证条码号
-    info:'',  //二维码信息
+    qctext:'',  //二维码信息
     readerName:"",  //读者姓名
     libName:"",
     userName: "", //判断显示界面
@@ -28,10 +28,10 @@ Page({
   },
   slectLibary(){
     wx.navigateTo({
-      url: '/pages/libclassify/libclassify',
+      url: '/pages/selectlib/selectlib',
     })
   },
-// 跳转到登录页面
+// 跳转到绑定页面
 goLogin(){
   GetBindUsers({
     weixinId:this.data.oppenid,
@@ -64,9 +64,9 @@ goLogin(){
  // 获取用户信息
  GetActiveUser({weixinId:this.data.oppenid,
  }).then(res=>{
-  if(res.users==null){
+  if (res.users == null) {
     this.setData({
-      y:1
+      y: 1
     })
   }else{
     this.setData({
@@ -79,6 +79,8 @@ goLogin(){
       type: res.users[0].type,
       y:0
     })
+  }
+   
     if (this.data.type=="0") {
      this.setData({
        x: 0
@@ -88,7 +90,7 @@ goLogin(){
        x: 1
      })
    } 
-  }
+  
 
    // 获取二维码信息
    GetPatronQRcode({
@@ -96,18 +98,17 @@ goLogin(){
      libId:this.data.libId,
      patronBarcode:this.data.patronBarcode
    }).then(res=>{
-
+     console.log(res,77777);
      this.setData({
-       info:res.info
+      qctext:res.info
      })
      // 生成二维码
      new qrCode("myCanvas",{
-       text:this.data.info,
+       text:this.data.qctext,
        width:200,
        height:200,
        padding:12,
        callback:res=>{
-  
            this.setData({
                codePath:res.path
            })

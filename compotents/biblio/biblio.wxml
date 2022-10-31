@@ -1,0 +1,12 @@
+<!--compotents/books/books.wxml-->
+<view class="books">
+  <view class="numbers" wx:if="{{biblio.records.length}}">
+    命中{{biblio.apiResult.errorCode}}条记录
+  </view>
+  <view class="bookItem" wx:for="{{biblio.records}}" wx:key="index" data-recPach="{{item.recPath}}" bindtap="getDetail">
+      <view class="text"><text class="text1">{{item.no}}</text>{{item.name}}</view>
+      <view class="text2">{{item.recPath}}</view>
+  </view> 
+</view>
+
+ 

@@ -1,4 +1,4 @@
-/* pages/myMessage/myMessage.wxss */
+/* pages/partonInfo/partonInfo.wxss */
 .here{
   color: #007aff;
   cursor: pointer;

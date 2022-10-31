@@ -1,13 +1,12 @@
 // pages/more/more.js
-import {result} from "../../utils/mesage"
+
 Page({ 
    
   /**
    * 页面的初始数据
    */
   data: {
-    oppenid: wx.getStorageSync('oppenid'),
-    x:""
+   
   },
   
   /**
@@ -23,20 +22,13 @@ Page({
   onReady() {
 
   },
-  slectLibary(){
-      wx.navigateTo({
-        url: '/pages/libclassify/libclassify',
-      })
-  },
+  
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-  console.log(result);
-  result().then(res=>{
-    console.log(res);
-  })
+
   },
 
   /**

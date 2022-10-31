@@ -13,9 +13,9 @@ Page({
     libName: "", //图书馆名字
     libIb: "", //图书馆id
     libarys: [], //图书馆
-    readerName: "",
-    libName: "",
-    libraryCode: "" //分管信息
+    libraryCode: "", //分管信息
+    flag:true ,  //todo
+    name:""
   },
 
   /**
@@ -23,19 +23,16 @@ Page({
    */
   // 请求图书馆名字
   onLoad(options) {
-    GetAreaLib().then(res => {
-      this.setData({
-        libarys: res,
-      })
-      console.log(this.data.libarys);
-    })
+  
+     // 
+    
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
+     
   },
   radioChange(e) {
 
@@ -45,9 +42,11 @@ Page({
   ok(e) {
     this.setData({
       libIb: e.currentTarget.dataset.libid,
-      libraryCode: e.currentTarget.dataset.branchedpassage
+      libraryCode: e.currentTarget.dataset.branchedpassage,
+      libName:e.currentTarget.dataset.name
     })
-    console.log(baseUrl);
+    wx.setStorageSync('key', e.currentTarget.dataset.name)
+    
     wx.request({
         url: baseUrl+`/i/api2/wxuserApi/SetCurrentLib?&weixinId=${this.data.oppenid}&libId=${this.data.libIb}~${this.data.libraryCode}`,
         header: {
@@ -55,7 +54,6 @@ Page({
         },
         method: "POST",
         success(res){
-          console.log(res);
           // 返回上一级使用微信小程序自带功能  todo
             if(res.data.errorCode==0){
                 wx.navigateBack({
@@ -70,8 +68,33 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    this.setData({
+      libName:wx.getStorageSync('key')
+    })
     this.selectComponent("#getActivelib").getActivelib()
-    //  
+    GetAreaLib().then(res => {
+      res.forEach(item=>{
+        item.libs.forEach(items=>{
+          items.flag=false
+        })
+      })
+      this.setData({
+        libarys: res,
+      }) 
+      this.data.libarys.forEach(item=>{
+        item.libs.forEach(items=>{
+          console.log(this.data.libName);
+       if(this.data.libName==items.name){
+         console.log(this.data.libName);
+         items.flag=true
+       }
+       this.setData({
+         libarys: this.data.libarys
+       })
+        })
+   
+      })  
+    })
   },
 
   /**

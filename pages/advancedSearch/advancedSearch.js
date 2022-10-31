@@ -24,12 +24,13 @@ Page({
     from: ["title,ISBN,contributor,subject,clc,_class,publishtime,publisher", "title", "ISBN", "contributor", "subject", "clc", "publishtime", "publisher"],
     match: ["left", "middle", "right", "exact"],
     value: "", //输入框内容
-    books: [],
+    biblio: [],
     libName: "",
     readerName: "",
-    flag: "",
-    flag1: "", //判断显示下方显示信息
-    words:"",
+    isReturnRecords: "",
+    berror: "", //判断显示下方显示信息
+    startNo:"",
+    isCanNext:true
   },
   inputOne() {
     this.setData({
@@ -79,7 +80,7 @@ Page({
       match: this.data.match[this.data.y],
       resultSet: "applet"
     }).then(res => {
-
+console.log(res);
       if (res.apiResult.errorCode == -1) {
         wx.showModal({
           title: '提示',
@@ -87,23 +88,23 @@ Page({
         })
         this.setData({
           errorInfo: res.apiResult.errorInfo,
-          flag1: false
+          berror: false
         })
       } else {
         // 判断图书命中方式
-        if (res.records.length) {
+        if (res.records!=null) {
           this.setData({
-            books: res,
-            flag: false,
-            flag1: true,
-            words:res.resultCount
+            biblio: res,
+            isReturnRecords: false,
+            berror: true,
+            startNo:res.resultCount
             
           })
         } else {
           this.setData({
-            flag: true,
-            books: [],
-            flag1: true
+            isReturnRecords: true,
+            biblio: [],
+            berror: true
           })
         }
 
@@ -178,29 +179,32 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-  
-    SearchBiblio({
-      "loginUserName":this.data.loginUserName,
-      "loginUserType":this.data.loginUserType,
-      "weixinId":this.data.oppenid,
-      "libId":this.data.libId,
-      "from":"_N",
-      "word":this.data.words,
-      "match":"left",
-      "resultSet":"applet"
-    }).then(res=>{
-      if(res.records==null){
-        return
-      }else{
-
-        this.data.books.records.push(...res.records)
-        this.setData({
-          books:this.data.books,
-          words:this.data.words+res.resultCount
-        })
-      
-      }
-    })
+    if(this.data.isCanNext==true){
+      SearchBiblio({
+        "loginUserName": this.data.loginUserName,
+        "loginUserType": this.data.loginUserType,
+        "weixinId": this.data.oppenid,
+        "libId": this.data.libId,
+        "from": "_N",
+        "word": this.data.startNo,
+        "match": "left",
+        "resultSet": "applet"
+      }).then(res => {
+        console.log(res);
+        if (res.records==null) {
+          this.setData({
+            isCanNext:false
+          })
+          return
+        } else {
+          this.data.biblio.records.push(...res.records)
+          this.setData({
+            biblio: this.data.biblio,
+            startNo: this.data.startNo + res.resultCount
+          })
+        }
+      })
+    }
   },
 
   /**

@@ -1,5 +1,5 @@
 // pages/counter/counter.js
-import { GetActiveUser,bind} from "../../utils/axios"
+import { GetActiveUser,bind,baseUrl} from "../../utils/axios"
 Page({
 
   /**
@@ -14,7 +14,7 @@ Page({
   },
   skip() {
     wx.navigateTo({
-        url: '/pages/selectlibs/selectlibs',
+        url: '/pages/selectlib/selectlib',
     })
 },
 // 扫码并绑定
@@ -26,7 +26,7 @@ getCode(){
           var data = {
             weixinId:that.data.oppenid,
             prefix:"PQR",
-            word:res.result.slice(4),
+            word:res.result.slice(4),  //扫码出来的示例
             password:"",
             libId:that.data.libId,
             bindLibraryCode:that.data.bindLibraryCode

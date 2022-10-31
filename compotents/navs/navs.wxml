@@ -1,6 +1,6 @@
 <!--compotents/navs/navs.wxml-->
 <view class="navs">
-        <text class="public">{{Name}}</text> 
+        <text class="public">{{accountName}}</text> 
         <text class="text">
              <slot></slot>
         </text>

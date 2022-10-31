@@ -6,8 +6,7 @@
     "pages/logs/logs",
     "pages/mylibrary/mylibrary",
     "pages/account/account",
-    "pages/libclassify/libclassify",
-    "pages/myMessage/myMessage",
+    "pages/partonInfo/partonInfo",
     "pages/accManagement/accManagement",
     "pages/rePassword/rePassword",
     "pages/searching/searching",
@@ -18,7 +17,7 @@
     "pages/counter/counter",
     "pages/Pay/Pay",
     "pages/Appointment/Appointment",
-    "pages/selectlibs/selectlibs"
+    "pages/selectlib/selectlib"
 
   ],
   "window": {
@@ -28,7 +27,6 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    
       "selectedColor":"#000",
     
     "list": [

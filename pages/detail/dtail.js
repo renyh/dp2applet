@@ -25,11 +25,11 @@ Page({
     images: [], //图片管理
     books: [], //册信息
     userName: "", //判断是否为读者
-    flag: "",
+    bappointmentbiblio: "",
     barcode: "",
-    flag: true,
-    flag1: false,
-    flag2: false,
+    bappointmentbiblio: true,
+    bgivebiblio: false,
+    bappointmentsuccess: false,
     errorInfo: "",
     patronBarcode: "",
     userName: "",
@@ -66,6 +66,7 @@ Page({
       })
     }
   },
+
   //点击进行图书预约
   getSubscribe() {
     var that = this
@@ -87,17 +88,15 @@ Page({
                   errorInfo: res.data.errorInfo
                 })
                 that.setData({
-                  flag: false,
-                  flag1: true,
-                  flag2: true,
+                  bappointmentbiblio: false,
+                  bgivebiblio: true,
+                  bappointmentsuccess: true,
                   infoss: "已到书"
                 })
               }
             }
           })
-        } else if (res.cancel) {
-            
-        }
+        } 
       }
     })
 
@@ -124,14 +123,14 @@ Page({
       console.log(res, 666666);
       if (res.users[0].type == 0) {
         this.setData({
-          flag: false,
+          bappointmentbiblio: false,
           loginUserType: "patron",
           loginUserName: res.users[0].readerBarcode,
           displayReaderBarcode: res.users[0].displayReaderBarcode
         })
       } else if (res.users[0].type == 1) {
         this.setData({
-          flag: true,
+          bappointmentbiblio: true,
           loginUserType: "",
           loginUserName: res.users[0].userName
         })
@@ -141,6 +140,7 @@ Page({
         patronBarcode: res.users[0].displayReaderBarcode,
         userName: res.users[0].userName,
       })
+      // 数目详情
       GetBiblio({
         loginUserName: this.data.loginUserName,
         loginUserType: this.data.loginUserType,
@@ -148,25 +148,27 @@ Page({
         libId: this.data.libId,
         biblioPath: this.data.recpach,
       }).then(res => {
-        console.log(res, 1111);
-        res.info = res.info.replace(/@/g, '')
-        var info1 = JSON.parse(res.info)
-        console.log(info1);
-        var info2 = info1.root.line
-        if (info2[0].name != "_coverImage") {
-          info2.unshift({
-            value: ""
+        console.log(res.info);
+        // res.info = res.info.replace(/@/g, '')
+        var biblio = JSON.parse(res.info)
+        console.log(biblio,1111);
+        var biblios = biblio.root.line
+      
+        if (biblios[0]["@name"] != "_coverImage") {
+          biblios.unshift({
+           "@value": ""
           })
           this.setData({
-            images: info2[0],
-            jsonItem: info2.slice(1)
+            images: biblios[0]["@value"],
+            jsonItem: biblios.slice(1)
           })
         } else {
           this.setData({
-            images: info2[0],
-            jsonItem: info2.slice(1)
+            images: biblios[0]["@value"],
+            jsonItem: biblios.slice(1)
           })
         }
+        console.log(this.data.images,this.data.jsonItem,999999);
 
       })
       // 获取预约信息i
@@ -175,7 +177,6 @@ Page({
         patronBarcode: this.data.patronBarcode,
         userName: this.data.userName
       }).then(res => {
-
         this.setData({
           infos: res.obj.reservations
         })
@@ -188,36 +189,32 @@ Page({
         libId: this.data.libId,
         biblioPath: this.data.recpach,
       }).then(res => {
-        console.log(res.itemList, 995);
-        this.setData({
-          barcode: res.itemList.barcode,
-          books: res.itemList,
-          itemBarcodes: res.itemList[0].barcode,
-          itemList:res.itemList
-        })
-        this.data.infos.forEach(item => {
-          res.itemList.forEach(item1 => {
-            if (item.pureBarcodes == item1.barcode) {
-              this.setData({
-                flag: false,
-                flag1: true,
-                flag2: true,
-                infoss: "已到书"
-              })
-            }
+        console.log(res,995);
+        if(res.itemList.length){
+          this.setData({
+            barcode: res.itemList.barcode,
+            books: res.itemList,
+            itemBarcodes: res.itemList[0].barcode,
+            itemList:res.itemList
           })
-        })
+        }
+        if(this.data.infos){
+          this.data.infos.forEach(item => {
+            res.itemList.forEach(item1 => {
+              if (item.pureBarcodes == item1.barcode) {
+                this.setData({
+                  bappointmentbiblio: false,
+                  bgivebiblio: true,
+                  bappointmentsuccess: true,
+                  infoss: "已到书"
+                })
+              }
+            })
+          })
+        }
+        
       })
 
-    })
-    var that = this
-    wx.getStorage({
-      key: 'binduser',
-      success(res) {
-        that.setData({
-          binduser: res.data
-        })
-      }
     })
   },
 

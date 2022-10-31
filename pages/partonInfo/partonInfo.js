@@ -1,4 +1,4 @@
-// pages/myMessage/myMessage.js
+// pages/partonInfo/partonInfo.js
 
 import {
   GetActiveUser,
@@ -9,26 +9,22 @@ import {
 // 引入生成二维码的文件
 const qrCode = require("../../utils/weapp-qrcode.js")
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     oppenid: wx.getStorageSync('oppenid'),
     libName: "",
-    id: "",
     list: [],
     libid: "", //图书馆id
     patronBarcode: "", //读者整条号码
     username: "", //馆员账户名
     binduser: "",
-    qrcodeUrl: "", // 二维码信息
+    qctext: "", // 二维码信息
     reservations: [],
-    userName: "", //判断显示界面
-    type:"", //个人类型
-    x:"",
-    y:"",   //判断
-    readerName:""//左上角显示
+    type: "", //个人类型
+    x: "",
+    y: "", //判断
   },
   // 去待交费界面
   goPay() {
@@ -39,19 +35,19 @@ Page({
   // 绑定判断
   here() {
     GetBindUsers({
-      weixinId:this.data.oppenid,
-      containPublic:false
-    }).then(res=>{
-      if(res.users.length){
+      weixinId: this.data.oppenid,
+      containPublic: false
+    }).then(res => {
+      if (res.users.length) {
         wx.navigateTo({
           url: '/pages/accManagement/accManagement',
         })
-      }else{
+      } else {
         wx.navigateTo({
-          url:'/pages/account/account'
-      })
+          url: '/pages/account/account'
+        })
       }
-    
+
     })
   },
   // 去预约界面
@@ -70,17 +66,12 @@ Page({
     })
   },
   onLoad(options) {
-    //  获取个人用户信息
-
-
-
-
 
   },
   // 选择图书馆
-  slectLibary(){
+  slectLibary() {
     wx.navigateTo({
-      url: '/pages/libclassify/libclassify',
+      url: '/pages/selectlib/selectlib',
     })
   },
 
@@ -95,57 +86,65 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    //导航栏信息
     this.selectComponent("#getActivelib").getActivelib()
-    var data = {
-      weixinId: this.data.id,
-    }
-    GetActiveUser(data).then(res => {
-      if(res.users==null){
+  
+    // 获取基本信息
+    GetActiveUser({
+      weixinId:this.data.oppenid
+    }).then(res => {
+      console.log(res,9999);
+      if (res.users == null) {
         this.setData({
-          y:1
+          y: 1
         })
-      }else{
+      } else {
         this.setData({
           libid: res.users[0].libId,
           patronBarcode: res.users[0].displayReaderBarcode,
-          username: res.users[0].userName,
           libName: res.users[0].libName,
-          userName: res.users[0].userName,
           type: res.users[0].type,
-          y:0
+          y: 0,
+          username:res.users[0].userName
         })
-        if (this.data.type=="0") {
+        if (this.data.type == 0) {
           this.setData({
-            x: 0
+            x: 0,
+          
+
           })
-        } else { //说明为public，未绑定读者账号
+        } else { 
           this.setData({
             x: 1
           })
-        } 
+        }
+        console.log(this.data.x);
       }
+      // 获取读者防伪二维码
       GetPatronQRcode({
-          weixinId:this.data.oppenid,
-          libId:this.data.libid,
-          patronBarcode:this.data.patronBarcode
-      }).then(res=>{
+        weixinId: this.data.oppenid,
+        libId: this.data.libid,
+        patronBarcode: this.data.patronBarcode
+      }).then(res => {
         this.setData({
-          qrcodeUrl: res.info
+          qctext: res.info
         })
       })
+      // 获取读者信息
       GetPatron({
         libid: this.data.libid,
         patronBarcode: this.data.patronBarcode,
         username: this.data.username
       }).then(res => {
+        console.log(res,99999);
         this.setData({
           list: res.obj,
           reservations: res.obj.reservations,
-          
+
         })
         //  生成二维码
         new qrCode("myCanvas", {
-          text: this.data.qrcodeUrl,
+          text: this.data.qctext,
           width: 150,
           height: 150,
           callback: res => {

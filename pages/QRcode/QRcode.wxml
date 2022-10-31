@@ -1,5 +1,6 @@
 <!--pages/QRcode/QRcode.wxml-->
 <navs id="getActivelib">二维码</navs>
+
 <view wx:if="{{y}}">
   <view class="textLib">你尚未选择图书馆,<text class="txt1" bindtap="slectLibary">请先选择图书馆。</text></view>
 </view>

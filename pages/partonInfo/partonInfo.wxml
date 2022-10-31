@@ -1,4 +1,4 @@
-<!--pages/myMessage/myMessage.wxml-->
+<!--pages/partonInfo/partonInfo.wxml-->
 <navs id="getActivelib"> 我的信息</navs>
 <view wx:if="{{y}}">
   <view class="textLib">你尚未选择图书馆,<text class="txt" bindtap="slectLibary">请先选择图书馆。</text></view>
