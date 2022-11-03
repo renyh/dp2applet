@@ -1,5 +1,5 @@
 // pages/rePassword/rePassword.js
-import {baseUrl} from "../../utils/axios"
+import {baseUrl,GetActiveUser} from "../../utils/axios"
 
 Page({ 
   /**
@@ -97,6 +97,11 @@ Page({
   onShow() {
  // 获取图书馆信息
  this.selectComponent("#getActivelib").getActivelib()
+ GetActiveUser({weixinId: this.data.oppenid}).then(res=>{
+   this.setData({
+     libId:res.users[0].libId
+   })
+ })
   },
 
   /**

@@ -5,7 +5,7 @@
 </view>
 <view wx:else="">
   <view wx:if="{{x}}">
-    <view class="">你当前账户不是读者账户，不能查看我的信息，请先点击<text class="here" bindtap="here">这里</text>进行绑定</view>
+    <view class="">您当前账户不是读者账户，不能查看我的信息，请先点击<text class="here" bindtap="here">这里</text>进行绑定</view>
   </view>
   <view wx:else="" class="myInfo">
     <view class="infoClass">
@@ -39,7 +39,7 @@
         <text class="num1 num3">证状态</text><text class="num2">{{liat.state}}</text>
       </view>
       <view>
-        <text class="num1">电话</text><text class="num2">{{list.phone}} </text><button class="amend">修改</button>
+        <text class="num1">电话</text><text class="num2">{{list.phone}} </text>
 
       </view>
       <view>
@@ -84,7 +84,8 @@
     </view>
     <view>
       <canvas canvas-id="myCanvas" bindlongpress="saveCode"></canvas>
-      <text class="alert">（不想把二维码展示和提供给无关人员，以免账号被窃）</text>
+      <text class="alert">（不要把二维码展示和提供给无关人员，以免账号被窃）</text>
     </view>
   </view>
 </view>
+<bottonav></bottonav>

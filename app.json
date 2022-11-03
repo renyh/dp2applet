@@ -26,31 +26,7 @@
     "navigationBarTitleText": "我爱图书馆",
     "navigationBarTextStyle": "black"
   },
-  "tabBar": {
-      "selectedColor":"#000",
-    
-    "list": [
-     {
-         "pagePath": "pages/resource/resource",
-         "text": "资源",
-         "iconPath": "./img/resource.png",
-         "selectedIconPath": "./img/ziyuan.png"
-         
-     },
-     {
-          "pagePath": "pages/mylibrary/mylibrary",
-          "text": "我的图书馆",
-          "iconPath":"./img/libarys.png",
-          "selectedIconPath": "./img/tushuguan.png"
-     },
-     {
-         "pagePath": "pages/more/more",
-         "text": "更多",
-         "iconPath": "./img/more.png",
-         "selectedIconPath": "./img/gengduo.png"
-     }
-    ]
-  },
+ 
  
   "sitemapLocation": "sitemap.json",
   "usingComponents": {

@@ -21,7 +21,7 @@ Page({
     Show: false,
     y: 0,
     value: "",
-    from: ["title,ISBN,contributor,subject,clc,_class,publishtime,publisher", "title", "ISBN", "contributor", "subject", "clc", "publishtime", "publisher"],
+    from: ["title,ISBN,contributor,subject,clc,_class,publishtime,publisher", "title", "ISBN", "contributor", "subject", "clc,_class", "publishtime", "publisher"],
     match: ["left", "middle", "right", "exact"],
     value: "", //输入框内容
     biblio: [],
@@ -34,26 +34,37 @@ Page({
   },
   inputOne() {
     this.setData({
-      onShow: !this.data.onShow
+      onShow: true
     })
   },
   inputTwo() {
     this.setData({
-      Show: !this.data.Show
+      Show: true
     })
   },
+  // 失去焦点事件
+  closejiao(){
+   this.setData({
+     onShow:false
+   })
+  },
+  closejiaotwo(){
+    this.setData({
+      Show:false
+    })
+   },
   opption(e) {
     let Index = e.currentTarget.dataset.index
     this.setData({
       x: Index,
-      onShow: !this.data.onShow,
+      onShow: false,
     })
   },
   getlist(e) {
     let Index = e.currentTarget.dataset.index
     this.setData({
       y: Index,
-      Show: !this.data.Show,
+      Show: false,
     })
   },
   // 跳搜索页
@@ -78,9 +89,10 @@ Page({
       from: this.data.from[this.data.x],
       word: this.data.value,
       match: this.data.match[this.data.y],
-      resultSet: "applet"
-    }).then(res => {
-console.log(res);
+      resultSet: "",
+      resultSetName:""
+    }).then(res => { 
+      console.log(res);
       if (res.apiResult.errorCode == -1) {
         wx.showModal({
           title: '提示',
@@ -97,8 +109,8 @@ console.log(res);
             biblio: res,
             isReturnRecords: false,
             berror: true,
-            startNo:res.resultCount
-            
+            startNo:res.resultCount,
+            resultSetName:res.resultSetName
           })
         } else {
           this.setData({
@@ -188,7 +200,7 @@ console.log(res);
         "from": "_N",
         "word": this.data.startNo,
         "match": "left",
-        "resultSet": "applet"
+        "resultSet": this.data.resultSetName
       }).then(res => {
         console.log(res);
         if (res.records==null) {

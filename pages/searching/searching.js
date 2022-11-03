@@ -23,8 +23,9 @@ Page({
     isReturnRecords: "",
     berror: "", //判断显示下方显示信息
     y: "",
-    isCanNext:true,
-    flag:false
+    isCanNext: true,
+    flag: false,
+    resultSetName: ""
 
   },
 
@@ -44,7 +45,7 @@ Page({
       "from": "title,ISBN,contributor,subject,clc,_class,publishtime,publisher",
       "word": this.data.word,
       "match": "left",
-      "resultSet": "applet"
+      "resultSet": ""
     }).then(res => {
       console.log(res, 999);
       if (res.apiResult.errorCode == -1) {
@@ -54,16 +55,18 @@ Page({
         })
         this.setData({
           errorInfo: res.apiResult.errorInfo,
-          berror: false
+          berror: false,
+
         })
       } else {
         // 判断图书命中方式
-        if (res.records!=null) {
+        if (res.records != null) {
           this.setData({
             biblio: res,
             isReturnRecords: false,
             berror: true,
-            startNo: res.resultCount
+            startNo: res.resultCount,
+            resultSetName: res.resultSetName,
           })
         } else {
           this.setData({
@@ -120,7 +123,7 @@ Page({
   },
   slectLibary() {
     wx.navigateTo({
-      url: '/pages/libclassify/libclassify',
+      url: '/pages/selectlib/selectlib',
     })
   },
   /**
@@ -128,36 +131,48 @@ Page({
    */
   onShow() {
     this.selectComponent("#getActivelib").getActivelib()
-    GetActiveUser({
-      weixinId: this.data.oppenid
-    }).then(res => {
-      if (res.users == null) {
-        this.setData({
-          y: 1
+    var that = this
+    wx.getStorage({
+      key: 'oppenid',
+      success(res) {
+        console.log(res.data);
+        that.setData({
+          oppenid: res.data
         })
-      } else {
-        this.setData({
-          y: 0
+        GetActiveUser({
+          weixinId: that.data.oppenid
+        }).then(res => {
+          if (res.users == null) {
+            that.setData({
+              y: 1
+            })
+          } else {
+            that.setData({
+              y: 0
+            })
+            if (res.users[0].type == 0) {
+              that.setData({
+                loginUserType: "patron",
+                loginUserName: res.users[0].displayReaderName,
+              })
+            } else if (res.users[0].type == 1) {
+              that.setData({
+                loginUserType: "",
+                loginUserName: res.users[0].userName
+              })
+            }
+            that.setData({
+              libId: res.users[0].libId,
+              wxid: res.users[0].weixinId
+            })
+          }
+
+
         })
-        if (res.users[0].type == 0) {
-          this.setData({
-            loginUserType: "patron",
-            loginUserName: res.users[0].displayReaderName,
-          })
-        } else if (res.users[0].type == 1) {
-          this.setData({
-            loginUserType: "",
-            loginUserName: res.users[0].userName
-          })
-        }
-        this.setData({
-          libId: res.users[0].libId,
-          wxid: res.users[0].weixinId
-        })
+
       }
-
-
     })
+
   },
 
   /**
@@ -187,34 +202,35 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-  if(this.data.isCanNext==true){
-    SearchBiblio({
-      "loginUserName": this.data.loginUserName,
-      "loginUserType": this.data.loginUserType,
-      "weixinId": this.data.oppenid,
-      "libId": this.data.libId,
-      "from": "_N",
-      "word": this.data.startNo,
-      "match": "left",
-      "resultSet": "applet"
-    }).then(res => {
-      console.log(res);
-      if (res.records==null) {
-        this.setData({
-          isCanNext:false
-        })
-        return
-      } else {
-        this.data.biblio.records.push(...res.records)
-        this.setData({
-          biblio: this.data.biblio,
-          startNo: this.data.startNo + res.resultCount
-        })
-      }
-    })
-  }
+    console.log(this.data.isCanNext);
+    if (this.data.isCanNext == true) {
+      SearchBiblio({
+        "loginUserName": this.data.loginUserName,
+        "loginUserType": this.data.loginUserType,
+        "weixinId": this.data.oppenid,
+        "libId": this.data.libId,
+        "from": "_N",
+        "word": this.data.startNo,
+        "match": "left",
+        "resultSet": this.data.resultSetName
+      }).then(res => {
+        console.log(res);
+        if (res.records == null) {
+          this.setData({
+            isCanNext: false
+          })
+          return
+        } else {
+          this.data.biblio.records.push(...res.records)
+          this.setData({
+            biblio: this.data.biblio,
+            startNo: this.data.startNo + res.resultCount
+          })
+        }
+      })
+    }
 
-    
+
   },
 
   /**

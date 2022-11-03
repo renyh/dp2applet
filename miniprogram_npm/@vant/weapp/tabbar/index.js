@@ -4,7 +4,7 @@ var component_1 = require("../common/component");
 var relation_1 = require("../common/relation");
 var utils_1 = require("../common/utils");
 (0, component_1.VantComponent)({
-    relation: (0, relation_1.useChildren)('tabbar-item', function () {
+    relation: (0, relation_1.useChildren)('bottonav-item', function () {
         this.updateChildren();
     }),
     props: {
@@ -59,7 +59,7 @@ var utils_1 = require("../common/utils");
                 return;
             }
             wx.nextTick(function () {
-                (0, utils_1.getRect)(_this, '.van-tabbar').then(function (res) {
+                (0, utils_1.getRect)(_this, '.van-bottonav').then(function (res) {
                     _this.setData({ height: res.height });
                 });
             });

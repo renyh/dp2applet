@@ -22,14 +22,16 @@
   width: 70rpx;
   height: 70rpx;
   position: absolute;
-  right: 40rpx;
+  left: 650rpx;
   top: 190rpx;
   z-index: 99;
 }
 .libPic{
  width:50rpx;
  height: 50rpx;
- margin-top: 60rpx;
+ position: relative;
+ left: 10rpx;
+ top: 30rpx;
 }
 .searchs{
   display: flex;

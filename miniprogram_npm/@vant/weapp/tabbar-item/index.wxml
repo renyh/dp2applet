@@ -1,16 +1,16 @@
 <wxs src="../wxs/utils.wxs" module="utils" />
 
 <view
-  class="{{ utils.bem('tabbar-item', { active }) }} custom-class"
+  class="{{ utils.bem('bottonav-item', { active }) }} custom-class"
   style="color: {{ active ? activeColor : inactiveColor }}"
   bindtap="onClick"
 >
-  <view class="van-tabbar-item__icon">
+  <view class="van-bottonav-item__icon">
     <van-icon
       wx:if="{{ icon }}"
       name="{{ icon }}"
       class-prefix="{{ iconPrefix }}"
-      custom-class="van-tabbar-item__icon__inner"
+      custom-class="van-bottonav-item__icon__inner"
     />
     <block wx:else>
       <slot wx:if="{{ active }}" name="icon-active" />
@@ -19,10 +19,10 @@
     <van-info
       dot="{{ dot }}"
       info="{{ info }}"
-      custom-class="van-tabbar-item__info"
+      custom-class="van-bottonav-item__info"
     />
   </view>
-  <view class="van-tabbar-item__text">
+  <view class="van-bottonav-item__text">
     <slot />
   </view>
 </view>

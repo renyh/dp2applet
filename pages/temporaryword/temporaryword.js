@@ -42,7 +42,7 @@ Page({
   // 跳转到图书馆选择
   skip() {
     wx.navigateTo({
-      url: '/pages/libclassify/libclassify',
+      url: '/pages/selectlib/selectlib',
     })
   },
   // 获取临时密码
@@ -78,7 +78,6 @@ Page({
   },
   // 输入临时码
   getchange(e) {
-    console.log(e.detail.value, 123);
     this.setData({
       temcode: e.detail.value
     })

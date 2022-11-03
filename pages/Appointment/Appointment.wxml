@@ -45,3 +45,4 @@
   </checkbox-group>
   <button class="merge">合并预约，请勾选需要合并的预约项</button>
 </view>
+<bottonav></bottonav>

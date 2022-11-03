@@ -13,7 +13,7 @@ var relation_1 = require("../common/relation");
             value: 'van-icon',
         },
     },
-    relation: (0, relation_1.useParent)('tabbar'),
+    relation: (0, relation_1.useParent)('bottonav'),
     data: {
         active: false,
         activeColor: '',

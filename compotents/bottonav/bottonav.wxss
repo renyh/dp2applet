@@ -1,0 +1,32 @@
+/* compotents/bottonav/bottonav.wxss */
+.bottonavs{
+  height: 50rpx;
+  position: fixed;
+  bottom: 70rpx;
+  border-top: 1px solid #eee;
+  z-index: 99;
+  background-color: white;
+}
+.bottonav{
+  width: 750rpx;
+  display: flex;
+  justify-content: space-around;
+  line-height: 50rpx;
+  background-color: white;
+}
+.pics{
+  width: 64rpx;
+  height: 64rpx;
+  position: relative;
+  left: 70rpx;
+  top: 10rpx;
+}
+.txt{
+  display: block; 
+  text-align: center;
+  font-size: 25rpx;
+  text-align: center;
+}
+.item{
+  width: 200rpx;
+}

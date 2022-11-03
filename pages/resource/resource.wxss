@@ -1,6 +1,7 @@
 /* pages/resource/resource.wxss */
 .resource{
   background-color: #f5f5f5;
+  height: 100vh;
 }
 .items>view{
   height: 100rpx;
@@ -10,22 +11,26 @@
   display: flex;
   align-items: center;
 }
-view>image{
-  width: 50rpx;
-  height: 50rpx;
-  margin: 0 15rpx;
-}
-.topNav{
-  width: 750rpx;
-  height: 100rpx;
-  line-height: 100rpx;
-  background-color: #f7f7f7;
-  text-align: center;
-  box-shadow: 5rpx 5rpx 5rpx 5rpx rgb(238, 229, 229);
-}
+.pics{
+  width: 60rpx;
+   height: 60rpx;
+   margin-left: 60rpx;
+   margin-right: 30rpx;
+   position: relative;
+   left:-15rpx;
+  top: -3rpx;
+  
+  }
+
 .textLib{
   margin-top: 40rpx;
 }
 .txt{
   color: #007afd;
+}
+.pic{
+  height: 400rpx;
+  width: 100%;
+  position: relative;
+  left: 0;
 }

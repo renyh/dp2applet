@@ -27,12 +27,12 @@
 /* 下拉框 */
 .opptions{
   border: 1px solid black;
-  width: 50%;
   position: absolute;
-  z-index: 9;
+  width: 50%;
+  z-index: 99;
   background-color:white;
-  right: 70rpx;
-  top: 320rpx;
+  right: 13%;
+  top: 300rpx;
 }
 .opptions>view{
   padding-top: 8rpx;
@@ -47,13 +47,13 @@
   width: 100%;
 }
 .words{
-  margin-left: 150rpx;
-  margin-top: 30rpx;
+  margin-top: 40rpx;
+  display: flex;
+  justify-content: space-around;
 
 }
 .words>text{
   font-size: 35rpx;
-  margin-right: 120rpx;
   color: #007aff;
     
 }

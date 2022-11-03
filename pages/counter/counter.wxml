@@ -13,3 +13,4 @@
 </view>
 <button class="codeBind" bindtap="getCode">扫码并绑定</button>
 <view>{{oppenid}}</view>
+<bottonav></bottonav>

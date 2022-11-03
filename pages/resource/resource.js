@@ -1,5 +1,5 @@
 // pages/resource/resource.js
-import {GetActiveUser } from "../../utils/axios"
+import {GetActiveUser} from "../../utils/axios"
 Page({
 
   /**

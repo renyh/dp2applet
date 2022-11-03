@@ -1,4 +1,4 @@
 <!-- pages/more/more.wxml -->
-
-
-
+<image class="pic" src="/img/lib.jpg"></image>
+<text>开发中</text>
+<bottonav></bottonav>

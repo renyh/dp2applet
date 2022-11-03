@@ -26,17 +26,27 @@ Page({
   onLoad() {
 
   },
-  //   绑定账户
+ 
   getAccount() {
+
+  var that = this
+wx.getStorage({
+  key:'oppenid',
+  success(res){
+    console.log(res.data);
+    that.setData({
+      oppenid:res.data
+    })
+ 
     GetBindUsers({
-      weixinId: this.data.oppenid,
+      weixinId: that.data.oppenid,
       containPublic: false //不包含内置public账号
     }).then(res => {
-      this.setData({
+      that.setData({
         users: res.users
       })
    //判断跳转页面
-      if (this.data.users.length) {
+      if (that.data.users.length) {
         wx.navigateTo({
           url: '/pages/accManagement/accManagement',
         })
@@ -46,6 +56,10 @@ Page({
         })
       }
     })
+   
+  }
+})
+    
   },
   //   我的信息
   info() {

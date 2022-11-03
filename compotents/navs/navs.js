@@ -14,7 +14,7 @@ Component({
   data: {
     accountName:"",
      libName:"",
-     oppenid: wx.getStorageSync('oppenid'),
+     oppenid: "",
   },
 
   /**
@@ -27,30 +27,54 @@ Component({
          })
      },
     getActivelib(){
-      GetActiveUser({
-        weixinId: this.data.oppenid
-      }).then(res => {
-        if (res.users!= null) {
-          //判断导航栏左上角信息提示
-          if (res.users[0].type == 0) {
-            this.setData({
-              accountName: res.users[0].readerBarcode,
-            })
-          } else {
-            this.setData({
-              accountName: res.users[0].userName,
-            })
-          }
-          this.setData({
-            libName: res.users[0].libName
+      var that = this
+      wx.getStorage({
+        key:'oppenid',
+        success(res){
+          console.log(res.data);
+          that.setData({
+            oppenid:res.data
           })
-        }  
+          GetActiveUser({
+            weixinId: that.data.oppenid
+          }).then(res => {
+            console.log(res,123);
+            if (res.users!= null) {
+              //判断导航栏左上角信息提示
+              if (res.users[0].type == 0) {
+                that.setData({
+                  accountName: res.users[0].readerBarcode,
+                })
+              } else {
+                that.setData({
+                  accountName: res.users[0].userName,
+                })
+              }
+              that.setData({
+                libName: res.users[0].libName
+              })
+            }  
+          })
+         
+        }
       })
+
      }
   },
   lifetimes:{
- 
+   
       
   }
   
 })
+// var that = this
+// wx.getStorage({
+//   key:'oppenid',
+//   success(res){
+//     console.log(res.data);
+//     that.setData({
+//       oppenid:res.data
+//     })
+   
+//   }
+// })

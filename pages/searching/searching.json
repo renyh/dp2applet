@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "biblio":"/compotents/biblio/biblio",
-    "navs":"/compotents/navs/navs"
+    "navs":"/compotents/navs/navs",
+    "bottonav":"/compotents/bottonav/bottonav"
   }
 }

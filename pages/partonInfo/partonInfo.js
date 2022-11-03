@@ -13,7 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    oppenid: wx.getStorageSync('oppenid'),
+    oppenid:"",
     libName: "",
     list: [],
     libid: "", //图书馆id
@@ -90,16 +90,25 @@ Page({
     this.selectComponent("#getActivelib").getActivelib()
   
     // 获取基本信息
+    var that = this
+wx.getStorage({
+  key:'oppenid',
+  success(res){
+    console.log(res.data);
+    that.setData({
+      oppenid:res.data
+    })
+    
     GetActiveUser({
-      weixinId:this.data.oppenid
+      weixinId:that.data.oppenid
     }).then(res => {
       console.log(res,9999);
       if (res.users == null) {
-        this.setData({
+        that.setData({
           y: 1
         })
       } else {
-        this.setData({
+        that.setData({
           libid: res.users[0].libId,
           patronBarcode: res.users[0].displayReaderBarcode,
           libName: res.users[0].libName,
@@ -107,54 +116,57 @@ Page({
           y: 0,
           username:res.users[0].userName
         })
-        if (this.data.type == 0) {
-          this.setData({
+        if (that.data.type == 0) {
+          that.setData({
             x: 0,
           
 
           })
         } else { 
-          this.setData({
+          that.setData({
             x: 1
           })
         }
-        console.log(this.data.x);
+    
       }
       // 获取读者防伪二维码
       GetPatronQRcode({
-        weixinId: this.data.oppenid,
-        libId: this.data.libid,
-        patronBarcode: this.data.patronBarcode
+        weixinId: that.data.oppenid,
+        libId: that.data.libid,
+        patronBarcode: that.data.patronBarcode
       }).then(res => {
-        this.setData({
+        that.setData({
           qctext: res.info
         })
       })
       // 获取读者信息
       GetPatron({
-        libid: this.data.libid,
-        patronBarcode: this.data.patronBarcode,
-        username: this.data.username
+        libid: that.data.libid,
+        patronBarcode: that.data.patronBarcode,
+        username: that.data.username
       }).then(res => {
         console.log(res,99999);
-        this.setData({
+        that.setData({
           list: res.obj,
           reservations: res.obj.reservations,
 
         })
         //  生成二维码
         new qrCode("myCanvas", {
-          text: this.data.qctext,
+          text: that.data.qctext,
           width: 150,
           height: 150,
           callback: res => {
-            this.setData({
+            that.setData({
               codePath: res.path
             })
           }
         })
       })
     })
+   
+  }
+})
 
   },
 

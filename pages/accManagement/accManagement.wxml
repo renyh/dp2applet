@@ -1,6 +1,6 @@
 <!--pages/accManagement/accManagement.wxml-->
 <navs id="getActivelib" > 账号管理</navs>
-<text class="alert" wx:if="{{flag}}">您尚未绑定当前图书馆[[{{libName}}]]的账户</text>
+<text class="alert" wx:if="{{flag}}">您尚未绑定当前图书馆"{{libName}}"的账户</text>
 <view wx:if="{{readerList.length}}">
   <text class="Account">读者账号</text>
   <view class="card" wx:for="{{readerList}}" wx:key="index">
@@ -32,3 +32,4 @@
 <view>
   <button class="goHome" bindtap="goHome">去主页</button>
 </view>
+<bottonav></bottonav>

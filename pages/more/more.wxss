@@ -12,3 +12,9 @@
 .txt{
     color: #007afd;
 }
+.pic{
+  height: 400rpx;
+  width: 105%;
+  position: relative;
+  right: 20rpx;
+}

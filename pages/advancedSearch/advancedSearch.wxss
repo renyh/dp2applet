@@ -2,9 +2,9 @@
 .opptions{
   position: absolute;
   z-index: 99;
-  right: 30rpx;
+  right: 70rpx;
   top: 380rpx;
-  width: 470rpx;
+  width: 450rpx;
   background-color: white;
   padding: 20rpx;
   border-radius: 10rpx;
@@ -24,8 +24,8 @@
 
 }
 .text{
-  margin-left: 70rpx;
-  margin-top: 40rpx;
+  margin-left: 50rpx;
+  margin-top: 50rpx;
   margin-right: 30rpx;
 }
 .inputOne{
@@ -66,9 +66,9 @@
 .list{
   position: absolute;
   z-index: 10;
-  right: 0rpx;
-  top: 460rpx;
-  width: 470rpx;
+  right: 65rpx;
+  top: 490rpx;
+  width: 450rpx;
   background-color: white;
   padding: 20rpx;
   border-radius: 10rpx;

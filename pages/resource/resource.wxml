@@ -1,11 +1,12 @@
 <!--pages/resource/resource.wxml-->
 <view class="resource">
   <navs id="getActivelib">资源</navs>
- 
   <view  class="items">
+    <image class="pic" src="/img/lib.jpg"></image>
     <view bindtap="search" >
-      <image src="../../img/icon_website_huabanfuben.png"></image>
+      <image class="pics" src="../../img/icon_website_huabanfuben.png"></image>
       <text>书目查询</text>
     </view>
   </view>
 </view>
+<bottonav></bottonav>

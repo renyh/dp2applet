@@ -21,19 +21,26 @@ Page({
         libNames:"" || "请选择图书馆",
         id: "" ,//解绑时用的id
         readerName:"",
-        bindLibraryCode:""   //绑定时图书馆代码
+        bindLibraryCode:"" ,  //绑定时图书馆代码
+        weixinId:""
+        
+    },
+    closejiao(){
+     this.setData({
+       onShow:false
+     })
     },
     // 下拉框展示
     selecTap() {
         this.setData({
-            onShow: !this.data.onShow
+            onShow: true
         })
     },
     opption(e) {
         let Index = e.currentTarget.dataset.index
         this.setData({
             x: Index,
-            onShow: !this.data.onShow
+            onShow: false
         })
     },
     skip() {
@@ -67,12 +74,13 @@ Page({
             password: e.detail
         })
     },
+
     //  点击绑定按钮
     binding() {
         // 绑定逻辑
         var data
         data = {
-            "weixinId": this.data.oppenid,
+            "weixinId": this.data. weixinId,
             "libId": this.data.libid,
             "bindLibraryCode":this.data.bindLibraryCode,   
             "prefix": this.data.prefix[this.data.x],
@@ -80,7 +88,6 @@ Page({
             "password": this.data.password
         }
         bind(data).then(res => {
-            console.log(res,123);
             if (res.errorCode == 0) {
                 wx.showToast({
                     title: '绑定成功',
@@ -123,6 +130,7 @@ Page({
         GetActiveUser({
             weixinId: this.data.oppenid
         }).then(res => {
+          console.log(res);
           if(res.users!=null){
             this.setData({
               weixinId: res.users[0].weixinId,
