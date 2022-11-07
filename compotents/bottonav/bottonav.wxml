@@ -1,18 +1,17 @@
 <!--compotents/bottonav/bottonav.wxml-->
 <view class="bottonavs">
   <view class="bottonav">
-   <view class="item" bindtap="goRecourse">
-     <image class="pics" src="../../img/resource.png"></image>
-     <text class="txt">资源</text>
-   </view>
-   <view class="item" bindtap="gomylibary">
-     <image class="pics" src="../../img/libarys.png"></image>
-     <text class="txt">我的图书馆</text>
-   </view>
-   <view class="item" bindtap="gomore">
-     <image class="pics" src="../../img/more.png"></image>
-     <text class="txt">更多</text>
-   </view>
+    <view class="item" bindtap="goRecourse">
+      <image class="pics" src="../../img/resource.png"></image>
+      <text class="txt">资源</text>
+    </view>
+    <view class="item" bindtap="gomylibary">
+      <image class="pics" src="../../img/libarys.png"></image>
+      <text class="txt">我的图书馆</text>
+    </view>
+    <view class="item" bindtap="gomore">
+      <image class="pics" src="../../img/more.png"></image>
+      <text class="txt">更多</text>
+    </view>
+  </view>
 </view>
-</view>
-

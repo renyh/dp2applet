@@ -29,7 +29,5 @@
     </button>
   </view>
 </view>
-<view>
-  <button class="goHome" bindtap="goHome">去主页</button>
-</view>
+
 <bottonav></bottonav>

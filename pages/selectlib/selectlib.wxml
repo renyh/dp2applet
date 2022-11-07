@@ -2,7 +2,7 @@
 <view class="libs">
   <navs id="getActivelib">选择图书馆</navs>
   <view class="libarys">
-    <radio-group  bindchange="radioChange">
+    <radio-group  bindinput="radioChange">
       <view wx:for="{{libarys}}" wx:key="index" class="details">
         {{item.name}}-
         <label>

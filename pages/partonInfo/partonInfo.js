@@ -145,7 +145,6 @@ wx.getStorage({
         patronBarcode: that.data.patronBarcode,
         username: that.data.username
       }).then(res => {
-        console.log(res,99999);
         that.setData({
           list: res.obj,
           reservations: res.obj.reservations,

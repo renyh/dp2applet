@@ -44,6 +44,7 @@
   font-size: 27rpx;
   margin-left: 60rpx;
   margin-top: 20rpx;
+  padding-bottom: 150rpx;
 }
 .pic{
   width: 100%;
@@ -51,9 +52,7 @@
 canvas {
   width: 150px;
   height: 150px;
-  margin-left: 200rpx;
-  margin-top: 30rpx;
-
+  margin: 0 auto;
 }
 .num3{
   font-weight: 900;
@@ -69,7 +68,7 @@ canvas {
   font-size: 35rpx;
 }
 .num{
-   display: inline-block;
+  display: inline-block;
   width: 50rpx;
   height: 50rpx;
   border-radius: 50%;

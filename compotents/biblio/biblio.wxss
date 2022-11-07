@@ -1,13 +1,10 @@
 /* compotents/books/books.wxss */
 .books{
   margin-top: 40rpx;
-  background-color: white;
+  padding-bottom: 200rpx;
+  
 }
-.searching{
-  width: 100%;
-  background-color:#efeff4 ;
-  overflow: hidden;
-}
+
 .bookItem{
   padding-left: 25srpx;
   padding-top: 20rpx;

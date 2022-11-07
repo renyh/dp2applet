@@ -6,7 +6,7 @@
   </view>
   <view class="iptTwo">
     <text class="text">检索词</text>
-    <input  class="inputTwo" bindchange="searchChange" type="text" placeholder="请输入检索词" />
+    <input  class="inputTwo" bindinput="bindKeyInput" type="text" placeholder="请输入检索词" />
   </view>
   <view class="iptOne">
     <text class="text">检索途径</text>

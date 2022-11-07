@@ -6,7 +6,7 @@
 <view class="searching" wx:else="">
   <view class="searchs">
     <image class="libPic" bindtap="scanCodeEvent" src="https://demo30.ilovelibrary.cn/i/img/barcode.png"></image>
-    <input type="text" bindchange="getword" class="ipt" placeholder="{{placeholder}}" />
+    <input type="text" bindinput="getword" class="ipt" placeholder="{{placeholder}}" />
     <image class="searpic" bindtap="geticon" src="../../img/search.png"></image>
   </view>
   <view class="text">

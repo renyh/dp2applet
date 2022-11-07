@@ -85,9 +85,11 @@ Page({
   },
   // 获取输入框信息
   getword(e) {
+    
     this.setData({
       word: e.detail.value
     })
+    console.log(this.data.word);
   },
   /**
    * 生命周期函数--监听页面加载

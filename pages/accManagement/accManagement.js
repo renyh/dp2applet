@@ -47,11 +47,7 @@ Page({
     })
   },
   // 去主页
-  goHome(){
-    wx.switchTab({
-      url: '/pages/resource/resource',
-    })
-  },
+
   unbundle(){
       
 // 发请求解绑

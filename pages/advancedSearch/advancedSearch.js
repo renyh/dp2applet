@@ -1,4 +1,5 @@
 // pages/advancedSearch/advancedSearch.js
+const log = require("../../log")
 import {
   GetActiveUser,
   SearchBiblio
@@ -23,14 +24,15 @@ Page({
     value: "",
     from: ["title,ISBN,contributor,subject,clc,_class,publishtime,publisher", "title", "ISBN", "contributor", "subject", "clc,_class", "publishtime", "publisher"],
     match: ["left", "middle", "right", "exact"],
-    value: "", //输入框内容
+    word:"",//输入框内容
     biblio: [],
     libName: "",
     readerName: "",
     isReturnRecords: "",
     berror: "", //判断显示下方显示信息
     startNo:"",
-    isCanNext:true
+    isCanNext:true,
+    resultSetName: ""
   },
   inputOne() {
     this.setData({
@@ -73,26 +75,26 @@ Page({
       url: '/pages/searching/searching',
     })
   },
-  // 检测输入框内容
-  searchChange(e) {
-    this.setData({
-      value: e.detail.value
-    })
-  },
+      // 检测输入框内容
+      bindKeyInput(e) {
+        this.setData({
+          word:e.detail.value
+        })
+      },
+
   // 检索查询书目
   search() {
     SearchBiblio({
-      loginUserName: this.data.loginUserName,
-      loginUserType: this.data.loginUserType,
-      weixinId: this.data.weixinId,
-      libId: this.data.libId,
-      from: this.data.from[this.data.x],
-      word: this.data.value,
-      match: this.data.match[this.data.y],
-      resultSet: "",
-      resultSetName:""
+      "loginUserName": this.data.loginUserName,
+      "loginUserType": this.data.loginUserType,
+      "weixinId": this.data.weixinId,
+      "libId": this.data.libId,
+      "from": this.data.from[this.data.x],
+      "word": this.data.word,
+      "match": this.data.match[this.data.y],
+      "resultSet": ""
     }).then(res => { 
-      console.log(res);
+      console.log(res,99999); 
       if (res.apiResult.errorCode == -1) {
         wx.showModal({
           title: '提示',
@@ -119,11 +121,11 @@ Page({
             berror: true
           })
         }
-
       }
     })
 
   },
+
   /**
    * 生命周期函数--监听页面加载
    */

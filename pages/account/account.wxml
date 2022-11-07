@@ -14,8 +14,8 @@
     <view>
       <van-cell-group inset>
         <van-field v-model="text"  bindblur="closejiao" label="绑定方式" placeholder="{{hiddens[x]}}" bindtap="selecTap" placeholder-style="color:#000" />
-        <van-field bindchange="myName" v-model="{{username}}" name="用户名" label="{{hiddens[x]}}" placeholder="请输入 {{hiddens[x]}}" :rules="[{ required: true, message: '请填写用户名' }]" />
-        <van-field bindchange="myWord" v-model="password" type="password" name="密码" label="密码" placeholder="请输入 密码" :rules="[{ required: true, message: '请填写密码' }]" />
+        <van-field bindinput="myName" v-model="{{username}}" name="用户名" label="{{hiddens[x]}}" placeholder="请输入 {{hiddens[x]}}" :rules="[{ required: true, message: '请填写用户名' }]" />
+        <van-field bindinput="myWord" v-model="password" type="password" name="密码" label="密码" placeholder="请输入 密码" :rules="[{ required: true, message: '请填写密码' }]" />
       </van-cell-group>
       <view class="sumilt">
         <van-button square block type="primary" native-type="submit" color="#007aff" bindtap="binding">
