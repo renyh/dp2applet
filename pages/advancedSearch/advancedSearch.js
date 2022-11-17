@@ -24,14 +24,14 @@ Page({
     value: "",
     from: ["title,ISBN,contributor,subject,clc,_class,publishtime,publisher", "title", "ISBN", "contributor", "subject", "clc,_class", "publishtime", "publisher"],
     match: ["left", "middle", "right", "exact"],
-    word:"",//输入框内容
+    word: "", //输入框内容
     biblio: [],
     libName: "",
     readerName: "",
     isReturnRecords: "",
     berror: "", //判断显示下方显示信息
-    startNo:"",
-    isCanNext:true,
+    startNo: "",
+    isCanNext: true,
     resultSetName: ""
   },
   inputOne() {
@@ -45,16 +45,16 @@ Page({
     })
   },
   // 失去焦点事件
-  closejiao(){
-   this.setData({
-     onShow:false
-   })
-  },
-  closejiaotwo(){
+  closejiao() {
     this.setData({
-      Show:false
+      onShow: false
     })
-   },
+  },
+  closejiaotwo() {
+    this.setData({
+      Show: false
+    })
+  },
   opption(e) {
     let Index = e.currentTarget.dataset.index
     this.setData({
@@ -75,26 +75,30 @@ Page({
       url: '/pages/searching/searching',
     })
   },
-      // 检测输入框内容
-      bindKeyInput(e) {
-        this.setData({
-          word:e.detail.value
-        })
-      },
+  // 检测输入框内容
+  bindKeyInput(e) {
+    this.setData({
+      word: e.detail.value
+    })
+  },
 
   // 检索查询书目
   search() {
     SearchBiblio({
-      "loginUserName": this.data.loginUserName,
-      "loginUserType": this.data.loginUserType,
-      "weixinId": this.data.weixinId,
-      "libId": this.data.libId,
-      "from": this.data.from[this.data.x],
-      "word": this.data.word,
-      "match": this.data.match[this.data.y],
-      "resultSet": ""
-    }).then(res => { 
-      console.log(res,99999); 
+      loginUserName: this.data.loginUserName,
+      loginUserType: this.data.loginUserType,
+      weixinId: this.data.weixinId,
+      libId: this.data.libId,
+      from: this.data.from[this.data.x],
+      word: this.data.word,
+      match: this.data.match[this.data.y],
+      resultSet: ""
+    }).then(res => {
+      log.info(`在"高级检索"界面，点击"检索"按钮，调用"SearchBiblio-检索书目"API接口，
+      word传的参数为[${this.data.word}],
+      from检索途径为[${this.data.hiddens[this.data.x]}],
+      match匹配方式为[${this.data.list[this.data.y]}]`, )
+   log.info(res)
       if (res.apiResult.errorCode == -1) {
         wx.showModal({
           title: '提示',
@@ -104,16 +108,18 @@ Page({
           errorInfo: res.apiResult.errorInfo,
           berror: false
         })
+        
       } else {
         // 判断图书命中方式
-        if (res.records!=null) {
+        if (res.records != null) {
           this.setData({
             biblio: res,
             isReturnRecords: false,
             berror: true,
-            startNo:res.resultCount,
-            resultSetName:res.resultSetName
+            startNo: res.resultCount,
+            resultSetName: res.resultSetName
           })
+       
         } else {
           this.setData({
             isReturnRecords: true,
@@ -193,7 +199,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-    if(this.data.isCanNext==true){
+    if (this.data.isCanNext == true) {
       SearchBiblio({
         "loginUserName": this.data.loginUserName,
         "loginUserType": this.data.loginUserType,
@@ -205,9 +211,9 @@ Page({
         "resultSet": this.data.resultSetName
       }).then(res => {
         console.log(res);
-        if (res.records==null) {
+        if (res.records == null) {
           this.setData({
-            isCanNext:false
+            isCanNext: false
           })
           return
         } else {

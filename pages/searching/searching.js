@@ -1,10 +1,10 @@
 // pages/searching/searching.js
+const log = require("../../log")
 import {
   GetActiveUser,
   SearchBiblio
 } from "../../utils/axios"
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -26,7 +26,6 @@ Page({
     isCanNext: true,
     flag: false,
     resultSetName: ""
-
   },
 
   // 点击跳转到详情
@@ -47,6 +46,9 @@ Page({
       "match": "left",
       "resultSet": ""
     }).then(res => {
+      log.info(`在"简单检索"界面，点击"检索"图标，调用"SearchBiblio-检索书目"API接口，
+      word传的参数为[${this.data.word}],` )
+       log.info(res)
       console.log(res, 999);
       if (res.apiResult.errorCode == -1) {
         wx.showModal({

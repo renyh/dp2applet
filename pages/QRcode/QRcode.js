@@ -38,7 +38,7 @@
     // 跳转到绑定页面
     goLogin() {
       GetBindUsers({
-        weixinId: that.data.oppenid,
+        weixinId: this.data.oppenid,
         containPublic: false
       }).then(res => {
         if (res.users.length) {
