@@ -1,5 +1,5 @@
 // app.js
-
+// 2022/11/29 -jane  test
 App({
   onLaunch() {
     // 展示本地存储能力
